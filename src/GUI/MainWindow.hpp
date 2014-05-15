@@ -6,6 +6,9 @@
 namespace GUI
 {
 
+/**
+ * Main window of the game.
+ */
 class MainWindow : public QMainWindow
 {
 		Q_OBJECT

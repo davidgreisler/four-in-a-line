@@ -12,7 +12,9 @@ TEMPLATE = app
 
 
 SOURCES +=  src/main.cpp\
-	    src/GUI/MainWindow.cpp
+	    src/GUI/MainWindow.cpp \
+	    src/ConnectFour.cpp
 
 HEADERS  += \
-	    src/GUI/MainWindow.hpp
+	    src/GUI/MainWindow.hpp \
+	    src/ConnectFour.hpp

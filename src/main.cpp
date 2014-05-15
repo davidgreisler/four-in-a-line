@@ -1,6 +1,5 @@
 #include "GUI/MainWindow.hpp"
-
-#include <QApplication>
+#include "ConnectFour.hpp"
 
 /**
  * Connect four game.
@@ -11,7 +10,8 @@
  */
 int main(int argc, char *argv[])
 {
-	QApplication app(argc, argv);
+	ConnectFour app(argc, argv);
+
 	GUI::MainWindow mainWindow;
 	mainWindow.show();
 
