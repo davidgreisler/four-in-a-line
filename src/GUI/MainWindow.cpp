@@ -11,7 +11,10 @@ namespace GUI
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
+	this->gameActions = new Actions::Game(this);
 
+	this->menuBar = new MainMenuBar(this->gameActions, this);
+	this->setMenuBar(this->menuBar);
 }
 
 /**
