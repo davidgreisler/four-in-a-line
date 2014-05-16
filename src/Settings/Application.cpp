@@ -37,7 +37,7 @@ void Application::setLanguage(QString locale)
 
 void Application::read()
 {
-	this->language = this->getSettings()->value(this->language, "en").toString();
+	this->language = this->getSettings()->value("application/language", "en").toString();
 
 	emit this->changed();
 }
