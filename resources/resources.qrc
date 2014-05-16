@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>i18n/connectfour_de.qm</file>
+        <file>i18n/connectfour_en.qm</file>
+    </qresource>
+</RCC>

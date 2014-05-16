@@ -21,6 +21,14 @@ Game::Game(QWidget* parent) :
 }
 
 /**
+ * Frees all used resources.
+ */
+Game::~Game()
+{
+
+}
+
+/**
  * Returns the new game action.
  *
  * @return Action for starting a new game.
@@ -133,11 +141,18 @@ void Game::retranslateUI()
 }
 
 /**
- * Frees all used resources.
+ * Retranslates strings when the application's language has been changed.
+ *
+ * @param event Change event.
  */
-Game::~Game()
+bool Game::event(QEvent* event)
 {
+	if (event->type() == QEvent::LanguageChange)
+	{
+		this->retranslateUI();
+	}
 
+	return QObject::event(event);
 }
 
 }

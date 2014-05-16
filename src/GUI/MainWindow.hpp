@@ -3,6 +3,7 @@
 
 #include "MainMenuBar.hpp"
 #include "Actions/Game.hpp"
+#include "Actions/Settings.hpp"
 
 #include <QMainWindow>
 
@@ -32,6 +33,11 @@ class MainWindow : public QMainWindow
 		 * Contains game actions.
 		 */
 		Actions::Game* gameActions;
+
+		/**
+		 * Contains settings actions.
+		 */
+		Actions::Settings* settingsActions;
 };
 
 }

@@ -12,8 +12,9 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
 	this->gameActions = new Actions::Game(this);
+	this->settingsActions = new Actions::Settings(this);
 
-	this->menuBar = new MainMenuBar(this->gameActions, this);
+	this->menuBar = new MainMenuBar(this->gameActions, this->settingsActions, this);
 	this->setMenuBar(this->menuBar);
 }
 

@@ -41,6 +41,7 @@ class Game : public QObject
 
 		void createActions();
 		void retranslateUI();
+		bool event(QEvent* event);
 
 		/**
 		 * Parent window, used for dialogs.
