@@ -3,7 +3,7 @@ QT       += core gui widgets
 TARGET = ConnectFour
 TEMPLATE = subdirs
 
-SUBDIRS = src/GUI src/GUI/Actions
+SUBDIRS = src/GUI src/GUI/Actions src/Settings
 
 CONFIG += ordered
 SUBDIRS += src

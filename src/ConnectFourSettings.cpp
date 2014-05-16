@@ -15,6 +15,7 @@ ConnectFourSettings::ConnectFourSettings(QObject *parent) :
 	this->settings = QSharedPointer<QSettings>(new QSettings(organization, applicationName));
 
 	this->applicationSettings = new Settings::Application(this->settings, this);
+	this->viewSettings = new Settings::View(this->settings, this);
 
 	this->read();
 }
@@ -38,11 +39,22 @@ Settings::Application* ConnectFourSettings::getApplicationSettings() const
 }
 
 /**
+ * Returns view settings.
+ *
+ * @return View settings.
+ */
+Settings::View* ConnectFourSettings::getViewSettings() const
+{
+	return this->viewSettings;
+}
+
+/**
  * Reads all settings and emits changed().
  */
 void ConnectFourSettings::read()
 {
 	this->applicationSettings->read();
+	this->viewSettings->read();
 
 	emit this->changed();
 }
@@ -61,6 +73,7 @@ void ConnectFourSettings::apply()
 void ConnectFourSettings::save()
 {
 	this->applicationSettings->save();
+	this->viewSettings->save();
 
 	emit this->saved();
 }

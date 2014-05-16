@@ -4,18 +4,14 @@
 
 TEMPLATE = app
 
-LIBS += -L./GUI -L./GUI/Actions -lGUI -lActions
+LIBS += -L./GUI -L./GUI/Actions -L./Settings -lGUI -lActions -lSettings
 
 SOURCES +=  main.cpp\
 	    ConnectFour.cpp \
-    ConnectFourSettings.cpp \
-    Settings/Application.cpp \
-    Settings/AbstractSettings.cpp
+    ConnectFourSettings.cpp
 
 HEADERS  += ConnectFour.hpp \
-    ConnectFourSettings.hpp \
-    Settings/Application.hpp \
-    Settings/AbstractSettings.hpp
+    ConnectFourSettings.hpp
 
 RESOURCES += \
     ../resources/resources.qrc

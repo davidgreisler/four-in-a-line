@@ -2,6 +2,7 @@
 #define CONNECTFOURSETTINGS_HPP
 
 #include "Settings/Application.hpp"
+#include "Settings/View.hpp"
 
 #include <QObject>
 
@@ -30,6 +31,7 @@ class ConnectFourSettings : public QObject
 		void save();
 
 		Settings::Application* getApplicationSettings() const;
+		Settings::View* getViewSettings() const;
 
 	signals:
 		/**
@@ -54,6 +56,11 @@ class ConnectFourSettings : public QObject
 		 * Application settings like GUI language.
 		 */
 		Settings::Application* applicationSettings;
+
+		/**
+		 * View settings.
+		 */
+		Settings::View* viewSettings;
 };
 
 #endif // CONNECTFOURSETTINGS_HPP

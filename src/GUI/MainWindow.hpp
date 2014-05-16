@@ -24,6 +24,14 @@ class MainWindow : public QMainWindow
 	private:
 		Q_DISABLE_COPY(MainWindow)
 
+		void closeEvent(QCloseEvent* event);
+
+		/**
+		 * Main window version, increase when new toolbars/docks/etc. are added
+		 * (used for saving/restoring state).
+		 */
+		static const int version = 1;
+
 		/**
 		 * The menu bar.
 		 */
