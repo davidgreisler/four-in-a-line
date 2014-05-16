@@ -3,7 +3,9 @@
 }
 
 SOURCES +=  Game.cpp \
-    Settings.cpp
+    Settings.cpp \
+    View.cpp
 
 HEADERS  += Game.hpp \
-    Settings.hpp
+    Settings.hpp \
+    View.hpp

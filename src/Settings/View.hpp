@@ -1,5 +1,5 @@
-#ifndef VIEW_HPP
-#define VIEW_HPP
+#ifndef SETTINGS_VIEW_HPP
+#define SETTINGS_VIEW_HPP
 
 #include "AbstractSettings.hpp"
 
@@ -60,4 +60,4 @@ class View : public AbstractSettings
 
 }
 
-#endif // VIEW_HPP
+#endif // SETTINGS_VIEW_HPP

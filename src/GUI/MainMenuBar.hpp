@@ -3,6 +3,7 @@
 
 #include "Actions/Game.hpp"
 #include "Actions/Settings.hpp"
+#include "Actions/View.hpp"
 
 #include <QMenuBar>
 
@@ -16,7 +17,7 @@ class MainMenuBar : public QMenuBar
 {
 		Q_OBJECT
 	public:
-		explicit MainMenuBar(Actions::Game* gameActions, Actions::Settings* settingsActions,
+		explicit MainMenuBar(Actions::Game* gameActions, Actions::Settings* settingsActions, Actions::View* viewActions,
 							 QWidget *parent = 0);
 		virtual ~MainMenuBar();
 
@@ -60,6 +61,16 @@ class MainMenuBar : public QMenuBar
 		 * Action group containing the languages.
 		 */
 		QSharedPointer<QActionGroup> languageGroup;
+
+		/**
+		 * View actions.
+		 */
+		Actions::View* viewActions;
+
+		/**
+		 * Menu for view options, like toggle fullscreen.
+		 */
+		QMenu* viewMenu;
 };
 
 }

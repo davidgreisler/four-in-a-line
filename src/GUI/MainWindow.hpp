@@ -4,6 +4,7 @@
 #include "MainMenuBar.hpp"
 #include "Actions/Game.hpp"
 #include "Actions/Settings.hpp"
+#include "Actions/View.hpp"
 
 #include <QMainWindow>
 
@@ -20,6 +21,8 @@ class MainWindow : public QMainWindow
 	public:
 		MainWindow(QWidget* parent = 0);
 		~MainWindow();
+
+		void setFullscreen(bool fullscreen);
 
 	private:
 		Q_DISABLE_COPY(MainWindow)
@@ -46,6 +49,11 @@ class MainWindow : public QMainWindow
 		 * Contains settings actions.
 		 */
 		Actions::Settings* settingsActions;
+
+		/**
+		 * Contains view actions.
+		 */
+		Actions::View* viewActions;
 };
 
 }

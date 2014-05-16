@@ -13,8 +13,9 @@ namespace GUI
  * @param parent Parent widget.
  */
 MainMenuBar::MainMenuBar(Actions::Game* gameActions, Actions::Settings* settingsActions,
-						 QWidget *parent) :
-	QMenuBar(parent), gameActions(gameActions), settingsActions(settingsActions)
+						 Actions::View* viewActions, QWidget *parent) :
+	QMenuBar(parent), gameActions(gameActions), settingsActions(settingsActions),
+	viewActions(viewActions)
 {
 	this->setupLanguageMenu();
 
@@ -28,6 +29,9 @@ MainMenuBar::MainMenuBar(Actions::Game* gameActions, Actions::Settings* settings
 	this->gameMenu->addAction(this->gameActions->getShowHighscoresAction());
 	this->gameMenu->addSeparator();
 	this->gameMenu->addAction(this->gameActions->getExitAction());
+
+	this->viewMenu = this->addMenu("");
+	this->viewMenu->addAction(this->viewActions->getFullscreenCheckboxAction());
 
 	this->settingsMenu = this->addMenu("");
 	this->settingsMenu->addMenu(this->languageMenu);
@@ -51,6 +55,8 @@ MainMenuBar::~MainMenuBar()
 void MainMenuBar::retranslateUI()
 {
 	this->gameMenu->setTitle(tr("&Game"));
+
+	this->viewMenu->setTitle(tr("&View"));
 
 	this->settingsMenu->setTitle(tr("&Settings"));
 
