@@ -8,17 +8,12 @@ QT       += core gui widgets
 
 
 TARGET = ConnectFour
-TEMPLATE = app
+TEMPLATE = subdirs
 
+SUBDIRS = src/GUI src/GUI/Actions
 
-SOURCES +=  src/main.cpp\
-	    src/GUI/MainWindow.cpp \
-	    src/ConnectFour.cpp \
-	    src/GUI/MainMenuBar.cpp \
-	    src/GUI/Actions/Game.cpp
+CONFIG += ordered
+SUBDIRS += src
 
-HEADERS  += \
-	    src/GUI/MainWindow.hpp \
-	    src/ConnectFour.hpp \
-	    src/GUI/MainMenuBar.hpp \
-	    src/GUI/Actions/Game.hpp
+OTHER_FILES += \
+    Common.pri

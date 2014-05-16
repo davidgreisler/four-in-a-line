@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "src/ConnectFour.hpp"
+#include "../../ConnectFour.hpp"
 
 #include <QAction>
 
