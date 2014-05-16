@@ -2,6 +2,8 @@
 #include "../ConnectFour.hpp"
 #include "../ConnectFourSettings.hpp"
 
+#include <QStatusBar>
+
 namespace GUI
 {
 
@@ -25,6 +27,9 @@ MainWindow::MainWindow(QWidget* parent)
 
 	this->restoreGeometry(settings->getViewSettings()->getWindowGeometry("MainWindow"));
 	this->restoreState(settings->getViewSettings()->getWindowState("MainWindow"));
+
+	this->setWindowTitle(tr("Connect four"));
+	this->statusBar()->showMessage(tr("Ready."), 2000);
 }
 
 /**
