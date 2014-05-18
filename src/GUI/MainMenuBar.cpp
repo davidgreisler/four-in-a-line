@@ -14,9 +14,11 @@ namespace GUI
  */
 MainMenuBar::MainMenuBar(Actions::Game* gameActions, Actions::Settings* settingsActions,
 						 Actions::View* viewActions, Actions::Move* moveActions,
-						 Actions::Help* helpActions, QWidget *parent) :
+						 Actions::Help* helpActions, Actions::Replay* replayActions,
+						 QWidget *parent) :
 	QMenuBar(parent), gameActions(gameActions), settingsActions(settingsActions),
-	viewActions(viewActions), moveActions(moveActions), helpActions(helpActions)
+	viewActions(viewActions), moveActions(moveActions), helpActions(helpActions),
+	replayActions(replayActions)
 {
 	this->setupLanguageMenu();
 
@@ -26,6 +28,7 @@ MainMenuBar::MainMenuBar(Actions::Game* gameActions, Actions::Settings* settings
 	this->gameMenu->addSeparator();
 	this->gameMenu->addAction(this->gameActions->getLoadGameAction());
 	this->gameMenu->addAction(this->gameActions->getSaveGameAction());
+	this->gameMenu->addAction(this->gameActions->getSaveGameAsAction());
 	this->gameMenu->addSeparator();
 	this->gameMenu->addAction(this->gameActions->getShowHighscoresAction());
 	this->gameMenu->addSeparator();
@@ -37,6 +40,15 @@ MainMenuBar::MainMenuBar(Actions::Game* gameActions, Actions::Settings* settings
 	this->moveMenu = this->addMenu("");
 	this->moveMenu->addAction(this->moveActions->getUndoAction());
 	this->moveMenu->addAction(this->moveActions->getHintAction());
+
+	this->replayMenu = this->addMenu("");
+	this->replayMenu->addAction(this->replayActions->getLoadReplayAction());
+	this->replayMenu->addAction(this->replayActions->getSaveReplayAction());
+	this->replayMenu->addSeparator();
+	this->replayMenu->addAction(this->replayActions->getNextMoveAction());
+	this->replayMenu->addAction(this->replayActions->getPreviousMoveAction());
+	this->replayMenu->addAction(this->replayActions->getJumpToStartAction());
+	this->replayMenu->addAction(this->replayActions->getJumpToEndAction());
 
 	this->settingsMenu = this->addMenu("");
 	this->settingsMenu->addMenu(this->languageMenu);
@@ -72,6 +84,8 @@ void MainMenuBar::retranslateUI()
 	this->settingsMenu->setTitle(tr("&Settings"));
 
 	this->languageMenu->setTitle(tr("&Languages"));
+
+	this->replayMenu->setTitle(tr("&Replay"));
 
 	this->helpMenu->setTitle(tr("&Help"));
 }

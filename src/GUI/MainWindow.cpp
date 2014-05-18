@@ -22,10 +22,12 @@ MainWindow::MainWindow(QWidget* parent)
 	this->settingsActions = new Actions::Settings(this, this);
 	this->viewActions = new Actions::View(this, this);
 	this->moveActions = new Actions::Move(this, this);
+	this->replayActions = new Actions::Replay(this, this);
 	this->helpActions = new Actions::Help(this, this);
 
 	this->menuBar = new MainMenuBar(this->gameActions, this->settingsActions, this->viewActions,
-									this->moveActions, this->helpActions, this);
+									this->moveActions, this->helpActions, this->replayActions,
+									this);
 	this->setMenuBar(this->menuBar);
 
 	// Restore geometry/state. Toolbars, docks, etc. must already have been created.

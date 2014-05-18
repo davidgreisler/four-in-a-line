@@ -27,6 +27,7 @@ class Game : public QObject
 		QAction* getEndGameAction() const;
 
 		QAction* getSaveGameAction() const;
+		QAction* getSaveGameAsAction() const;
 		QAction* getLoadGameAction() const;
 
 		QAction* getShowHighscoresAction() const;
@@ -69,6 +70,11 @@ class Game : public QObject
 		 * Saves the current game.
 		 */
 		QAction* saveGameAction;
+
+		/**
+		 * Saves the current game under a new path.
+		 */
+		QAction* saveGameAsAction;
 
 		/**
 		 * Shows highscores dialog.

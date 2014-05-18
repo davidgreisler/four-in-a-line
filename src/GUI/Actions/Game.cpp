@@ -69,6 +69,16 @@ QAction* Game::getSaveGameAction() const
 }
 
 /**
+ * Returns the save game as action.
+ *
+ * @return Action for saving the game under a new path.
+ */
+QAction* Game::getSaveGameAsAction() const
+{
+	return this->saveGameAsAction;
+}
+
+/**
  * Returns the show highscores action.
  *
  * @return Action for showing the highscore list.
@@ -109,6 +119,8 @@ void Game::createActions()
 
 	this->saveGameAction = new QAction("", this);
 
+	this->saveGameAsAction = new QAction("", this);
+
 	this->showHighscoresAction = new QAction("", this);
 
 	this->exitAction = new QAction("", this);
@@ -127,11 +139,14 @@ void Game::retranslateUI()
 	this->endGameAction->setText(tr("&End game"));
 	this->endGameAction->setStatusTip(tr("End the current game."));
 
-	this->loadGameAction->setText(tr("&Load game"));
+	this->loadGameAction->setText(tr("&Load game ..."));
 	this->loadGameAction->setStatusTip(tr("Load a saved game."));
 
 	this->saveGameAction->setText(tr("&Save game"));
 	this->saveGameAction->setStatusTip(tr("Save the current game."));
+
+	this->saveGameAsAction->setText(tr("&Save game as ..."));
+	this->saveGameAsAction->setStatusTip(tr("Save the current game."));
 
 	this->showHighscoresAction->setText(tr("Show &Highscores"));
 	this->showHighscoresAction->setStatusTip(tr("Show highscore list."));

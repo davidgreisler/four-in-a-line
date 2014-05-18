@@ -6,6 +6,7 @@
 #include "Actions/Settings.hpp"
 #include "Actions/View.hpp"
 #include "Actions/Help.hpp"
+#include "Actions/Replay.hpp"
 #include "Actions/Move.hpp"
 
 #include <QMainWindow>
@@ -66,6 +67,11 @@ class MainWindow : public QMainWindow
 		 * Contains move actions.
 		 */
 		Actions::Move* moveActions;
+
+		/**
+		 * Contains replay actions.
+		 */
+		Actions::Replay* replayActions;
 };
 
 }

@@ -6,6 +6,7 @@
 #include "Actions/View.hpp"
 #include "Actions/Help.hpp"
 #include "Actions/Move.hpp"
+#include "Actions/Replay.hpp"
 
 #include <QMenuBar>
 
@@ -21,7 +22,8 @@ class MainMenuBar : public QMenuBar
 	public:
 		explicit MainMenuBar(Actions::Game* gameActions, Actions::Settings* settingsActions,
 							 Actions::View* viewActions, Actions::Move* moveActions,
-							 Actions::Help* helpActions, QWidget *parent = 0);
+							 Actions::Help* helpActions, Actions::Replay* replayActions,
+							 QWidget *parent = 0);
 		virtual ~MainMenuBar();
 
 	signals:
@@ -94,6 +96,16 @@ class MainMenuBar : public QMenuBar
 		 * Menu for showing about dialogs.
 		 */
 		QMenu* helpMenu;
+
+		/**
+		 * Replay actions.
+		 */
+		Actions::Replay* replayActions;
+
+		/**
+		 * Menu for showing about dialogs.
+		 */
+		QMenu* replayMenu;
 };
 
 }
