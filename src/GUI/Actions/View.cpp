@@ -49,9 +49,12 @@ void View::changeFullscreen()
  */
 void View::createActions()
 {
+	::ConnectFourSettings* settings = ::ConnectFour::getInstance()->getSettings();
+	::Settings::View* viewSettings = settings->getViewSettings();
+
 	this->fullscreenCheckboxAction = new QAction("", this);
 	this->fullscreenCheckboxAction->setCheckable(true);
-	this->fullscreenCheckboxAction->setChecked(this->mainWindow->isFullScreen());
+	this->fullscreenCheckboxAction->setChecked(viewSettings->isFullscreen());
 
 	this->connect(this->fullscreenCheckboxAction, &QAction::triggered, this, &View::changeFullscreen);
 }
