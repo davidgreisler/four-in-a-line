@@ -13,8 +13,8 @@ namespace Actions
  *
  * @param parent Parent window, used for dialogs.
  */
-Game::Game(QWidget* parent) :
-	QObject(parent)
+Game::Game(QWidget* parentWindow, QObject* parent) :
+	QObject(parent), parentWindow(parentWindow)
 {
 	this->createActions();
 	this->retranslateUI();

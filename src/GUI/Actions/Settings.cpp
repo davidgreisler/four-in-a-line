@@ -14,8 +14,8 @@ namespace Actions
  *
  * @param parent Parent window, used for dialogs.
  */
-Settings::Settings(QWidget *parent) :
-	QObject(parent), parentWindow(parent)
+Settings::Settings(QWidget* parentWindow, QObject* parent) :
+	QObject(parent), parentWindow(parentWindow)
 {
 	this->createActions();
 	this->updateLanguages();

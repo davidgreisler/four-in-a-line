@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+class QAction;
+
 namespace GUI
 {
 namespace Actions
@@ -18,7 +20,7 @@ class Game : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit Game(QWidget *parent = 0);
+		explicit Game(QWidget* parentWindow, QObject *parent = 0);
 		virtual ~Game();
 
 		QAction* getNewGameAction() const;

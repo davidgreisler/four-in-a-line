@@ -21,7 +21,7 @@ class Settings : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit Settings(QWidget *parent = 0);
+		explicit Settings(QWidget* parentWindow, QObject* parent = 0);
 		virtual ~Settings();
 
 		QAction* getOpenSettingsAction() const;
