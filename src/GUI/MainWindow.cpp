@@ -18,12 +18,14 @@ MainWindow::MainWindow(QWidget* parent)
 {
 	::ConnectFourSettings* settings = ::ConnectFour::getInstance()->getSettings();
 
-	this->gameActions = new Actions::Game(this);
-	this->settingsActions = new Actions::Settings(this);
+	this->gameActions = new Actions::Game(this, this);
+	this->settingsActions = new Actions::Settings(this, this);
 	this->viewActions = new Actions::View(this, this);
+	this->moveActions = new Actions::Move(this, this);
+	this->helpActions = new Actions::Help(this, this);
 
 	this->menuBar = new MainMenuBar(this->gameActions, this->settingsActions, this->viewActions,
-									this);
+									this->moveActions, this->helpActions, this);
 	this->setMenuBar(this->menuBar);
 
 	// Restore geometry/state. Toolbars, docks, etc. must already have been created.

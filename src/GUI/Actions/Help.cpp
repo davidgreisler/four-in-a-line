@@ -1,0 +1,109 @@
+#include "Help.hpp"
+
+#include <QMessageBox>
+#include <QAction>
+#include <QEvent>
+
+namespace GUI
+{
+namespace Actions
+{
+
+/**
+ * Creates a new help action container.
+ *
+ * @param parent Parent window, used for dialogs.
+ */
+Help::Help(QWidget* parentWindow, QObject* parent) :
+	QObject(parent), parentWindow(parentWindow)
+{
+	this->createActions();
+	this->retranslateUI();
+}
+
+/**
+ * Frees all used resources.
+ */
+Help::~Help()
+{
+
+}
+
+/**
+ * Returns the about the game action.
+ *
+ * @return Action for displaying the about dialog.
+ */
+QAction* Help::getAboutAction() const
+{
+	return this->aboutAction;
+}
+
+/**
+ * Returns the about Qt action.
+ *
+ * @return Action for showing a dialog about Qt.
+ */
+QAction* Help::getAboutQtAction() const
+{
+	return this->aboutQtAction;
+}
+
+/**
+ * Shows a dialog with information about this game.
+ */
+void Help::showAboutDialog() const
+{
+
+}
+
+/**
+ * Shows a dialog with information about Qt.
+ */
+void Help::showAboutQtDialog() const
+{
+	QMessageBox::aboutQt(this->parentWindow);
+}
+
+/**
+ * Create all actions and connect them.
+ */
+void Help::createActions()
+{
+	this->aboutAction = new QAction("", this);
+
+	this->aboutQtAction = new QAction("", this);
+
+	this->connect(this->aboutAction, &QAction::triggered, this, &Help::showAboutDialog);
+	this->connect(this->aboutQtAction, &QAction::triggered, this, &Help::showAboutQtDialog);
+}
+
+/**
+ * Retranslates all strings.
+ */
+void Help::retranslateUI()
+{
+	this->aboutAction->setText(tr("&About"));
+	this->aboutAction->setStatusTip(tr("Shows information about this game."));
+
+	this->aboutQtAction->setText(tr("&About Qt ..."));
+	this->aboutQtAction->setStatusTip(tr("Shows information about Qt."));
+}
+
+/**
+ * Retranslates strings when the application's language has been changed.
+ *
+ * @param event Change event.
+ */
+bool Help::event(QEvent* event)
+{
+	if (event->type() == QEvent::LanguageChange)
+	{
+		this->retranslateUI();
+	}
+
+	return QObject::event(event);
+}
+
+}
+}

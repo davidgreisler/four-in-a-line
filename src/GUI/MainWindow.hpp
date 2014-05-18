@@ -5,6 +5,8 @@
 #include "Actions/Game.hpp"
 #include "Actions/Settings.hpp"
 #include "Actions/View.hpp"
+#include "Actions/Help.hpp"
+#include "Actions/Move.hpp"
 
 #include <QMainWindow>
 
@@ -54,6 +56,16 @@ class MainWindow : public QMainWindow
 		 * Contains view actions.
 		 */
 		Actions::View* viewActions;
+
+		/**
+		 * Contains help actions.
+		 */
+		Actions::Help* helpActions;
+
+		/**
+		 * Contains move actions.
+		 */
+		Actions::Move* moveActions;
 };
 
 }

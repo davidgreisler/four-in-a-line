@@ -4,6 +4,8 @@
 #include "Actions/Game.hpp"
 #include "Actions/Settings.hpp"
 #include "Actions/View.hpp"
+#include "Actions/Help.hpp"
+#include "Actions/Move.hpp"
 
 #include <QMenuBar>
 
@@ -17,8 +19,9 @@ class MainMenuBar : public QMenuBar
 {
 		Q_OBJECT
 	public:
-		explicit MainMenuBar(Actions::Game* gameActions, Actions::Settings* settingsActions, Actions::View* viewActions,
-							 QWidget *parent = 0);
+		explicit MainMenuBar(Actions::Game* gameActions, Actions::Settings* settingsActions,
+							 Actions::View* viewActions, Actions::Move* moveActions,
+							 Actions::Help* helpActions, QWidget *parent = 0);
 		virtual ~MainMenuBar();
 
 	signals:
@@ -71,6 +74,26 @@ class MainMenuBar : public QMenuBar
 		 * Menu for view options, like toggle fullscreen.
 		 */
 		QMenu* viewMenu;
+
+		/**
+		 * Move actions.
+		 */
+		Actions::Move* moveActions;
+
+		/**
+		 * Menu for game moves, undo last move, get hint, etc.
+		 */
+		QMenu* moveMenu;
+
+		/**
+		 * Help actions.
+		 */
+		Actions::Help* helpActions;
+
+		/**
+		 * Menu for showing about dialogs.
+		 */
+		QMenu* helpMenu;
 };
 
 }

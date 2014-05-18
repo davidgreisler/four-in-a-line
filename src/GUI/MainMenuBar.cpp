@@ -13,9 +13,10 @@ namespace GUI
  * @param parent Parent widget.
  */
 MainMenuBar::MainMenuBar(Actions::Game* gameActions, Actions::Settings* settingsActions,
-						 Actions::View* viewActions, QWidget *parent) :
+						 Actions::View* viewActions, Actions::Move* moveActions,
+						 Actions::Help* helpActions, QWidget *parent) :
 	QMenuBar(parent), gameActions(gameActions), settingsActions(settingsActions),
-	viewActions(viewActions)
+	viewActions(viewActions), moveActions(moveActions), helpActions(helpActions)
 {
 	this->setupLanguageMenu();
 
@@ -33,10 +34,18 @@ MainMenuBar::MainMenuBar(Actions::Game* gameActions, Actions::Settings* settings
 	this->viewMenu = this->addMenu("");
 	this->viewMenu->addAction(this->viewActions->getFullscreenCheckboxAction());
 
+	this->moveMenu = this->addMenu("");
+	this->moveMenu->addAction(this->moveActions->getUndoAction());
+	this->moveMenu->addAction(this->moveActions->getHintAction());
+
 	this->settingsMenu = this->addMenu("");
 	this->settingsMenu->addMenu(this->languageMenu);
 	this->settingsMenu->addSeparator();
 	this->settingsMenu->addAction(this->settingsActions->getOpenSettingsAction());
+
+	this->helpMenu = this->addMenu("");
+	this->helpMenu->addAction(this->helpActions->getAboutAction());
+	this->helpMenu->addAction(this->helpActions->getAboutQtAction());
 
 	this->retranslateUI();
 }
@@ -58,9 +67,13 @@ void MainMenuBar::retranslateUI()
 
 	this->viewMenu->setTitle(tr("&View"));
 
+	this->moveMenu->setTitle(tr("&Move"));
+
 	this->settingsMenu->setTitle(tr("&Settings"));
 
 	this->languageMenu->setTitle(tr("&Languages"));
+
+	this->helpMenu->setTitle(tr("&Help"));
 }
 
 /**

@@ -4,8 +4,12 @@
 
 SOURCES +=  Game.cpp \
     Settings.cpp \
-    View.cpp
+    View.cpp \
+    Help.cpp \
+    Move.cpp
 
 HEADERS  += Game.hpp \
     Settings.hpp \
-    View.hpp
+    View.hpp \
+    Help.hpp \
+    Move.hpp
