@@ -3,10 +3,8 @@
 }
 
 SOURCES +=  MainWindow.cpp \
-	    MainMenuBar.cpp \
-	    Actions/Game.cpp
+	    MainMenuBar.cpp
 
 HEADERS  += \
 	    MainWindow.hpp \
-	    MainMenuBar.hpp \
-	    Actions/Game.hpp
+	    MainMenuBar.hpp
