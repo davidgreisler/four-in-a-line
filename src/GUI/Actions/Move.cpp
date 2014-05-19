@@ -4,6 +4,7 @@
 #include <QEvent>
 #include <QWidget>
 #include <QMenu>
+#include <QIcon>
 
 namespace GUI
 {
@@ -84,9 +85,15 @@ void Move::showHint()
  */
 void Move::createActions()
 {
-	this->undoAction = new QAction("", this);
+	QIcon undoIcon;
+	undoIcon.addFile(":/icons/16x16/undo.png", QSize(16, 16));
+	undoIcon.addFile(":/icons/32x32/undo.png", QSize(32, 32));
+	this->undoAction = new QAction(undoIcon, "", this);
 
-	this->hintAction = new QAction("", this);
+	QIcon hintIcon;
+	hintIcon.addFile(":/icons/16x16/lightbulb.png", QSize(16, 16));
+	hintIcon.addFile(":/icons/32x32/lightbulb.png", QSize(32, 32));
+	this->hintAction = new QAction(hintIcon, "", this);
 
 	this->connect(this->undoAction, &QAction::triggered, this, &Move::undoLastMove);
 	this->connect(this->hintAction, &QAction::triggered, this, &Move::showHint);

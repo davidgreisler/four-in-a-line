@@ -5,6 +5,7 @@
 #include <QEvent>
 #include <QWidget>
 #include <QMenu>
+#include <QIcon>
 
 namespace GUI
 {
@@ -85,7 +86,10 @@ void Help::showAboutQtDialog() const
  */
 void Help::createActions()
 {
-	this->aboutAction = new QAction("", this);
+	QIcon aboutIcon;
+	aboutIcon.addFile(":/icons/16x16/information.png", QSize(16, 16));
+	aboutIcon.addFile(":/icons/32x32/information.png", QSize(32, 32));
+	this->aboutAction = new QAction(aboutIcon, "", this);
 
 	this->aboutQtAction = new QAction("", this);
 

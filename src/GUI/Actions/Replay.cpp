@@ -4,6 +4,7 @@
 #include <QEvent>
 #include <QWidget>
 #include <QMenu>
+#include <QIcon>
 
 namespace GUI
 {
@@ -156,17 +157,35 @@ void Replay::jumpToEnd()
  */
 void Replay::createActions()
 {
-	this->loadReplayAction = new QAction("", this);
+	QIcon loadReplayIcon;
+	loadReplayIcon.addFile(":/icons/16x16/film.png", QSize(16, 16));
+	loadReplayIcon.addFile(":/icons/32x32/film.png", QSize(32, 32));
+	this->loadReplayAction = new QAction(loadReplayIcon, "", this);
 
-	this->saveReplayAction = new QAction("", this);
+	QIcon saveReplayIcon;
+	saveReplayIcon.addFile(":/icons/16x16/film_save.png", QSize(16, 16));
+	saveReplayIcon.addFile(":/icons/32x32/film_save.png", QSize(32, 32));
+	this->saveReplayAction = new QAction(saveReplayIcon, "", this);
 
-	this->nextMoveAction = new QAction("", this);
+	QIcon nextMoveIcon;
+	nextMoveIcon.addFile(":/icons/16x16/control_play_blue.png", QSize(16, 16));
+	nextMoveIcon.addFile(":/icons/32x32/control_play_blue.png", QSize(32, 32));
+	this->nextMoveAction = new QAction(nextMoveIcon, "", this);
 
-	this->previousMoveAction = new QAction("", this);
+	QIcon previousMoveIcon;
+	previousMoveIcon.addFile(":/icons/16x16/control_play_blue_mirror.png", QSize(16, 16));
+	previousMoveIcon.addFile(":/icons/32x32/control_play_blue_mirror.png", QSize(32, 32));
+	this->previousMoveAction = new QAction(previousMoveIcon, "", this);
 
-	this->jumpToStartAction = new QAction("", this);
+	QIcon jumpToStartIcon;
+	jumpToStartIcon.addFile(":/icons/16x16/control_start_blue.png", QSize(16, 16));
+	jumpToStartIcon.addFile(":/icons/32x32/control_start_blue.png", QSize(32, 32));
+	this->jumpToStartAction = new QAction(jumpToStartIcon, "", this);
 
-	this->jumpToEndAction = new QAction("", this);
+	QIcon jumpToEndIcon;
+	jumpToEndIcon.addFile(":/icons/16x16/control_end_blue.png", QSize(16, 16));
+	jumpToEndIcon.addFile(":/icons/32x32/control_end_blue.png", QSize(32, 32));
+	this->jumpToEndAction = new QAction(jumpToEndIcon, "", this);
 
 	this->connect(this->loadReplayAction, &QAction::triggered, this, &Replay::loadReplay);
 	this->connect(this->saveReplayAction, &QAction::triggered, this, &Replay::saveReplay);

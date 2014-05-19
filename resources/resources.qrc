@@ -2,5 +2,47 @@
     <qresource prefix="/">
         <file>i18n/connectfour_de.qm</file>
         <file>i18n/connectfour_en.qm</file>
+        <file>icons/16x16/application_control_bar.png</file>
+        <file>icons/16x16/cancel.png</file>
+        <file>icons/16x16/control_end_blue.png</file>
+        <file>icons/16x16/control_play_blue.png</file>
+        <file>icons/16x16/control_play_blue_mirror.png</file>
+        <file>icons/16x16/control_start_blue.png</file>
+        <file>icons/16x16/cup_gold.png</file>
+        <file>icons/16x16/file_save_as.png</file>
+        <file>icons/16x16/film.png</file>
+        <file>icons/16x16/film_save.png</file>
+        <file>icons/16x16/folder.png</file>
+        <file>icons/16x16/lightbulb.png</file>
+        <file>icons/16x16/locate.png</file>
+        <file>icons/16x16/monitor.png</file>
+        <file>icons/16x16/page_add.png</file>
+        <file>icons/16x16/page_save.png</file>
+        <file>icons/16x16/save_as.png</file>
+        <file>icons/16x16/setting_tools.png</file>
+        <file>icons/16x16/undo.png</file>
+        <file>icons/32x32/application_control_bar.png</file>
+        <file>icons/32x32/cancel.png</file>
+        <file>icons/32x32/control_end_blue.png</file>
+        <file>icons/32x32/control_play_blue.png</file>
+        <file>icons/32x32/control_play_blue_mirror.png</file>
+        <file>icons/32x32/control_start_blue.png</file>
+        <file>icons/32x32/cup_gold.png</file>
+        <file>icons/32x32/file_save_as.png</file>
+        <file>icons/32x32/film.png</file>
+        <file>icons/32x32/film_save.png</file>
+        <file>icons/32x32/folder.png</file>
+        <file>icons/32x32/lightbulb.png</file>
+        <file>icons/32x32/locate.png</file>
+        <file>icons/32x32/monitor.png</file>
+        <file>icons/32x32/page_add.png</file>
+        <file>icons/32x32/page_save.png</file>
+        <file>icons/32x32/save_as.png</file>
+        <file>icons/32x32/setting_tools.png</file>
+        <file>icons/32x32/undo.png</file>
+        <file>icons/16x16/cross.png</file>
+        <file>icons/32x32/cross.png</file>
+        <file>icons/16x16/information.png</file>
+        <file>icons/32x32/information.png</file>
     </qresource>
 </RCC>

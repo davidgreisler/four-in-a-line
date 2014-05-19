@@ -7,6 +7,7 @@
 #include <QWidget>
 #include <QAction>
 #include <QMenu>
+#include <QIcon>
 
 namespace GUI
 {
@@ -69,7 +70,10 @@ void View::createActions()
 	::ConnectFourSettings* settings = ::ConnectFour::getInstance()->getSettings();
 	::Settings::View* viewSettings = settings->getViewSettings();
 
-	this->fullscreenCheckboxAction = new QAction("", this);
+	QIcon fullscreenCheckboxIcon;
+	fullscreenCheckboxIcon.addFile(":/icons/16x16/monitor.png", QSize(16, 16));
+	fullscreenCheckboxIcon.addFile(":/icons/32x32/monitor.png", QSize(32, 32));
+	this->fullscreenCheckboxAction = new QAction(fullscreenCheckboxIcon, "", this);
 	this->fullscreenCheckboxAction->setCheckable(true);
 	this->fullscreenCheckboxAction->setChecked(viewSettings->isFullscreen());
 
