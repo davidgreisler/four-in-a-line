@@ -3,6 +3,7 @@
 #include "../ConnectFourSettings.hpp"
 
 #include <QStatusBar>
+#include <QMenuBar>
 #include <QDebug>
 
 namespace GUI
@@ -25,10 +26,7 @@ MainWindow::MainWindow(QWidget* parent)
 	this->replayActions = new Actions::Replay(this, this);
 	this->helpActions = new Actions::Help(this, this);
 
-	this->menuBar = new MainMenuBar(this->gameActions, this->settingsActions, this->viewActions,
-									this->moveActions, this->helpActions, this->replayActions,
-									this);
-	this->setMenuBar(this->menuBar);
+	this->setupMenuBar();
 
 	// Restore geometry/state. Toolbars, docks, etc. must already have been created.
 
@@ -69,6 +67,20 @@ void MainWindow::setFullscreen(bool fullscreen)
 	{
 		this->showNormal();
 	}
+}
+
+/**
+ * Sets up the menu bar.
+ */
+void MainWindow::setupMenuBar()
+{
+	QMenuBar* menuBar = this->menuBar();
+	menuBar->addMenu(this->gameActions->getMenu());
+	menuBar->addMenu(this->viewActions->getMenu());
+	menuBar->addMenu(this->moveActions->getMenu());
+	menuBar->addMenu(this->replayActions->getMenu());
+	menuBar->addMenu(this->settingsActions->getMenu());
+	menuBar->addMenu(this->helpActions->getMenu());
 }
 
 /**

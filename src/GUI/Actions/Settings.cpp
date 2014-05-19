@@ -3,6 +3,9 @@
 #include "../../ConnectFourSettings.hpp"
 
 #include <QDebug>
+#include <QActionGroup>
+#include <QAction>
+#include <QMenu>
 
 namespace GUI
 {
@@ -19,6 +22,7 @@ Settings::Settings(QWidget* parentWindow, QObject* parent) :
 {
 	this->createActions();
 	this->updateLanguages();
+	this->createMenu();
 	this->retranslateUI();
 }
 
@@ -38,6 +42,28 @@ Settings::~Settings()
 QAction* Settings::getOpenSettingsAction() const
 {
 	return this->openSettingsAction;
+}
+
+/**
+ * Returns the settings menu.
+ *
+ * The settings menu contains the language menu and an action for opening the settings.
+ *
+ * @return The settings menu.
+ */
+QMenu* Settings::getMenu() const
+{
+	return this->menu.data();
+}
+
+/**
+ * Returns the languages menu.
+ *
+ * @return The languages menu.
+ */
+QMenu* Settings::getLanguageMenu() const
+{
+	return this->languageMenu.data();
 }
 
 /**
@@ -92,10 +118,43 @@ void Settings::createActions()
 }
 
 /**
+ * Creates the settings menu and the languages menu.
+ */
+void Settings::createMenu()
+{
+	this->createLanguagesMenu();
+
+	this->menu.reset(new QMenu(0));
+	this->menu->addMenu(this->languageMenu.data());
+	this->menu->addSeparator();
+	this->menu->addAction(this->openSettingsAction);
+}
+
+/**
+ * Creates the languages menu.
+ */
+void Settings::createLanguagesMenu()
+{
+	this->languageMenu.reset(new QMenu(0));
+	this->languageGroup = this->getLanguages();
+
+	QList<QAction*> languageActions = this->languageGroup->actions();
+
+	int nLanguageActions = languageActions.count();
+	for (int i = 0; i < nLanguageActions; ++i)
+	{
+		this->languageMenu->addAction(languageActions[i]);
+	}
+}
+
+/**
  * Retranslates all strings.
  */
 void Settings::retranslateUI()
 {
+	this->menu->setTitle(tr("&Settings"));
+	this->languageMenu->setTitle(tr("&Language"));
+
 	this->openSettingsAction->setText(tr("Open &settings ..."));
 	this->openSettingsAction->setStatusTip(tr("Open the settings dialog."));
 }

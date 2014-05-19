@@ -2,7 +2,10 @@
 #define REPLAY_HPP
 
 #include <QObject>
+#include <QScopedPointer>
 
+class QMenu;
+class QWidget;
 class QAction;
 
 namespace GUI
@@ -32,6 +35,8 @@ class Replay : public QObject
 		QAction* getJumpToStartAction() const;
 		QAction* getJumpToEndAction() const;
 
+		QMenu* getMenu() const;
+
 	signals:
 
 	public slots:
@@ -48,6 +53,7 @@ class Replay : public QObject
 		Q_DISABLE_COPY(Replay)
 
 		void createActions();
+		void createMenu();
 		void retranslateUI();
 		bool event(QEvent* event);
 
@@ -85,6 +91,11 @@ class Replay : public QObject
 		 * Jumps to the end of the replay.
 		 */
 		QAction* jumpToEndAction;
+
+		/**
+		 * Menu containing the replay actions.
+		 */
+		QScopedPointer<QMenu> menu;
 };
 
 }

@@ -2,6 +2,8 @@
 
 #include <QAction>
 #include <QEvent>
+#include <QWidget>
+#include <QMenu>
 
 namespace GUI
 {
@@ -17,6 +19,7 @@ Replay::Replay(QWidget* parentWindow, QObject* parent) :
 	QObject(parent), parentWindow(parentWindow)
 {
 	this->createActions();
+	this->createMenu();
 	this->retranslateUI();
 }
 
@@ -86,6 +89,18 @@ QAction* Replay::getJumpToStartAction() const
 QAction* Replay::getJumpToEndAction() const
 {
 	return this->jumpToEndAction;
+}
+
+/**
+ * Returns the replay menu.
+ *
+ * The replay menu contains all replay actions.
+ *
+ * @return The replay menu.
+ */
+QMenu* Replay::getMenu() const
+{
+	return this->menu.data();
 }
 
 /**
@@ -162,6 +177,21 @@ void Replay::createActions()
 }
 
 /**
+ * Creates the replay menu.
+ */
+void Replay::createMenu()
+{
+	this->menu.reset(new QMenu(0));
+	this->menu->addAction(this->loadReplayAction);
+	this->menu->addAction(this->saveReplayAction);
+	this->menu->addSeparator();
+	this->menu->addAction(this->nextMoveAction);
+	this->menu->addAction(this->previousMoveAction);
+	this->menu->addAction(this->jumpToStartAction);
+	this->menu->addAction(this->jumpToEndAction);
+}
+
+/**
  * Retranslates all strings.
  */
 void Replay::retranslateUI()
@@ -183,6 +213,8 @@ void Replay::retranslateUI()
 
 	this->jumpToEndAction->setText(tr("&Jump to end"));
 	this->jumpToEndAction->setStatusTip(tr("Jump to the end of the replay."));
+
+	this->menu->setTitle(tr("&Replay"));
 }
 
 /**

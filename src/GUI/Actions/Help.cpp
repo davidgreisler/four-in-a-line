@@ -3,6 +3,8 @@
 #include <QMessageBox>
 #include <QAction>
 #include <QEvent>
+#include <QWidget>
+#include <QMenu>
 
 namespace GUI
 {
@@ -18,6 +20,7 @@ Help::Help(QWidget* parentWindow, QObject* parent) :
 	QObject(parent), parentWindow(parentWindow)
 {
 	this->createActions();
+	this->createMenu();
 	this->retranslateUI();
 }
 
@@ -50,6 +53,18 @@ QAction* Help::getAboutQtAction() const
 }
 
 /**
+ * Returns the help menu.
+ *
+ * The help menu contains all help actions.
+ *
+ * @return The help menu.
+ */
+QMenu* Help::getMenu() const
+{
+	return this->menu.data();
+}
+
+/**
  * Shows a dialog with information about this game.
  */
 void Help::showAboutDialog() const
@@ -79,6 +94,16 @@ void Help::createActions()
 }
 
 /**
+ * Creates the help menu.
+ */
+void Help::createMenu()
+{
+	this->menu.reset(new QMenu(0));
+	this->menu->addAction(this->aboutAction);
+	this->menu->addAction(this->aboutQtAction);
+}
+
+/**
  * Retranslates all strings.
  */
 void Help::retranslateUI()
@@ -88,6 +113,8 @@ void Help::retranslateUI()
 
 	this->aboutQtAction->setText(tr("&About Qt ..."));
 	this->aboutQtAction->setStatusTip(tr("Shows information about Qt."));
+
+	this->menu->setTitle(tr("&Help"));
 }
 
 /**

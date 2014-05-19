@@ -2,7 +2,10 @@
 #define MOVE_HPP
 
 #include <QObject>
+#include <QScopedPointer>
 
+class QWidget;
+class QMenu;
 class QAction;
 
 namespace GUI
@@ -25,6 +28,8 @@ class Move : public QObject
 		QAction* getUndoAction() const;
 		QAction* getHintAction() const;
 
+		QMenu* getMenu() const;
+
 	signals:
 
 	public slots:
@@ -35,6 +40,7 @@ class Move : public QObject
 		Q_DISABLE_COPY(Move)
 
 		void createActions();
+		void createMenu();
 		void retranslateUI();
 		bool event(QEvent* event);
 
@@ -52,6 +58,11 @@ class Move : public QObject
 		 * Displays a hint for the player.
 		 */
 		QAction* hintAction;
+
+		/**
+		 * Menu containing the move actions.
+		 */
+		QScopedPointer<QMenu> menu;
 };
 
 }

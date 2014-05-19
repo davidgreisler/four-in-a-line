@@ -1,7 +1,6 @@
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
-#include "MainMenuBar.hpp"
 #include "Actions/Game.hpp"
 #include "Actions/Settings.hpp"
 #include "Actions/View.hpp"
@@ -30,6 +29,8 @@ class MainWindow : public QMainWindow
 	private:
 		Q_DISABLE_COPY(MainWindow)
 
+		void setupMenuBar();
+
 		void closeEvent(QCloseEvent* event);
 
 		/**
@@ -37,11 +38,6 @@ class MainWindow : public QMainWindow
 		 * (used for saving/restoring state).
 		 */
 		static const int version = 1;
-
-		/**
-		 * The menu bar.
-		 */
-		MainMenuBar* menuBar;
 
 		/**
 		 * Contains game actions.

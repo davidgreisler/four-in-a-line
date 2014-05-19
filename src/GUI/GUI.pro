@@ -2,9 +2,7 @@
     error(Could not find Common.pri file!)
 }
 
-SOURCES +=  MainWindow.cpp \
-	    MainMenuBar.cpp
+SOURCES +=  MainWindow.cpp
 
 HEADERS  += \
-	    MainWindow.hpp \
-	    MainMenuBar.hpp
+	    MainWindow.hpp

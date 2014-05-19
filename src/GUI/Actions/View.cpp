@@ -4,6 +4,10 @@
 #include "../../ConnectFourSettings.hpp"
 #include "../../Settings/View.hpp"
 
+#include <QWidget>
+#include <QAction>
+#include <QMenu>
+
 namespace GUI
 {
 namespace Actions
@@ -13,6 +17,7 @@ View::View(::GUI::MainWindow* mainWindow, QObject *parent) :
 	QObject(parent), mainWindow(mainWindow)
 {
 	this->createActions();
+	this->createMenu();
 	this->retranslateUI();
 }
 
@@ -32,6 +37,18 @@ View::~View()
 QAction* View::getFullscreenCheckboxAction() const
 {
 	return this->fullscreenCheckboxAction;
+}
+
+/**
+ * Returns the view menu.
+ *
+ * The view menu contains all view actions.
+ *
+ * @return The view menu.
+ */
+QMenu* View::getMenu() const
+{
+	return this->menu.data();
 }
 
 void View::changeFullscreen()
@@ -60,12 +77,23 @@ void View::createActions()
 }
 
 /**
+ * Creates the move menu.
+ */
+void View::createMenu()
+{
+	this->menu.reset(new QMenu(0));
+	this->menu->addAction(this->fullscreenCheckboxAction);
+}
+
+/**
  * Retranslates all strings.
  */
 void View::retranslateUI()
 {
 	this->fullscreenCheckboxAction->setText(tr("&Fullscreen mode"));
 	this->fullscreenCheckboxAction->setStatusTip(tr("Toggles fullscreen mode on/off."));
+
+	this->menu->setTitle(tr("&View"));
 }
 
 /**

@@ -2,8 +2,12 @@
 #define HELP_HPP
 
 #include <QObject>
+#include <QScopedPointer>
 
 class QAction;
+class QMenu;
+class QAction;
+class QWidget;
 
 namespace GUI
 {
@@ -25,6 +29,8 @@ class Help : public QObject
 		QAction* getAboutAction() const;
 		QAction* getAboutQtAction() const;
 
+		QMenu* getMenu() const;
+
 	signals:
 
 	public slots:
@@ -35,6 +41,7 @@ class Help : public QObject
 		Q_DISABLE_COPY(Help)
 
 		void createActions();
+		void createMenu();
 		void retranslateUI();
 		bool event(QEvent* event);
 
@@ -52,6 +59,11 @@ class Help : public QObject
 		 * Displays a dialog with information about qt.
 		 */
 		QAction* aboutQtAction;
+
+		/**
+		 * Menu containing the help actions.
+		 */
+		QScopedPointer<QMenu> menu;
 };
 
 }

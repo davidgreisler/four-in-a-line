@@ -1,9 +1,12 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include <QWidget>
+#include <QObject>
+#include <QScopedPointer>
 
 class QAction;
+class QMenu;
+class QWidget;
 
 namespace GUI
 {
@@ -34,6 +37,8 @@ class Game : public QObject
 
 		QAction* getExitAction() const;
 
+		QMenu* getMenu() const;
+
 	signals:
 
 	public slots:
@@ -43,6 +48,7 @@ class Game : public QObject
 		Q_DISABLE_COPY(Game)
 
 		void createActions();
+		void createMenu();
 		void retranslateUI();
 		bool event(QEvent* event);
 
@@ -85,6 +91,11 @@ class Game : public QObject
 		 * Ends program execution.
 		 */
 		QAction* exitAction;
+
+		/**
+		 * Menu containing the game actions.
+		 */
+		QScopedPointer<QMenu> menu;
 };
 
 }

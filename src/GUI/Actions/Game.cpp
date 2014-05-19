@@ -2,6 +2,8 @@
 #include "../../ConnectFour.hpp"
 
 #include <QAction>
+#include <QMenu>
+#include <QWidget>
 
 namespace GUI
 {
@@ -17,6 +19,7 @@ Game::Game(QWidget* parentWindow, QObject* parent) :
 	QObject(parent), parentWindow(parentWindow)
 {
 	this->createActions();
+	this->createMenu();
 	this->retranslateUI();
 }
 
@@ -99,6 +102,18 @@ QAction* Game::getExitAction() const
 }
 
 /**
+ * Returns the game menu.
+ *
+ * The game menu contains all game actions.
+ *
+ * @return The game menu.
+ */
+QMenu* Game::getMenu() const
+{
+	return this->menu.data();
+}
+
+/**
  * Ends program execution.
  */
 void Game::exit()
@@ -129,6 +144,24 @@ void Game::createActions()
 }
 
 /**
+ * Creates the game menu.
+ */
+void Game::createMenu()
+{
+	this->menu.reset(new QMenu(0));
+	this->menu->addAction(this->newGameAction);
+	this->menu->addAction(this->endGameAction);
+	this->menu->addSeparator();
+	this->menu->addAction(this->loadGameAction);
+	this->menu->addAction(this->saveGameAction);
+	this->menu->addAction(this->saveGameAsAction);
+	this->menu->addSeparator();
+	this->menu->addAction(this->showHighscoresAction);
+	this->menu->addSeparator();
+	this->menu->addAction(this->exitAction);
+}
+
+/**
  * Retranslates all strings.
  */
 void Game::retranslateUI()
@@ -153,6 +186,8 @@ void Game::retranslateUI()
 
 	this->exitAction->setText(tr("E&xit"));
 	this->exitAction->setStatusTip(tr("Exit game."));
+
+	this->menu->setTitle(tr("&Game"));
 }
 
 /**

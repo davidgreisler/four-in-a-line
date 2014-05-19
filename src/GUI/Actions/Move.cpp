@@ -2,6 +2,8 @@
 
 #include <QAction>
 #include <QEvent>
+#include <QWidget>
+#include <QMenu>
 
 namespace GUI
 {
@@ -17,6 +19,7 @@ Move::Move(QWidget* parentWindow, QObject* parent) :
 	QObject(parent), parentWindow(parentWindow)
 {
 	this->createActions();
+	this->createMenu();
 	this->retranslateUI();
 }
 
@@ -49,6 +52,18 @@ QAction* Move::getHintAction() const
 }
 
 /**
+ * Returns the move menu.
+ *
+ * The move menu contains all move actions.
+ *
+ * @return The move menu.
+ */
+QMenu* Move::getMenu() const
+{
+	return this->menu.data();
+}
+
+/**
  * Undoes the last move of the player.
  */
 void Move::undoLastMove()
@@ -78,6 +93,16 @@ void Move::createActions()
 }
 
 /**
+ * Creates the move menu.
+ */
+void Move::createMenu()
+{
+	this->menu.reset(new QMenu(0));
+	this->menu->addAction(this->undoAction);
+	this->menu->addAction(this->hintAction);
+}
+
+/**
  * Retranslates all strings.
  */
 void Move::retranslateUI()
@@ -87,6 +112,8 @@ void Move::retranslateUI()
 
 	this->hintAction->setText(tr("&Show hint"));
 	this->hintAction->setStatusTip(tr("Shows a hint for the next move."));
+
+	this->menu->setTitle(tr("&Move"));
 }
 
 /**
