@@ -3,8 +3,10 @@
 
 #include <QObject>
 #include <QScopedPointer>
+#include <QList>
 
 class QAction;
+class QActionGroup;
 class QMenu;
 
 namespace GUI
@@ -19,6 +21,12 @@ namespace Actions
 
 /**
  * Contains actions regarding the view, e.g. to toggle fullscreen mode.
+ *
+ * Provides a checkbox action to toggle fullscreen mode on/off.
+ *
+ * Contains a toolbar menu, which has one action for every toolbar, to toggle display on/off.
+ * The toolbars are usually created after this class is instantiated, therefore the toolbar menu is
+ * empty until it is populated using updateToolbars().
  */
 class View : public QObject
 {
@@ -30,6 +38,9 @@ class View : public QObject
 		QAction* getFullscreenCheckboxAction() const;
 
 		QMenu* getMenu() const;
+		QMenu* getToolbarMenu() const;
+
+		void updateToolbars(QList<QAction*> actions);
 
 	signals:
 
@@ -41,6 +52,7 @@ class View : public QObject
 
 		void createActions();
 		void createMenu();
+		void createToolbarMenu();
 		void retranslateUI();
 		bool event(QEvent* event);
 
@@ -58,6 +70,11 @@ class View : public QObject
 		 * Menu containing the view actions.
 		 */
 		QScopedPointer<QMenu> menu;
+
+		/**
+		 * Menu containing an action for every toolbar, to toggle display on/off.
+		 */
+		QScopedPointer<QMenu> toolbarMenu;
 };
 
 }

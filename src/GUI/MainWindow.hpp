@@ -30,6 +30,8 @@ class MainWindow : public QMainWindow
 		Q_DISABLE_COPY(MainWindow)
 
 		void setupMenuBar();
+		void setupToolbars();
+		void setupToolbar(QMenu* menu, QString title, const char* objectName);
 
 		void closeEvent(QCloseEvent* event);
 
@@ -37,7 +39,7 @@ class MainWindow : public QMainWindow
 		 * Main window version, increase when new toolbars/docks/etc. are added
 		 * (used for saving/restoring state).
 		 */
-		static const int version = 1;
+		static const int version = 2;
 
 		/**
 		 * Contains game actions.

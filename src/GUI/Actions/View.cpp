@@ -8,6 +8,7 @@
 #include <QAction>
 #include <QMenu>
 #include <QIcon>
+#include <QActionGroup>
 
 namespace GUI
 {
@@ -52,6 +53,26 @@ QMenu* View::getMenu() const
 	return this->menu.data();
 }
 
+/**
+ * Returns the toolbar menu.
+ *
+ * The toolbar menu contains an action for every toolbar to toggle display on/off.
+ *
+ * Important: The toolbars are not yet known when this class is created. The toolbar menu therefore
+ * is empty until updateToolbars() is called to populate it.
+ *
+ * @return The toolbar menu.
+ */
+QMenu* View::getToolbarMenu() const
+{
+	return this->toolbarMenu.data();
+}
+
+/**
+ * (De)activates full screen mode when the checkbox is (un)checked.
+ *
+ * Invoked when the fullscreen checkbox is triggered/changed.
+ */
 void View::changeFullscreen()
 {
 	::ConnectFourSettings* settings = ::ConnectFour::getInstance()->getSettings();
@@ -60,6 +81,22 @@ void View::changeFullscreen()
 	bool isFullscreen = this->fullscreenCheckboxAction->isChecked();
 	viewSettings->setFullscreen(isFullscreen);
 	this->mainWindow->setFullscreen(isFullscreen);
+}
+
+/**
+ * Clears the toolbar menu and then adds given actions to it.
+ *
+ * @param actions List of QActions, one action for every toolbar to toggle display on/off.
+ */
+void View::updateToolbars(QList<QAction*> actions)
+{
+	this->toolbarMenu->clear();
+
+	QList<QAction*>::ConstIterator actionsIt;
+	for(actionsIt = actions.constBegin(); actionsIt != actions.constEnd(); ++actionsIt)
+	{
+		this->toolbarMenu->addAction(*actionsIt);
+	}
 }
 
 /**
@@ -81,12 +118,32 @@ void View::createActions()
 }
 
 /**
- * Creates the move menu.
+ * Creates the view menu and the toolbar menu.
  */
 void View::createMenu()
 {
+	this->createToolbarMenu();
+
 	this->menu.reset(new QMenu(0));
 	this->menu->addAction(this->fullscreenCheckboxAction);
+	this->menu->addSeparator();
+	this->menu->addMenu(this->toolbarMenu.data());
+
+	QIcon toolbarMenuIcon;
+	toolbarMenuIcon.addFile(":/icons/16x16/application_control_bar.png", QSize(16, 16));
+	toolbarMenuIcon.addFile(":/icons/32x32/application_control_bar.png", QSize(32, 32));
+	this->toolbarMenu->setIcon(toolbarMenuIcon);
+}
+
+/**
+ * Creates the toolbar menu, containing a checkbox for every toolbar to toggle display on/off.
+ *
+ * The toolbar menu is created empty because at creation time the toolbars are not known yet. After
+ * the toolbars have been created, updateToolbars() must be called to populate the toolbar menu.
+ */
+void View::createToolbarMenu()
+{
+	this->toolbarMenu.reset(new QMenu(0));
 }
 
 /**
@@ -98,6 +155,7 @@ void View::retranslateUI()
 	this->fullscreenCheckboxAction->setStatusTip(tr("Toggles fullscreen mode on/off."));
 
 	this->menu->setTitle(tr("&View"));
+	this->toolbarMenu->setTitle(tr("&Toolbars"));
 }
 
 /**
