@@ -72,19 +72,6 @@ unsigned int ArtificialIntelligence::computeNextMove(const Game& game) const
 
 	bestMove = this->findBestMove(Node::MAX_NODE, scoredMoves);
 
-	qDebug() << "ArtificialIntelligence::computeNextMove"
-			 << "Searched best move with search depth =" << this->searchDepth;
-	qDebug() << "ArtificialIntelligence::computeNextMove"
-			 << "The best move that was found is" << bestMove.first << "with a score of" << bestMove.second;
-	qDebug() << "ArtificialIntelligence::computeNextMove"
-			 << "Scored moves:";
-
-	for(auto i=scoredMoves.begin();i != scoredMoves.end();i++)
-	{
-		qDebug() << "ArtificialIntelligence::computeNextMove + move:"
-				 << i->first << " score: " << i->second;
-	}
-
 	return bestMove.first;
 }
 
@@ -181,7 +168,7 @@ ArtificialIntelligence::minimax(ArtificialIntelligence::Node node, const Board& 
 			Board boardAfterMove(board);
 
 			boardAfterMove.dropToken(*it, player);
-			qDebug() << "ArtificialIntelligence::minimax" << "dropped token in column " << *it;
+
 			ScoreType score = this->computeScore(node, boardAfterMove, player, depth, alpha, beta);
 			result[*it] = score;
 
@@ -235,24 +222,10 @@ ArtificialIntelligence::computeScore(ArtificialIntelligence::Node node, const Bo
 		// No more moves were possible or depth exceeded.
 
 		score = this->evaluateBoard(board, aiPlayer);
-
-		QString nodeType = (node == Node::MIN_NODE) ? "Minimizing" : "Maximizing";
-		QString padding = ""; for(unsigned int i = 0; i < (this->searchDepth - depth) * 3;++i) { padding += " "; }
-		qDebug() << "ArtificialIntelligence::computeScore" << qPrintable(padding)
-				 << qPrintable(nodeType) << "for" << player << "evaluation returned score: " << score;
 	}
 	else
 	{
 		score = this->findBestMove(childNode, scoredMoves).second;
-
-		ScoreType worst = this->findBestMove(Node::MIN_NODE, scoredMoves).second;
-		ScoreType best = this->findBestMove(Node::MAX_NODE, scoredMoves).second;
-		QString nodeType = (node == Node::MIN_NODE) ? "Minimizing" : "Maximizing";
-		QString padding = ""; for(unsigned int i = 0; i < (this->searchDepth - depth) * 3;++i) { padding += " "; }
-		qDebug() << "ArtificialIntelligence::computeScore" << qPrintable(padding)
-				 << qPrintable(nodeType) << "for" << player
-				 << "evaluated" << scoredMoves.size() << "children with scores from " << worst
-				 << "to" << best << "(result score =" << score << ")";
 	}
 
 	return score;

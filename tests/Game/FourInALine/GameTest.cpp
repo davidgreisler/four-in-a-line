@@ -1,0 +1,241 @@
+#include "GameTest.hpp"
+#include "../../../src/Game/FourInALine/Game.hpp"
+
+#include <QDebug>
+
+/**
+ * Creates a new game and checks whether it is initialized correctly.
+ */
+void GameTest::createGame()
+{
+	unsigned int columns = 8;
+	unsigned int rows = 5;
+	Game::FourInALine::Game game(columns, rows, 1);
+
+	QCOMPARE(game.getBoard()->getNumberOfColumns(), columns);
+	QCOMPARE(game.getBoard()->getNumberOfRows(), rows);
+	QCOMPARE(game.getCurrentPlayer(), (Game::FourInALine::Game::PlayerType)1);
+	QCOMPARE(game.isUndoPossible(), false);
+	QCOMPARE(game.isMovePossible(0), true);
+	QCOMPARE(game.isOver(), false);
+	QCOMPARE(game.isDraw(), false);
+
+	auto replay = game.getReplay();
+	QVERIFY(replay.size() == (std::size_t)0);
+	QCOMPARE(game.getNumberOfMoves(), 0u);
+
+	try
+	{
+		Game::FourInALine::Game game(1, 2, 3);
+		QFAIL("Attempting to create a game where the player who does the first move is neither player one or two should throw an exception.");
+	}
+	catch(std::exception) {}
+}
+
+/**
+ * Starts a game and plays a draw.
+ */
+void GameTest::playDraw()
+{
+	unsigned int columns = 2;
+	unsigned int rows = 4;
+	Game::FourInALine::Game game(columns, rows, 1);
+
+	QCOMPARE(game.isUndoPossible(), false);
+	QCOMPARE(game.isMovePossible(0), true);
+	QCOMPARE(game.isOver(), false);
+	QCOMPARE(game.isDraw(), false);
+
+	// | 1 | 2 |
+
+	game.makeMove(0);
+	game.makeMove(1);
+
+	// | 2 | 1 |
+
+	game.makeMove(1);
+	game.makeMove(0);
+
+	QCOMPARE(game.isUndoPossible(), true);
+	QCOMPARE(game.isMovePossible(0), true);
+	QCOMPARE(game.isOver(), false);
+	QCOMPARE(game.isDraw(), false);
+
+	// | 1 | 2 |
+
+	game.makeMove(0);
+	game.makeMove(1);
+
+	// | 2 | 1 |
+
+	game.makeMove(1);
+
+	QCOMPARE(game.isMovePossible(1), false);
+
+	game.makeMove(0);
+
+	QCOMPARE(game.isUndoPossible(), true);
+	QCOMPARE(game.isMovePossible(0), false);
+	QCOMPARE(game.isOver(), true);
+	QCOMPARE(game.isDraw(), true);
+	QCOMPARE(game.getNumberOfMoves(), 8u);
+}
+
+/**
+ * Plays a game where player 1 wins.
+ */
+void GameTest::playAndWin()
+{
+	unsigned int columns = 8;
+	unsigned int rows = 5;
+	Game::FourInALine::Game game(columns, rows, 1);
+
+	QCOMPARE(game.isUndoPossible(), false);
+	QCOMPARE(game.isMovePossible(0), true);
+	QCOMPARE(game.isOver(), false);
+	QCOMPARE(game.isDraw(), false);
+
+	// | 1 | 2 |
+
+	game.makeMove(0);
+	game.makeMove(1);
+
+	// | 1 | 2 |
+
+	game.makeMove(0);
+	game.makeMove(1);
+
+	// | 1 | 2 |
+
+	game.makeMove(0);
+	game.makeMove(1);
+
+	// | 1 |   |
+
+	game.makeMove(0);
+
+	QCOMPARE(game.isUndoPossible(), true);
+	QCOMPARE(game.isMovePossible(0), false);
+	QCOMPARE(game.isOver(), true);
+	QCOMPARE(game.isDraw(), false);
+	QCOMPARE(game.getWinner(), (Game::FourInALine::Game::PlayerType)1);
+}
+
+/**
+ * Plays a game and checks whether the replay reproduces the game played.
+ */
+void GameTest::checkReplay()
+{
+	unsigned int columns = 8;
+	unsigned int rows = 5;
+	Game::FourInALine::Game game(columns, rows, 1);
+
+	// | 1 | 2 |
+
+	game.makeMove(0);
+	game.makeMove(1);
+
+	// | 1 | 2 |
+
+	game.makeMove(0);
+	game.makeMove(1);
+
+	auto replay = game.getReplay();
+	QVERIFY(replay.size() == (std::size_t)4);
+	QCOMPARE(game.getNumberOfMoves(), 4u);
+
+	QCOMPARE(replay[0].first, (Game::FourInALine::Game::PlayerType)1);
+	QCOMPARE(replay[1].first, (Game::FourInALine::Game::PlayerType)2);
+	QCOMPARE(replay[2].first, (Game::FourInALine::Game::PlayerType)1);
+	QCOMPARE(replay[3].first, (Game::FourInALine::Game::PlayerType)2);
+
+	QCOMPARE(replay[0].second, 0u);
+	QCOMPARE(replay[1].second, 1u);
+	QCOMPARE(replay[2].second, 0u);
+	QCOMPARE(replay[3].second, 1u);
+}
+
+/**
+ * Makes a few moves and then undoes them.
+ */
+void GameTest::undoMove()
+{
+	unsigned int columns = 8;
+	unsigned int rows = 5;
+	Game::FourInALine::Game game(columns, rows, 1);
+
+	QCOMPARE(game.getNumberOfMoves(), 0u);
+	QCOMPARE(game.isUndoPossible(), false);
+
+	// | 1 | 2 |
+
+	game.makeMove(0);
+	game.makeMove(1);
+
+	// | 1 | 2 |
+
+	game.makeMove(0);
+	game.makeMove(1);
+
+	QCOMPARE(game.getNumberOfMoves(), 4u);
+	QCOMPARE(game.isUndoPossible(), true);
+
+	game.undoLastMove();
+
+	QCOMPARE(game.getNumberOfMoves(), 3u);
+	QCOMPARE(game.getBoard()->getCell(1, rows - 2), game.getBoard()->getEmptyToken());
+	QCOMPARE(game.isUndoPossible(), true);
+
+	game.undoLastMove();
+
+	QCOMPARE(game.getNumberOfMoves(), 2u);
+	QCOMPARE(game.getBoard()->getCell(0, rows - 2), game.getBoard()->getEmptyToken());
+	QCOMPARE(game.isUndoPossible(), true);
+
+	game.undoLastMove();
+
+	QCOMPARE(game.getNumberOfMoves(), 1u);
+	QCOMPARE(game.getBoard()->getCell(1, rows - 1), game.getBoard()->getEmptyToken());
+	QCOMPARE(game.isUndoPossible(), true);
+
+	game.undoLastMove();
+
+	QCOMPARE(game.getNumberOfMoves(), 0u);
+	QCOMPARE(game.getBoard()->getCell(0, rows - 1), game.getBoard()->getEmptyToken());
+	QCOMPARE(game.isUndoPossible(), false);
+}
+
+/**
+ * Call methods in a wrong way to check whether they throw exceptions.
+ */
+void GameTest::makeMistakes()
+{
+	unsigned int columns = 3;
+	unsigned int rows = 2;
+	Game::FourInALine::Game game(columns, rows, 1);
+
+	try
+	{
+		game.undoLastMove();
+		QFAIL("Attempting to undo a move when no move has been made yet should throw an exception.");
+	}
+	catch(std::exception) {}
+
+	try
+	{
+		game.getWinner();
+		QFAIL("Attempting to retrieve the winner of a game with no winner should throw an exception.");
+	}
+	catch(std::exception) {}
+
+	try
+	{
+		game.makeMove(0);
+		game.makeMove(0);
+		game.makeMove(0);
+		QFAIL("Attempting to drop a token in a full column should throw an exception.");
+	}
+	catch(std::exception) {}
+}
+
+QTEST_MAIN(GameTest)
