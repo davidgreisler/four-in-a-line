@@ -10,6 +10,8 @@ LIBS += -Wl,--start-group \
         $${BUILD_DIRECTORY}/src/GUI/libGUI.a \
         $${BUILD_DIRECTORY}/src/GUI/Actions/libActions.a \
         $${BUILD_DIRECTORY}/src/Settings/libSettings.a \
+        $${BUILD_DIRECTORY}/src/Game/libGame.a \
+        $${BUILD_DIRECTORY}/src/Game/FourInALine/libFourInALine.a \
         -Wl,--end-group
 
 SOURCES +=  main.cpp 
