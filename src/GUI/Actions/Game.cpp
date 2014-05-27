@@ -14,7 +14,8 @@ namespace Actions
 /**
  * Creates a new game action container.
  *
- * @param parent Parent window, used for dialogs.
+ * @param parentWindow Parent window, used for dialogs.
+ * @param parent Parent object.
  */
 Game::Game(QWidget* parentWindow, QObject* parent) :
 	QObject(parent), parentWindow(parentWindow)

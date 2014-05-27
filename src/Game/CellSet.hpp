@@ -11,7 +11,7 @@ namespace Game
 {
 
 /**
- * A set of cells on the game board.
+ * A reference to a set of cells on the game board.
  *
  * This class represents a set of cells on the board. It allows you to work with a set of cells
  * without having to concern about their position. It provides methods to retrieve the contents

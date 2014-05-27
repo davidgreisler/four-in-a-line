@@ -14,7 +14,8 @@ namespace Actions
 /**
  * Creates a new move action container.
  *
- * @param parent Parent window, used for dialogs.
+ * @param parentWindow Parent window, used for dialogs.
+ * @param parent Parent object.
  */
 Move::Move(QWidget* parentWindow, QObject* parent) :
 	QObject(parent), parentWindow(parentWindow)

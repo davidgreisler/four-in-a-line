@@ -15,7 +15,8 @@ namespace Actions
 /**
  * Creates a new help action container.
  *
- * @param parent Parent window, used for dialogs.
+ * @param parentWindow Parent window, used for dialogs.
+ * @param parent Parent object.
  */
 Help::Help(QWidget* parentWindow, QObject* parent) :
 	QObject(parent), parentWindow(parentWindow)
