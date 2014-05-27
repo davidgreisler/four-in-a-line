@@ -1,0 +1,20 @@
+# Builds the main application.
+
+include(Defines.pri)
+
+TEMPLATE = app
+TARGET = FourInALine
+
+LIBS += -Wl,--start-group \
+        $${BUILD_DIRECTORY}/src/libApplication.a \
+        $${BUILD_DIRECTORY}/src/GUI/libGUI.a \
+        $${BUILD_DIRECTORY}/src/GUI/Actions/libActions.a \
+        $${BUILD_DIRECTORY}/src/Settings/libSettings.a \
+        -Wl,--end-group
+
+SOURCES +=  main.cpp 
+
+RESOURCES += $${ROOT_DIRECTORY}/resources/resources.qrc
+
+TRANSLATIONS = $${ROOT_DIRECTORY}/resources/i18n/fourinaline_en.ts \
+               $${ROOT_DIRECTORY}/resources/i18n/fourinaline_de.ts

@@ -1,8 +1,5 @@
-!include(../../Common.pri) {
-    error(Could not find Common.pri file!)
-}
+include (../Defines.pri)
 
-SOURCES +=  MainWindow.cpp
+SOURCES += MainWindow.cpp
 
-HEADERS  += \
-	    MainWindow.hpp
+HEADERS += MainWindow.hpp
