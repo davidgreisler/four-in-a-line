@@ -1,5 +1,5 @@
-#ifndef APPLICATION_HPP
-#define APPLICATION_HPP
+#ifndef SETTINGS_APPLICATION_HPP
+#define SETTINGS_APPLICATION_HPP
 
 #include "AbstractSettings.hpp"
 
@@ -31,4 +31,4 @@ class Application : public AbstractSettings
 
 }
 
-#endif // APPLICATION_HPP
+#endif // SETTINGS_APPLICATION_HPP

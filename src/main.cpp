@@ -1,8 +1,8 @@
-#include "GUI/MainWindow.hpp"
-#include "ConnectFour.hpp"
+#include "../src/GUI/MainWindow.hpp"
+#include "../src/FourInALine.hpp"
 
 /**
- * Connect four game.
+ * Four in a line game.
  *
  * @param argc Argument count.
  * @param argv Array of command line arguments.
@@ -10,7 +10,7 @@
  */
 int main(int argc, char *argv[])
 {
-	ConnectFour app(argc, argv);
+	FourInALine app(argc, argv);
 
 	GUI::MainWindow mainWindow;
 	mainWindow.show();

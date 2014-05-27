@@ -1,5 +1,5 @@
-#ifndef GAME_HPP
-#define GAME_HPP
+#ifndef GUI_ACTIONS_GAME_HPP
+#define GUI_ACTIONS_GAME_HPP
 
 #include <QObject>
 #include <QScopedPointer>
@@ -101,4 +101,4 @@ class Game : public QObject
 }
 }
 
-#endif // GAME_HPP
+#endif // GUI_ACTIONS_GAME_HPP

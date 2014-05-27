@@ -1,5 +1,5 @@
-#ifndef HELP_HPP
-#define HELP_HPP
+#ifndef GUI_ACTIONS_HELP_HPP
+#define GUI_ACTIONS_HELP_HPP
 
 #include <QObject>
 #include <QScopedPointer>
@@ -69,4 +69,4 @@ class Help : public QObject
 }
 }
 
-#endif // HELP_HPP
+#endif // GUI_ACTIONS_HELP_HPP

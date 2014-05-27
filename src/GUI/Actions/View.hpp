@@ -1,5 +1,5 @@
-#ifndef ACTIONS_VIEW_HPP
-#define ACTIONS_VIEW_HPP
+#ifndef GUI_ACTIONS_VIEW_HPP
+#define GUI_ACTIONS_VIEW_HPP
 
 #include <QObject>
 #include <QScopedPointer>
@@ -80,4 +80,4 @@ class View : public QObject
 }
 }
 
-#endif // ACTIONS_VIEW_HPP
+#endif // GUI_ACTIONS_VIEW_HPP

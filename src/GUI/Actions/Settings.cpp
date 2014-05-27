@@ -1,6 +1,6 @@
 #include "Settings.hpp"
-#include "../../ConnectFour.hpp"
-#include "../../ConnectFourSettings.hpp"
+#include "../../FourInALine.hpp"
+#include "../../FourInALineSettings.hpp"
 
 #include <QDebug>
 #include <QActionGroup>
@@ -16,7 +16,8 @@ namespace Actions
 /**
  * Creates a new settings action container.
  *
- * @param parent Parent window, used for dialogs.
+ * @param parentWindow Parent window, used for dialogs.
+ * @param parent Parent object.
  */
 Settings::Settings(QWidget* parentWindow, QObject* parent) :
 	QObject(parent), parentWindow(parentWindow)
@@ -96,12 +97,12 @@ QSharedPointer<QActionGroup> Settings::getLanguages() const
  */
 void Settings::switchLanguage(QAction* action)
 {
-	::ConnectFour* application;
+	::FourInALine* application;
 	::Settings::Application* applicationSettings;
 
 	QString locale = action->data().toString();
 
-	application = ::ConnectFour::getInstance();
+	application = ::FourInALine::getInstance();
 	applicationSettings = application->getSettings()->getApplicationSettings();
 	applicationSettings->setLanguage(locale);
 	applicationSettings->save();
@@ -178,7 +179,7 @@ void Settings::updateLanguages()
 {
 	this->languageGroup = QSharedPointer<QActionGroup>(new QActionGroup(0), &QObject::deleteLater);
 
-	::ConnectFour* application = ::ConnectFour::getInstance();
+	::FourInALine* application = ::FourInALine::getInstance();
 	QMap<QString, QString> languages = application->getAvailableLanguages();
 
 	QMapIterator<QString, QString> it(languages);

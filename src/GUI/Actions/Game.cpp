@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "../../ConnectFour.hpp"
+#include "../../FourInALine.hpp"
 
 #include <QAction>
 #include <QMenu>
@@ -119,7 +119,7 @@ QMenu* Game::getMenu() const
  */
 void Game::exit()
 {
-	::ConnectFour::getInstance()->quit();
+	::FourInALine::getInstance()->quit();
 }
 
 /**

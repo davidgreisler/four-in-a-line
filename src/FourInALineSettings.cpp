@@ -1,4 +1,4 @@
-#include "ConnectFourSettings.hpp"
+#include "FourInALineSettings.hpp"
 
 #include <QApplication>
 
@@ -7,7 +7,7 @@
  *
  * @param parent Parent object.
  */
-ConnectFourSettings::ConnectFourSettings(QObject *parent) :
+FourInALineSettings::FourInALineSettings(QObject *parent) :
 	QObject(parent)
 {
 	QString organization = QApplication::organizationName();
@@ -23,7 +23,7 @@ ConnectFourSettings::ConnectFourSettings(QObject *parent) :
 /**
  * Frees all used resources.
  */
-ConnectFourSettings::~ConnectFourSettings()
+FourInALineSettings::~FourInALineSettings()
 {
 
 }
@@ -33,7 +33,7 @@ ConnectFourSettings::~ConnectFourSettings()
  *
  * @return Application settings.
  */
-Settings::Application* ConnectFourSettings::getApplicationSettings() const
+Settings::Application* FourInALineSettings::getApplicationSettings() const
 {
 	return this->applicationSettings;
 }
@@ -43,7 +43,7 @@ Settings::Application* ConnectFourSettings::getApplicationSettings() const
  *
  * @return View settings.
  */
-Settings::View* ConnectFourSettings::getViewSettings() const
+Settings::View* FourInALineSettings::getViewSettings() const
 {
 	return this->viewSettings;
 }
@@ -51,7 +51,7 @@ Settings::View* ConnectFourSettings::getViewSettings() const
 /**
  * Reads all settings and emits changed().
  */
-void ConnectFourSettings::read()
+void FourInALineSettings::read()
 {
 	this->applicationSettings->read();
 	this->viewSettings->read();
@@ -62,7 +62,7 @@ void ConnectFourSettings::read()
 /**
  * Emits changed().
  */
-void ConnectFourSettings::apply()
+void FourInALineSettings::apply()
 {
 	emit this->changed();
 }
@@ -70,7 +70,7 @@ void ConnectFourSettings::apply()
 /**
  * Saves all settings and emits saved().
  */
-void ConnectFourSettings::save()
+void FourInALineSettings::save()
 {
 	this->applicationSettings->save();
 	this->viewSettings->save();

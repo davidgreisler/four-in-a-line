@@ -1,6 +1,6 @@
-Connect four
+Four in a line
 ============
-Connect four is a two-player game in which two players first select a color and then take turns dropping a token
+Four in a line is a two-player game in which two players first select a color and then take turns dropping a token
 of their color from the top into a grid. The token falls straight down, occupying the
 lowest free cell in the grid. The first player who has four tokens in a row, either
 horizontally/vertically or diagonally, wins the game.

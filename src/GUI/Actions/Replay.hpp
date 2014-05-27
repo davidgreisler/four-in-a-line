@@ -1,5 +1,5 @@
-#ifndef REPLAY_HPP
-#define REPLAY_HPP
+#ifndef GUI_ACTIONS_REPLAY_HPP
+#define GUI_ACTIONS_REPLAY_HPP
 
 #include <QObject>
 #include <QScopedPointer>
@@ -101,4 +101,4 @@ class Replay : public QObject
 }
 }
 
-#endif // REPLAY_HPP
+#endif // GUI_ACTIONS_REPLAY_HPP

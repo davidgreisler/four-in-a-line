@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_HPP
-#define MAINWINDOW_HPP
+#ifndef GUI_MAINWINDOW_HPP
+#define GUI_MAINWINDOW_HPP
 
 #include "Actions/Game.hpp"
 #include "Actions/Settings.hpp"
@@ -74,4 +74,4 @@ class MainWindow : public QMainWindow
 
 }
 
-#endif // MAINWINDOW_HPP
+#endif // GUI_MAINWINDOW_HPP

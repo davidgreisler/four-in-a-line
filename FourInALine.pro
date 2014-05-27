@@ -1,6 +1,6 @@
 QT       += core gui widgets
 
-TARGET = ConnectFour
+TARGET = FourInALine
 TEMPLATE = subdirs
 
 SUBDIRS = src/GUI src/GUI/Actions src/Settings
@@ -11,5 +11,5 @@ SUBDIRS += src
 OTHER_FILES += \
     Common.pri
 
-TRANSLATIONS = resources/i18n/connectfour_en.ts \
-	       resources/i18n/connectfour_de.ts
+TRANSLATIONS = resources/i18n/fourinaline_en.ts \
+	       resources/i18n/fourinaline_de.ts

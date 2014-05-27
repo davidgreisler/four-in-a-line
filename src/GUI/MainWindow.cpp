@@ -1,6 +1,6 @@
 #include "MainWindow.hpp"
-#include "../ConnectFour.hpp"
-#include "../ConnectFourSettings.hpp"
+#include "../FourInALine.hpp"
+#include "../FourInALineSettings.hpp"
 
 #include <QToolBar>
 #include <QStatusBar>
@@ -18,7 +18,7 @@ namespace GUI
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
-	::ConnectFourSettings* settings = ::ConnectFour::getInstance()->getSettings();
+	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
 
 	this->gameActions = new Actions::Game(this, this);
 	this->settingsActions = new Actions::Settings(this, this);
@@ -36,13 +36,13 @@ MainWindow::MainWindow(QWidget* parent)
 	this->restoreState(settings->getViewSettings()->getWindowState("MainWindow"), MainWindow::version);
 	this->setFullscreen(settings->getViewSettings()->isFullscreen());
 
-	this->setWindowTitle(tr("Connect four"));
+	this->setWindowTitle(tr("Four in a line"));
 	this->statusBar()->showMessage(tr("Ready."), 2000);
 
 	// Geometry/state/view settings are saved when the window is closed, make sure it will is closed
 	// on exit.
 
-	this->connect(::ConnectFour::getInstance(), &QApplication::aboutToQuit, this, &QMainWindow::close);
+	this->connect(::FourInALine::getInstance(), &QApplication::aboutToQuit, this, &QMainWindow::close);
 }
 
 /**
@@ -133,7 +133,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 {
 	Q_UNUSED(event);
 
-	::ConnectFourSettings* settings = ::ConnectFour::getInstance()->getSettings();
+	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
 
 	settings->getViewSettings()->setWindowGeometry("MainWindow", this->saveGeometry());
 	settings->getViewSettings()->setWindowState("MainWindow", this->saveState(MainWindow::version));

@@ -1,7 +1,7 @@
 #include "View.hpp"
 #include "../MainWindow.hpp"
-#include "../../ConnectFour.hpp"
-#include "../../ConnectFourSettings.hpp"
+#include "../../FourInALine.hpp"
+#include "../../FourInALineSettings.hpp"
 #include "../../Settings/View.hpp"
 
 #include <QWidget>
@@ -15,6 +15,12 @@ namespace GUI
 namespace Actions
 {
 
+/**
+ * Creates a new view actions container.
+ *
+ * @param mainWindow Main window.
+ * @param parent Parent object.
+ */
 View::View(::GUI::MainWindow* mainWindow, QObject *parent) :
 	QObject(parent), mainWindow(mainWindow)
 {
@@ -75,7 +81,7 @@ QMenu* View::getToolbarMenu() const
  */
 void View::changeFullscreen()
 {
-	::ConnectFourSettings* settings = ::ConnectFour::getInstance()->getSettings();
+	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
 	::Settings::View* viewSettings = settings->getViewSettings();
 
 	bool isFullscreen = this->fullscreenCheckboxAction->isChecked();
@@ -104,7 +110,7 @@ void View::updateToolbars(QList<QAction*> actions)
  */
 void View::createActions()
 {
-	::ConnectFourSettings* settings = ::ConnectFour::getInstance()->getSettings();
+	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
 	::Settings::View* viewSettings = settings->getViewSettings();
 
 	QIcon fullscreenCheckboxIcon;

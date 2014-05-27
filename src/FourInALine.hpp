@@ -1,25 +1,25 @@
-#ifndef CONNECTFOUR_HPP
-#define CONNECTFOUR_HPP
+#ifndef FOUR_IN_A_LINE_HPP
+#define FOUR_IN_A_LINE_HPP
 
 #include <QApplication>
 #include <QMap>
 #include <QString>
 #include <QTranslator>
 
-class ConnectFourSettings;
+class FourInALineSettings;
 
 /**
  * Sets up application at start and contains frequently used objects.
  */
-class ConnectFour : public QApplication
+class FourInALine : public QApplication
 {
 	public:
-		ConnectFour(int& argc, char** argv);
-		virtual ~ConnectFour();
+		FourInALine(int& argc, char** argv);
+		virtual ~FourInALine();
 
-		static ConnectFour* getInstance();
+		static FourInALine* getInstance();
 
-		ConnectFourSettings* getSettings() const;
+		FourInALineSettings* getSettings() const;
 
 		QMap<QString, QString> getAvailableLanguages() const;
 		void setLanguage(QString locale);
@@ -29,7 +29,7 @@ class ConnectFour : public QApplication
 		/**
 		 * The application's settings.
 		 */
-		ConnectFourSettings* settings;
+		FourInALineSettings* settings;
 
 		/**
 		 * The current language name/locale.
@@ -42,9 +42,9 @@ class ConnectFour : public QApplication
 		QTranslator qtTranslator;
 
 		/**
-		 * Translator for the ConnectFour application.
+		 * Translator for the FourInALine application.
 		 */
 		QTranslator appTranslator;
 };
 
-#endif // CONNECTFOUR_HPP
+#endif // FOUR_IN_A_LINE_HPP

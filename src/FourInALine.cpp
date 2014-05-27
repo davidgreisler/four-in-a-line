@@ -1,5 +1,5 @@
-#include "ConnectFour.hpp"
-#include "ConnectFourSettings.hpp"
+#include "FourInALine.hpp"
+#include "FourInALineSettings.hpp"
 
 #include <QDir>
 #include <QLibraryInfo>
@@ -11,15 +11,15 @@
  * @param argc Argument count.
  * @param argv Array containing command line arguments.
  */
-ConnectFour::ConnectFour(int& argc, char** argv)
+FourInALine::FourInALine(int& argc, char** argv)
 	: QApplication(argc, argv)
 {
 	QApplication::setOrganizationDomain("");
 	QApplication::setOrganizationName("MM-EMS");
-	QApplication::setApplicationName("ConnectFour");
+	QApplication::setApplicationName("FourInALine");
 	QApplication::setApplicationVersion("0.1");
 
-	this->settings = new ConnectFourSettings(this);
+	this->settings = new FourInALineSettings(this);
 
 	this->setLanguage(this->settings->getApplicationSettings()->getLanguage());
 	this->installTranslator(&this->qtTranslator);
@@ -29,7 +29,7 @@ ConnectFour::ConnectFour(int& argc, char** argv)
 /**
  * Frees all used resources.
  */
-ConnectFour::~ConnectFour()
+FourInALine::~FourInALine()
 {
 
 }
@@ -39,22 +39,22 @@ ConnectFour::~ConnectFour()
  *
  * @return Settings.
  */
-ConnectFourSettings* ConnectFour::getSettings() const
+FourInALineSettings* FourInALine::getSettings() const
 {
 	return this->settings;
 }
 
 /**
- * Returns the instance of the ConnectFour application.
+ * Returns the instance of the FourInALine application.
  *
- * @return The ConnectFour application.
+ * @return The FourInALine application.
  */
-ConnectFour* ConnectFour::getInstance()
+FourInALine* FourInALine::getInstance()
 {
-	QCoreApplication* app = ConnectFour::instance();
-	ConnectFour* connectFour = static_cast<ConnectFour*>(app);
+	QCoreApplication* app = FourInALine::instance();
+	FourInALine* fourInALine = static_cast<FourInALine*>(app);
 
-	return connectFour;
+	return fourInALine;
 }
 
 /**
@@ -65,17 +65,17 @@ ConnectFour* ConnectFour::getInstance()
  *
  * @return Map containing all available languages.
  */
-QMap<QString, QString> ConnectFour::getAvailableLanguages() const
+QMap<QString, QString> FourInALine::getAvailableLanguages() const
 {
 	QMap<QString, QString> languages;
 	QDir qmDirectory = QDir(":/i18n/");
-	QStringList qmFiles = qmDirectory.entryList(QStringList("connectfour_*.qm"));
+	QStringList qmFiles = qmDirectory.entryList(QStringList("fourinaline_*.qm"));
 
 	for (int i = 0; i < qmFiles.size(); ++i)
 	{
 		QString locale = qmFiles[i];
 
-		// Transform filename to locale, e.g. "connectfour_en.qm" -> "en".
+		// Transform filename to locale, e.g. "fourinaline_en.qm" -> "en".
 
 		locale.remove(0, locale.indexOf('_') + 1);
 		locale.chop(3);
@@ -83,7 +83,7 @@ QMap<QString, QString> ConnectFour::getAvailableLanguages() const
 		QTranslator translator;
 		translator.load(qmFiles[i], qmDirectory.absolutePath());
 
-		QString languageName = translator.translate("ConnectFour", "LANGUAGE_NAME");
+		QString languageName = translator.translate("FourInALine", "LANGUAGE_NAME");
 
 		languages.insert(locale, languageName);
 	}
@@ -98,19 +98,20 @@ QMap<QString, QString> ConnectFour::getAvailableLanguages() const
  *
  * @param locale The locale of the new language.
  */
-void ConnectFour::setLanguage(QString locale)
+void FourInALine::setLanguage(QString locale)
 {
 	this->qtTranslator.load("qt_" + locale, QLibraryInfo::location(QLibraryInfo::TranslationsPath));
-	this->appTranslator.load("connectfour_" + locale, ":/i18n/");
+	this->appTranslator.load("fourinaline_" + locale, ":/i18n/");
 
 	this->currentLanguage = locale;
 }
 
 /**
- * @brief ConnectFour::getLanguage
- * @return
+ * Returns the current locale.
+ *
+ * @return Current locale.
  */
-QString ConnectFour::getLanguage() const
+QString FourInALine::getLanguage() const
 {
 	return this->currentLanguage;
 }

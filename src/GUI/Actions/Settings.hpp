@@ -1,5 +1,5 @@
-#ifndef SETTINGS_HPP
-#define SETTINGS_HPP
+#ifndef GUI_ACTIONS_SETTINGS_HPP
+#define GUI_ACTIONS_SETTINGS_HPP
 
 #include <QObject>
 #include <QSharedPointer>
@@ -84,4 +84,4 @@ class Settings : public QObject
 }
 
 
-#endif // SETTINGS_HPP
+#endif // GUI_ACTIONS_SETTINGS_HPP

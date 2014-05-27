@@ -1,5 +1,5 @@
-#ifndef CONNECTFOURSETTINGS_HPP
-#define CONNECTFOURSETTINGS_HPP
+#ifndef FOUR_IN_A_LINE_SETTINGS_HPP
+#define FOUR_IN_A_LINE_SETTINGS_HPP
 
 #include "Settings/Application.hpp"
 #include "Settings/View.hpp"
@@ -19,12 +19,12 @@
  * Use the read()/save()/apply() methods of the individual containers to read/save/apply only their
  * settings.
  */
-class ConnectFourSettings : public QObject
+class FourInALineSettings : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit ConnectFourSettings(QObject *parent = 0);
-		virtual ~ConnectFourSettings();
+		explicit FourInALineSettings(QObject *parent = 0);
+		virtual ~FourInALineSettings();
 
 		void read();
 		void apply();
@@ -63,4 +63,4 @@ class ConnectFourSettings : public QObject
 		Settings::View* viewSettings;
 };
 
-#endif // CONNECTFOURSETTINGS_HPP
+#endif // FOUR_IN_A_LINE_SETTINGS_HPP

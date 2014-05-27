@@ -1,5 +1,5 @@
-#ifndef MOVE_HPP
-#define MOVE_HPP
+#ifndef GUI_ACTIONS_MOVE_HPP
+#define GUI_ACTIONS_MOVE_HPP
 
 #include <QObject>
 #include <QScopedPointer>
@@ -68,4 +68,4 @@ class Move : public QObject
 }
 }
 
-#endif // MOVE_HPP
+#endif // GUI_ACTIONS_MOVE_HPP

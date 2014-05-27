@@ -6,12 +6,12 @@ TEMPLATE = app
 
 LIBS += -L./GUI -L./GUI/Actions -L./Settings -lGUI -lActions -lSettings
 
-SOURCES +=  main.cpp\
-	    ConnectFour.cpp \
-    ConnectFourSettings.cpp
+SOURCES += main.cpp\
+	   FourInALine.cpp \
+           FourInALineSettings.cpp
 
-HEADERS  += ConnectFour.hpp \
-    ConnectFourSettings.hpp
+HEADERS  += FourInALine.hpp \
+            FourInALineSettings.hpp
 
 RESOURCES += \
     ../resources/resources.qrc

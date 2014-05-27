@@ -1,5 +1,5 @@
-#ifndef ABSTRACTSETTINGS_HPP
-#define ABSTRACTSETTINGS_HPP
+#ifndef SETTINGS_ABSTRACTSETTINGS_HPP
+#define SETTINGS_ABSTRACTSETTINGS_HPP
 
 #include <QObject>
 #include <QSharedPointer>
@@ -63,4 +63,4 @@ class AbstractSettings : public QObject
 
 }
 
-#endif // ABSTRACTSETTINGS_HPP
+#endif // SETTINGS_ABSTRACTSETTINGS_HPP
