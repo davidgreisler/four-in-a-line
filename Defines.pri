@@ -1,7 +1,7 @@
 # Common configuration for all .pro files.
 
 ROOT_DIRECTORY = $$PWD
-BUILD_DIRECTORY = $${ROOT_DIRECTORY}/build
+BUILD_DIRECTORY = $$shadowed($$PWD)
 
 QT += core gui widgets
 
