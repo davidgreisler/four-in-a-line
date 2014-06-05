@@ -65,15 +65,15 @@ class Game
 
 		std::shared_ptr<const Board> getBoard() const;
 
-		/**
-		 * First player.
-		 */
-		static const PlayerType PLAYER_ONE = 1;
+        /**
+         * First player.
+         */
+        static const PlayerType PLAYER_ONE;
 
-		/**
-		 * Second player.
-		 */
-		static const PlayerType PLAYER_TWO = 2;
+        /**
+         * Second player.
+         */
+        static const PlayerType PLAYER_TWO;
 
 	private:
 		void checkWinningCondition();

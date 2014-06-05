@@ -8,6 +8,9 @@ namespace Game
 namespace FourInALine
 {
 
+const Game::PlayerType Game::PLAYER_ONE = 1;
+const Game::PlayerType Game::PLAYER_TWO = 2;
+
 /**
  * Creates a new game on a board with the given number of rows/columns.
  *
@@ -19,7 +22,7 @@ namespace FourInALine
 Game::Game(unsigned int nRows, unsigned int nColumns, Game::PlayerType firstMove)
 	: winner(0), currentPlayer(firstMove)
 {
-	if (firstMove != Game::PLAYER_ONE && firstMove != Game::PLAYER_TWO)
+    if (firstMove != Game::PLAYER_ONE && firstMove != Game::PLAYER_TWO)
 	{
 		throw std::runtime_error("First move argument must be either PLAYER_ONE or PLAYER_TWO.");
 	}
@@ -85,7 +88,7 @@ void Game::makeMove(unsigned int column)
 	this->board->dropToken(column, this->currentPlayer);
 	this->moves.push_back(std::make_pair(this->currentPlayer, column));
 
-	this->currentPlayer = (this->currentPlayer == Game::PLAYER_ONE) ? Game::PLAYER_TWO : Game::PLAYER_ONE;
+    this->currentPlayer = (this->currentPlayer == Game::PLAYER_ONE) ? Game::PLAYER_TWO : Game::PLAYER_ONE;
 
 	this->checkWinningCondition();
 }
@@ -122,7 +125,7 @@ void Game::undoLastMove()
 	this->moves.pop_back();
 
 	this->board->removeToken(lastMove.second);
-	this->currentPlayer = (this->currentPlayer == Game::PLAYER_ONE) ? Game::PLAYER_TWO : Game::PLAYER_ONE;
+    this->currentPlayer = (this->currentPlayer == Game::PLAYER_ONE) ? Game::PLAYER_TWO : Game::PLAYER_ONE;
 
 	this->checkWinningCondition();
 }
