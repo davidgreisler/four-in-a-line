@@ -238,4 +238,60 @@ void GameTest::makeMistakes()
 	catch(std::exception) {}
 }
 
+/**
+ * Creates games with time limits and tests whether the games are ended correctly when a player
+ * times out.
+ */
+void GameTest::timeOutPlayer()
+{
+	unsigned int columns = 5;
+	unsigned int rows = 5;
+	Game::FourInALine::Game game(columns, rows, 1);
+
+	// Verify default values.
+
+	QCOMPARE(game.getTimeLimit(), 0u);
+	QCOMPARE(game.getTimeoutAction(), Game::FourInALine::Game::TimeoutAction::DRAW_GAME);
+
+	// Change them and check whether that worked.
+
+	game.setTimeLimit(123);
+	game.setTimeoutAction(Game::FourInALine::Game::TimeoutAction::LOSE_GAME);
+
+	QCOMPARE(game.getTimeLimit(), 123u);
+	QCOMPARE(game.getTimeoutAction(), Game::FourInALine::Game::TimeoutAction::LOSE_GAME);
+
+	// Time out player and check whether he loses.
+
+	game.makeTimeoutMove();
+
+	QCOMPARE(game.isOver(), true);
+	QCOMPARE(game.isDraw(), false);
+	QCOMPARE(game.isTimeout(), true);
+	QCOMPARE(game.isMovePossible(0u), false);
+	QCOMPARE(game.getWinner(), 2u);
+	QCOMPARE(game.getPlayerWhoTimedOut(), 1u);
+
+	// Undo the last move.
+
+	game.undoLastMove();
+
+	QCOMPARE(game.isOver(), false);
+	QCOMPARE(game.isDraw(), false);
+	QCOMPARE(game.isTimeout(), false);
+	QCOMPARE(game.isMovePossible(0u), true);
+
+	// Time out player and check whether the game is a draw
+
+	game.setTimeoutAction(Game::FourInALine::Game::TimeoutAction::DRAW_GAME);
+	game.makeTimeoutMove();
+
+	QCOMPARE(game.isOver(), true);
+	QCOMPARE(game.isDraw(), true);
+	QCOMPARE(game.isTimeout(), true);
+	QCOMPARE(game.isMovePossible(0u), false);
+	QCOMPARE(game.getPlayerWhoTimedOut(), 1u);
+
+}
+
 QTEST_MAIN(GameTest)

@@ -20,7 +20,8 @@ const Game::PlayerType Game::PLAYER_TWO = 2;
  *        PLAYER_ONE).
  */
 Game::Game(unsigned int nRows, unsigned int nColumns, Game::PlayerType firstMove)
-	: winner(0), currentPlayer(firstMove)
+	: winner(0), currentPlayer(firstMove), timedOutPlayer(0), timeoutAction(TimeoutAction::DRAW_GAME),
+	  isGameOver(false), timeLimit(0)
 {
     if (firstMove != Game::PLAYER_ONE && firstMove != Game::PLAYER_TWO)
 	{
@@ -46,6 +47,16 @@ Game::~Game()
 Game::PlayerType Game::getCurrentPlayer() const
 {
 	return this->currentPlayer;
+}
+
+/**
+ * Returns the player who timed out.
+ *
+ * @return The player who timed out or 0 if no player timed out.
+ */
+Game::PlayerType Game::getPlayerWhoTimedOut() const
+{
+	return this->timedOutPlayer;
 }
 
 /**
@@ -94,13 +105,25 @@ void Game::makeMove(unsigned int column)
 }
 
 /**
+ * Informs the game that the current player did not make a move within the time limit.
+ *
+ * This method will end the game according to the defined timeout action.
+ */
+void Game::makeTimeoutMove()
+{
+	this->timedOutPlayer = this->currentPlayer;
+
+	this->checkWinningCondition();
+}
+
+/**
  * Returns whether it is possible to undo the last move.
  *
  * @return When it is possible true, otherwise false.
  */
 bool Game::isUndoPossible() const
 {
-	if (0 == this->moves.size())
+	if (0 == this->moves.size() && !this->isTimeout())
 	{
 		return false;
 	}
@@ -111,23 +134,39 @@ bool Game::isUndoPossible() const
 /**
  * Undoes the last move.
  *
+ * When the game is over because the player timed out, this will undo that and the player can make
+ * a move again.
+ *
  * This method will also check for the winning condition, so it is possible that a game that was
  * over before this method was called is not over anymore after it was called!
  */
 void Game::undoLastMove()
 {
-	if (!this->isUndoPossible())
+	if (this->isUndoPossible())
+	{
+		if (this->isOver() && this->isTimeout())
+		{
+			// Game is over because the player timed out. Undo that and let him try again.
+
+			this->timedOutPlayer = 0;
+		}
+		else
+		{
+			// Just undo the last move.
+
+			std::pair<Game::PlayerType, unsigned int> lastMove = this->moves.back();
+			this->moves.pop_back();
+
+			this->board->removeToken(lastMove.second);
+			this->currentPlayer = (this->currentPlayer == Game::PLAYER_ONE) ? Game::PLAYER_TWO : Game::PLAYER_ONE;
+		}
+
+		this->checkWinningCondition();
+	}
+	else
 	{
 		throw std::runtime_error("Not possible to undo last move.");
 	}
-
-	std::pair<Game::PlayerType, unsigned int> lastMove = this->moves.back();
-	this->moves.pop_back();
-
-	this->board->removeToken(lastMove.second);
-    this->currentPlayer = (this->currentPlayer == Game::PLAYER_ONE) ? Game::PLAYER_TWO : Game::PLAYER_ONE;
-
-	this->checkWinningCondition();
 }
 
 /**
@@ -137,7 +176,7 @@ void Game::undoLastMove()
  */
 bool Game::isOver() const
 {
-	return (0 != this->winner) || this->board->isFull();
+	return this->isGameOver;
 }
 
 /**
@@ -147,7 +186,17 @@ bool Game::isOver() const
  */
 bool Game::isDraw() const
 {
-	return (0 == this->winner) && this->board->isFull();
+	return (0 == this->winner) && this->isGameOver;
+}
+
+/**
+ * Returns whether this game is over because a player timed out.
+ *
+ * @return When it is over because a player timed out true, otherwise false.
+ */
+bool Game::isTimeout() const
+{
+	return this->timedOutPlayer != 0;
 }
 
 /**
@@ -166,6 +215,56 @@ Game::PlayerType Game::getWinner() const
 	}
 
 	return this->winner;
+}
+
+/**
+ * Returns whether there is a time limit set for this game or not.
+ *
+ * @return When there is a time limit true, otherwise false.
+ */
+bool Game::hasTimeLimit() const
+{
+	return this->timeLimit > 0;
+}
+
+/**
+ * Returns the time limit for a move.
+ *
+ * @return The time limit, in seconds.
+ */
+unsigned int Game::getTimeLimit() const
+{
+	return this->timeLimit;
+}
+
+/**
+ * Sets the time limit for a move.
+ *
+ * @param timeLimit The time limit, in seconds.
+ */
+void Game::setTimeLimit(unsigned int timeLimit)
+{
+	this->timeLimit = timeLimit;
+}
+
+/**
+ * Returns the action for when a player times out.
+ *
+ * @return Timeout action.
+ */
+Game::TimeoutAction Game::getTimeoutAction() const
+{
+	return this->timeoutAction;
+}
+
+/**
+ * Sets the action for when a player times out.
+ *
+ * @param action Timeout action.
+ */
+void Game::setTimeoutAction(Game::TimeoutAction action)
+{
+	this->timeoutAction = action;
 }
 
 /**
@@ -200,19 +299,42 @@ std::shared_ptr<const Board> Game::getBoard() const
 }
 
 /**
- * Checks if the winning condition is met, and if it is met, ends the game.
+ * Checks if the winning condition is met or the game is over and if yes, ends the game.
  */
 void Game::checkWinningCondition()
 {
+	this->isGameOver = false;
+	this->winner = 0;
 	CellSet winningCells = this->board->findWinningCells();
 
-	if (winningCells.isEmpty())
+	// Check if there is a winner.
+
+	if (!winningCells.isEmpty())
 	{
-		this->winner = 0;
-	}
-	else
-	{
+		this->isGameOver = true;
 		this->winner = winningCells.getContent(0);
+	}
+
+	// Check whether a player timed out.
+
+	else if (this->timedOutPlayer != 0)
+	{
+		if (this->timeoutAction == TimeoutAction::DRAW_GAME)
+		{
+			this->isGameOver = true;
+		}
+		else if (this->timeoutAction == TimeoutAction::LOSE_GAME)
+		{
+			this->isGameOver = true;
+			this->winner = (this->currentPlayer == Game::PLAYER_ONE) ? Game::PLAYER_TWO : Game::PLAYER_ONE;
+		}
+	}
+
+	// Check whether the board is full.
+
+	else if (this->board->isFull())
+	{
+		this->isGameOver = true;
 	}
 }
 
