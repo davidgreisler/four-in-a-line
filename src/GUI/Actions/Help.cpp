@@ -88,8 +88,8 @@ void Help::showAboutQtDialog() const
 void Help::createActions()
 {
 	QIcon aboutIcon;
-	aboutIcon.addFile(":/icons/16x16/information.png", QSize(16, 16));
-	aboutIcon.addFile(":/icons/32x32/information.png", QSize(32, 32));
+	aboutIcon.addFile(":/icons/fatcow/16x16/information.png", QSize(16, 16));
+	aboutIcon.addFile(":/icons/fatcow/32x32/information.png", QSize(32, 32));
 	this->aboutAction = new QAction(aboutIcon, "", this);
 
 	this->aboutQtAction = new QAction("", this);

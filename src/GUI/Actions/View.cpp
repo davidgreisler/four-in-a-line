@@ -114,8 +114,8 @@ void View::createActions()
 	::Settings::View* viewSettings = settings->getViewSettings();
 
 	QIcon fullscreenCheckboxIcon;
-	fullscreenCheckboxIcon.addFile(":/icons/16x16/monitor.png", QSize(16, 16));
-	fullscreenCheckboxIcon.addFile(":/icons/32x32/monitor.png", QSize(32, 32));
+	fullscreenCheckboxIcon.addFile(":/icons/fatcow/16x16/monitor.png", QSize(16, 16));
+	fullscreenCheckboxIcon.addFile(":/icons/fatcow/32x32/monitor.png", QSize(32, 32));
 	this->fullscreenCheckboxAction = new QAction(fullscreenCheckboxIcon, "", this);
 	this->fullscreenCheckboxAction->setCheckable(true);
 	this->fullscreenCheckboxAction->setChecked(viewSettings->isFullscreen());
@@ -136,8 +136,8 @@ void View::createMenu()
 	this->menu->addMenu(this->toolbarMenu.data());
 
 	QIcon toolbarMenuIcon;
-	toolbarMenuIcon.addFile(":/icons/16x16/application_control_bar.png", QSize(16, 16));
-	toolbarMenuIcon.addFile(":/icons/32x32/application_control_bar.png", QSize(32, 32));
+	toolbarMenuIcon.addFile(":/icons/fatcow/16x16/application_control_bar.png", QSize(16, 16));
+	toolbarMenuIcon.addFile(":/icons/fatcow/32x32/application_control_bar.png", QSize(32, 32));
 	this->toolbarMenu->setIcon(toolbarMenuIcon);
 }
 

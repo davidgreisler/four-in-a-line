@@ -96,15 +96,15 @@ void Move::updateActions()
 void Move::createActions()
 {
 	QIcon undoIcon;
-	undoIcon.addFile(":/icons/16x16/undo.png", QSize(16, 16));
-	undoIcon.addFile(":/icons/32x32/undo.png", QSize(32, 32));
+	undoIcon.addFile(":/icons/fatcow/16x16/undo.png", QSize(16, 16));
+	undoIcon.addFile(":/icons/fatcow/32x32/undo.png", QSize(32, 32));
 	this->undoAction = new QAction(undoIcon, "", this);
 	this->connect(this->undoAction, &QAction::triggered,
 				  this->gameController, &::GUI::GameController::undoLastMove);
 
 	QIcon hintIcon;
-	hintIcon.addFile(":/icons/16x16/lightbulb.png", QSize(16, 16));
-	hintIcon.addFile(":/icons/32x32/lightbulb.png", QSize(32, 32));
+	hintIcon.addFile(":/icons/fatcow/16x16/lightbulb.png", QSize(16, 16));
+	hintIcon.addFile(":/icons/fatcow/32x32/lightbulb.png", QSize(32, 32));
 	this->hintAction = new QAction(hintIcon, "", this);
 
 

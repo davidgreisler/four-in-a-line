@@ -177,48 +177,48 @@ void Game::updateActions()
 void Game::createActions()
 {
 	QIcon newGameIcon;
-	newGameIcon.addFile(":/icons/16x16/page_add.png", QSize(16, 16));
-	newGameIcon.addFile(":/icons/32x32/page_add.png", QSize(32, 32));
+	newGameIcon.addFile(":/icons/fatcow/16x16/page_add.png", QSize(16, 16));
+	newGameIcon.addFile(":/icons/fatcow/32x32/page_add.png", QSize(32, 32));
 	this->newGameAction = new QAction(newGameIcon, "", this);
 	this->connect(this->newGameAction, &QAction::triggered,
 				  this->gameController, &::GUI::GameController::startGame);
 
 	QIcon endGameIcon;
-	endGameIcon.addFile(":/icons/16x16/cancel.png", QSize(16, 16));
-	endGameIcon.addFile(":/icons/32x32/cancel.png", QSize(32, 32));
+	endGameIcon.addFile(":/icons/fatcow/16x16/cancel.png", QSize(16, 16));
+	endGameIcon.addFile(":/icons/fatcow/32x32/cancel.png", QSize(32, 32));
 	this->endGameAction = new QAction(endGameIcon, "", this);
 	this->connect(this->endGameAction, &QAction::triggered,
 				  this->gameController, &::GUI::GameController::endGame);
 
 	QIcon loadGameIcon;
-	loadGameIcon.addFile(":/icons/16x16/page_add.png", QSize(16, 16));
-	loadGameIcon.addFile(":/icons/32x32/page_add.png", QSize(32, 32));
+	loadGameIcon.addFile(":/icons/fatcow/16x16/page_add.png", QSize(16, 16));
+	loadGameIcon.addFile(":/icons/fatcow/32x32/page_add.png", QSize(32, 32));
 	this->loadGameAction = new QAction(loadGameIcon, "", this);
 	this->connect(this->loadGameAction, &QAction::triggered,
 				  this->gameController, &::GUI::GameController::loadGame);
 
 	QIcon saveGameIcon;
-	saveGameIcon.addFile(":/icons/16x16/page_save.png", QSize(16, 16));
-	saveGameIcon.addFile(":/icons/32x32/page_save.png", QSize(32, 32));
+	saveGameIcon.addFile(":/icons/fatcow/16x16/page_save.png", QSize(16, 16));
+	saveGameIcon.addFile(":/icons/fatcow/32x32/page_save.png", QSize(32, 32));
 	this->saveGameAction = new QAction(saveGameIcon, "", this);
 	this->connect(this->saveGameAction, &QAction::triggered,
 				  this->gameController, &::GUI::GameController::saveGame);
 
 	QIcon saveGameAsIcon;
-	saveGameAsIcon.addFile(":/icons/16x16/save_as.png", QSize(16, 16));
-	saveGameAsIcon.addFile(":/icons/32x32/save_as.png", QSize(32, 32));
+	saveGameAsIcon.addFile(":/icons/fatcow/16x16/save_as.png", QSize(16, 16));
+	saveGameAsIcon.addFile(":/icons/fatcow/32x32/save_as.png", QSize(32, 32));
 	this->saveGameAsAction = new QAction(saveGameAsIcon, "", this);
 	this->connect(this->saveGameAsAction, &QAction::triggered,
 				  this->gameController, &::GUI::GameController::saveGameAs);
 
 	QIcon showHighscoresIcon;
-	showHighscoresIcon.addFile(":/icons/16x16/cup_gold.png", QSize(16, 16));
-	showHighscoresIcon.addFile(":/icons/32x32/cup_gold.png", QSize(32, 32));
+	showHighscoresIcon.addFile(":/icons/fatcow/16x16/cup_gold.png", QSize(16, 16));
+	showHighscoresIcon.addFile(":/icons/fatcow/32x32/cup_gold.png", QSize(32, 32));
 	this->showHighscoresAction = new QAction(showHighscoresIcon, "", this);
 
 	QIcon exitIcon;
-	exitIcon.addFile(":/icons/16x16/cross.png", QSize(16, 16));
-	exitIcon.addFile(":/icons/32x32/cross.png", QSize(32, 32));
+	exitIcon.addFile(":/icons/fatcow/16x16/cross.png", QSize(16, 16));
+	exitIcon.addFile(":/icons/fatcow/32x32/cross.png", QSize(32, 32));
 	this->exitAction = new QAction(exitIcon, "", this);
 	this->connect(this->exitAction, &QAction::triggered, this, &Game::exit);
 }

@@ -117,8 +117,8 @@ void Settings::switchLanguage(QAction* action)
 void Settings::createActions()
 {
 	QIcon settingsIcon;
-	settingsIcon.addFile(":/icons/16x16/setting_tools.png", QSize(16, 16));
-	settingsIcon.addFile(":/icons/32x32/setting_tools.png", QSize(32, 32));
+	settingsIcon.addFile(":/icons/fatcow/16x16/setting_tools.png", QSize(16, 16));
+	settingsIcon.addFile(":/icons/fatcow/32x32/setting_tools.png", QSize(32, 32));
 	this->openSettingsAction = new QAction(settingsIcon, "", this);
 }
 
@@ -143,8 +143,8 @@ void Settings::createLanguagesMenu()
 	this->languageMenu.reset(new QMenu(0));
 
 	QIcon languageMenuIcon;
-	languageMenuIcon.addFile(":/icons/16x16/locate.png", QSize(16, 16));
-	languageMenuIcon.addFile(":/icons/32x32/locate.png", QSize(32, 32));
+	languageMenuIcon.addFile(":/icons/fatcow/16x16/locate.png", QSize(16, 16));
+	languageMenuIcon.addFile(":/icons/fatcow/32x32/locate.png", QSize(32, 32));
 	this->languageMenu->setIcon(languageMenuIcon);
 
 	this->languageGroup = this->getLanguages();
