@@ -1,4 +1,5 @@
 #include "Help.hpp"
+#include "../Dialogs/About.hpp"
 
 #include <QMessageBox>
 #include <QAction>
@@ -71,7 +72,9 @@ QMenu* Help::getMenu() const
  */
 void Help::showAboutDialog() const
 {
+	Dialogs::About aboutDialog(this->parentWindow);
 
+	aboutDialog.exec();
 }
 
 /**
@@ -91,10 +94,9 @@ void Help::createActions()
 	aboutIcon.addFile(":/icons/fatcow/16x16/information.png", QSize(16, 16));
 	aboutIcon.addFile(":/icons/fatcow/32x32/information.png", QSize(32, 32));
 	this->aboutAction = new QAction(aboutIcon, "", this);
+	this->connect(this->aboutAction, &QAction::triggered, this, &Help::showAboutDialog);
 
 	this->aboutQtAction = new QAction("", this);
-
-	this->connect(this->aboutAction, &QAction::triggered, this, &Help::showAboutDialog);
 	this->connect(this->aboutQtAction, &QAction::triggered, this, &Help::showAboutQtDialog);
 }
 

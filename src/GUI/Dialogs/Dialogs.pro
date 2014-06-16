@@ -1,5 +1,5 @@
 !include(../../Defines.pri)
 
-SOURCES += 
+SOURCES += About.cpp
 
-HEADERS += 
+HEADERS += About.hpp
