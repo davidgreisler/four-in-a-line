@@ -2,6 +2,7 @@
 #include "../../FourInALine.hpp"
 #include "../GameController.hpp"
 #include "../ControllerManager.hpp"
+#include "../Icon.hpp"
 
 #include <QAction>
 #include <QMenu>
@@ -176,30 +177,47 @@ void Game::updateActions()
  */
 void Game::createActions()
 {
-	QIcon newGameIcon;
-	newGameIcon.addFile(":/icons/fatcow/16x16/page_add.png", QSize(16, 16));
-	newGameIcon.addFile(":/icons/fatcow/32x32/page_add.png", QSize(32, 32));
+	// Create application icon and bullets for combining them.
+
+	QIcon applicationIcon;
+	applicationIcon.addFile(":/icons/fourinaline/16x16/application_icon.png", QSize(16, 16));
+	applicationIcon.addFile(":/icons/fourinaline/32x32/application_icon.png", QSize(32, 32));
+	applicationIcon.addFile(":/icons/fourinaline/128x128/application_icon.png", QSize(128, 128));
+
+	QIcon newBullet;
+	newBullet.addFile(":/icons/fatcow/16x16/bullet_add.png", QSize(16, 16));
+	newBullet.addFile(":/icons/fatcow/32x32/bullet_add.png", QSize(32, 32));
+
+	QIcon endBullet;
+	endBullet.addFile(":/icons/fatcow/16x16/bullet_delete.png", QSize(16, 16));
+	endBullet.addFile(":/icons/fatcow/32x32/bullet_delete.png", QSize(32, 32));
+
+	QIcon saveBullet;
+	saveBullet.addFile(":/icons/fatcow/16x16/bullet_disk.png", QSize(16, 16));
+	saveBullet.addFile(":/icons/fatcow/32x32/bullet_disk.png", QSize(32, 32));
+
+	QIcon loadBullet;
+	loadBullet.addFile(":/icons/fatcow/16x16/bullet_down.png", QSize(16, 16));
+	loadBullet.addFile(":/icons/fatcow/32x32/bullet_down.png", QSize(32, 32));
+
+	// Create actions.
+
+	QIcon newGameIcon = ::GUI::Icon::combineIcons(applicationIcon, newBullet);
 	this->newGameAction = new QAction(newGameIcon, "", this);
 	this->connect(this->newGameAction, &QAction::triggered,
 				  this->gameController, &::GUI::GameController::startGame);
 
-	QIcon endGameIcon;
-	endGameIcon.addFile(":/icons/fatcow/16x16/cancel.png", QSize(16, 16));
-	endGameIcon.addFile(":/icons/fatcow/32x32/cancel.png", QSize(32, 32));
+	QIcon endGameIcon = ::GUI::Icon::combineIcons(applicationIcon, endBullet);
 	this->endGameAction = new QAction(endGameIcon, "", this);
 	this->connect(this->endGameAction, &QAction::triggered,
 				  this->gameController, &::GUI::GameController::endGame);
 
-	QIcon loadGameIcon;
-	loadGameIcon.addFile(":/icons/fatcow/16x16/page_add.png", QSize(16, 16));
-	loadGameIcon.addFile(":/icons/fatcow/32x32/page_add.png", QSize(32, 32));
+	QIcon loadGameIcon = ::GUI::Icon::combineIcons(applicationIcon, loadBullet);
 	this->loadGameAction = new QAction(loadGameIcon, "", this);
 	this->connect(this->loadGameAction, &QAction::triggered,
 				  this->gameController, &::GUI::GameController::loadGame);
 
-	QIcon saveGameIcon;
-	saveGameIcon.addFile(":/icons/fatcow/16x16/page_save.png", QSize(16, 16));
-	saveGameIcon.addFile(":/icons/fatcow/32x32/page_save.png", QSize(32, 32));
+	QIcon saveGameIcon = ::GUI::Icon::combineIcons(applicationIcon, saveBullet);
 	this->saveGameAction = new QAction(saveGameIcon, "", this);
 	this->connect(this->saveGameAction, &QAction::triggered,
 				  this->gameController, &::GUI::GameController::saveGame);
