@@ -27,3 +27,4 @@ License
 -------
 This program uses some of the "Farm-Fresh Web Icons" from FatCow ( http://www.fatcow.com/free-icons ).
 They are licensed under a Creative Commons Attribution 3.0 License ( http://creativecommons.org/licenses/by/3.0/us/ ).
+Some icons were modified.
