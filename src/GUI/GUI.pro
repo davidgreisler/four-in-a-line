@@ -6,7 +6,8 @@ SOURCES += MainWindow.cpp \
 	   ReplayController.cpp \ 
 	   ControllerManager.cpp \
 	   AbstractPlayer.cpp \
-	   FileIO.cpp
+	   FileIO.cpp \
+	   Icon.cpp
 
 HEADERS += MainWindow.hpp \
 	   AbstractController.hpp \
@@ -14,4 +15,5 @@ HEADERS += MainWindow.hpp \
 	   ReplayController.hpp \ 
 	   ControllerManager.hpp \
 	   AbstractPlayer.hpp \
-	   FileIO.hpp
+	   FileIO.hpp \
+	   Icon.hpp
