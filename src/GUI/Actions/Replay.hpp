@@ -10,6 +10,10 @@ class QAction;
 
 namespace GUI
 {
+
+class GameController;
+class ReplayController;
+
 namespace Actions
 {
 
@@ -23,7 +27,9 @@ class Replay : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit Replay(QWidget* parentWindow, QObject *parent = 0);
+		explicit Replay(::GUI::GameController* gameController,
+						::GUI::ReplayController* replayController, QWidget* parentWindow,
+						QObject *parent = 0);
 		virtual ~Replay();
 
 		QAction* getLoadReplayAction() const;
@@ -40,14 +46,7 @@ class Replay : public QObject
 	signals:
 
 	public slots:
-		void loadReplay();
-		void saveReplay();
-
-		void nextMove();
-		void previousMove();
-
-		void jumpToStart();
-		void jumpToEnd();
+		void updateActions();
 
 	private:
 		Q_DISABLE_COPY(Replay)
@@ -61,6 +60,16 @@ class Replay : public QObject
 		 * Parent window, used for dialogs.
 		 */
 		QWidget* parentWindow;
+
+		/**
+		 * Game controller, used to save a replay.
+		 */
+		::GUI::GameController* gameController;
+
+		/**
+		 * Replay controller, used to load replays and navigate in the replays.
+		 */
+		::GUI::ReplayController* replayController;
 
 		/**
 		 * Loads a replay.

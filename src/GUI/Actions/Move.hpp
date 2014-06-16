@@ -10,6 +10,9 @@ class QAction;
 
 namespace GUI
 {
+
+class GameController;
+
 namespace Actions
 {
 
@@ -22,7 +25,8 @@ class Move : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit Move(QWidget* parentWindow, QObject *parent = 0);
+		explicit Move(::GUI::GameController* gameController, QWidget* parentWindow,
+					  QObject *parent = 0);
 		virtual ~Move();
 
 		QAction* getUndoAction() const;
@@ -33,8 +37,7 @@ class Move : public QObject
 	signals:
 
 	public slots:
-		void undoLastMove();
-		void showHint();
+		void updateActions();
 
 	private:
 		Q_DISABLE_COPY(Move)
@@ -43,6 +46,11 @@ class Move : public QObject
 		void createMenu();
 		void retranslateUI();
 		bool event(QEvent* event);
+
+		/**
+		 * Game controller, used to invoke undo/show hint actions.
+		 */
+		::GUI::GameController* gameController;
 
 		/**
 		 * Parent window, used for dialogs.

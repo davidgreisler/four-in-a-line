@@ -1,4 +1,5 @@
 #include "Move.hpp"
+#include "../GameController.hpp"
 
 #include <QAction>
 #include <QEvent>
@@ -14,15 +15,20 @@ namespace Actions
 /**
  * Creates a new move action container.
  *
+ * @param gameController Game controller, used to invoke undo/show hint actions for the game.
  * @param parentWindow Parent window, used for dialogs.
  * @param parent Parent object.
  */
-Move::Move(QWidget* parentWindow, QObject* parent) :
-	QObject(parent), parentWindow(parentWindow)
+Move::Move(GameController* gameController, QWidget* parentWindow, QObject* parent) :
+	QObject(parent), gameController(gameController), parentWindow(parentWindow)
 {
 	this->createActions();
 	this->createMenu();
 	this->retranslateUI();
+	this->updateActions();
+
+	this->connect(this->gameController, &::GUI::GameController::stateChanged,
+				  this, &Move::updateActions);
 }
 
 /**
@@ -66,19 +72,22 @@ QMenu* Move::getMenu() const
 }
 
 /**
- * Undoes the last move of the player.
+ * Updates actions, i.e. checks whether they have to be disabled/enabled.
  */
-void Move::undoLastMove()
+void Move::updateActions()
 {
+	// Disable all actions.
 
-}
+	this->undoAction->setEnabled(false);
+	this->hintAction->setEnabled(false);
 
-/**
- * Shows a hint for the next step.
- */
-void Move::showHint()
-{
+	// Check which actions should be enabled.
 
+	if (this->gameController->isActive())
+	{
+		this->undoAction->setEnabled(this->gameController->isUndoPossible());
+		this->hintAction->setEnabled(this->gameController->isShowHintPossible());
+	}
 }
 
 /**
@@ -90,14 +99,17 @@ void Move::createActions()
 	undoIcon.addFile(":/icons/16x16/undo.png", QSize(16, 16));
 	undoIcon.addFile(":/icons/32x32/undo.png", QSize(32, 32));
 	this->undoAction = new QAction(undoIcon, "", this);
+	this->connect(this->undoAction, &QAction::triggered,
+				  this->gameController, &::GUI::GameController::undoLastMove);
 
 	QIcon hintIcon;
 	hintIcon.addFile(":/icons/16x16/lightbulb.png", QSize(16, 16));
 	hintIcon.addFile(":/icons/32x32/lightbulb.png", QSize(32, 32));
 	this->hintAction = new QAction(hintIcon, "", this);
 
-	this->connect(this->undoAction, &QAction::triggered, this, &Move::undoLastMove);
-	this->connect(this->hintAction, &QAction::triggered, this, &Move::showHint);
+
+	this->connect(this->hintAction, &QAction::triggered,
+				  this->gameController, &::GUI::GameController::showHint);
 }
 
 /**

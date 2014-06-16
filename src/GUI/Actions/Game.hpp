@@ -10,6 +10,10 @@ class QWidget;
 
 namespace GUI
 {
+
+class GameController;
+class ControllerManager;
+
 namespace Actions
 {
 
@@ -23,7 +27,9 @@ class Game : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit Game(QWidget* parentWindow, QObject *parent = 0);
+		explicit Game(::GUI::ControllerManager* controllerManager,
+					  ::GUI::GameController* gameController,
+					  QWidget* parentWindow, QObject *parent = 0);
 		virtual ~Game();
 
 		QAction* getNewGameAction() const;
@@ -43,6 +49,7 @@ class Game : public QObject
 
 	public slots:
 		void exit();
+		void updateActions();
 
 	private:
 		Q_DISABLE_COPY(Game)
@@ -51,6 +58,16 @@ class Game : public QObject
 		void createMenu();
 		void retranslateUI();
 		bool event(QEvent* event);
+
+		/**
+		 * Controller manager, used to deactivate active controller on exit.
+		 */
+		::GUI::ControllerManager* controllerManager;
+
+		/**
+		 * Game controller, used to invoke game actions.
+		 */
+		GameController* gameController;
 
 		/**
 		 * Parent window, used for dialogs.
