@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QScopedPointer>
-#include <QIcon>
 
 class QAction;
 class QMenu;
