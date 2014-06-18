@@ -55,5 +55,25 @@
         <file>icons/fatcow/32x32/bullet_delete.png</file>
         <file>icons/fatcow/32x32/bullet_disk.png</file>
         <file>icons/fatcow/32x32/bullet_down.png</file>
+        <file>icons/fatcow/16x16/checkerboard.png</file>
+        <file>icons/fatcow/16x16/clock.png</file>
+        <file>icons/fatcow/16x16/computer.png</file>
+        <file>icons/fatcow/16x16/connect.png</file>
+        <file>icons/fatcow/16x16/grid.png</file>
+        <file>icons/fatcow/16x16/keyboard.png</file>
+        <file>icons/fatcow/16x16/mouse.png</file>
+        <file>icons/fatcow/16x16/printer.png</file>
+        <file>icons/fatcow/16x16/sound.png</file>
+        <file>icons/fatcow/16x16/server.png</file>
+        <file>icons/fatcow/16x16/user.png</file>
+        <file>icons/fatcow/32x32/checkerboard.png</file>
+        <file>icons/fatcow/32x32/clock.png</file>
+        <file>icons/fatcow/32x32/computer.png</file>
+        <file>icons/fatcow/32x32/grid.png</file>
+        <file>icons/fatcow/32x32/keyboard.png</file>
+        <file>icons/fatcow/32x32/mouse.png</file>
+        <file>icons/fatcow/32x32/sound.png</file>
+        <file>icons/fatcow/32x32/server.png</file>
+        <file>icons/fatcow/32x32/printer.png</file>
     </qresource>
 </RCC>
