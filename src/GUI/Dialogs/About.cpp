@@ -60,7 +60,7 @@ About::~About()
  */
 void About::retranslateUI()
 {
-	this->setWindowTitle(tr("About four in a line"));
+	this->setWindowTitle(this->tr("About four in a line"));
 
 	this->textLabel->setText(this->tr(
 		"<h1>Four in a line</h1>"
