@@ -60,6 +60,23 @@ Game::PlayerType Game::getPlayerWhoTimedOut() const
 }
 
 /**
+ * Returns the player who makes the first move.
+ *
+ * @return Player id.
+ */
+Game::PlayerType Game::getPlayerWhoMakesFirstMove() const
+{
+	if (0 == (this->moves.size() % 2))
+	{
+		return this->currentPlayer;
+	}
+	else
+	{
+		return (this->currentPlayer == Game::PLAYER_ONE) ? Game::PLAYER_TWO : Game::PLAYER_ONE;
+	}
+}
+
+/**
  * Returns whether a move is possible or not.
  *
  * @param column The column where a token should be dropped.

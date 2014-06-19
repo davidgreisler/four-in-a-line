@@ -18,6 +18,7 @@ class GameTest : public QObject
 		void undoMove();
 		void makeMistakes();
 		void timeOutPlayer();
+		void firstMove();
 };
 
 #endif // TESTS_GAME_FOUR_IN_A_LINE_GAMETEST_HPP

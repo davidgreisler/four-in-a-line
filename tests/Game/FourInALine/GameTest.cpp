@@ -291,7 +291,33 @@ void GameTest::timeOutPlayer()
 	QCOMPARE(game.isTimeout(), true);
 	QCOMPARE(game.isMovePossible(0u), false);
 	QCOMPARE(game.getPlayerWhoTimedOut(), 1u);
+}
 
+/**
+ * Creates two games and makes some moves, checks whether the method to find the player who did
+ * the first move works.
+ */
+void GameTest::firstMove()
+{
+	Game::FourInALine::Game game(5, 5, 1);
+
+	QCOMPARE(game.getPlayerWhoMakesFirstMove(), 1u);
+
+	game.makeMove(0u);
+
+	QCOMPARE(game.getPlayerWhoMakesFirstMove(), 1u);
+
+	game.makeMove(1u);
+
+	QCOMPARE(game.getPlayerWhoMakesFirstMove(), 1u);
+
+	Game::FourInALine::Game anotherGame(4, 4, 2);
+
+	QCOMPARE(anotherGame.getPlayerWhoMakesFirstMove(), 2u);
+
+	game.makeMove(0u);
+
+	QCOMPARE(anotherGame.getPlayerWhoMakesFirstMove(), 2u);
 }
 
 QTEST_MAIN(GameTest)

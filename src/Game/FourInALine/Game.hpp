@@ -72,6 +72,7 @@ class Game
 
 		PlayerType getCurrentPlayer() const;
 		PlayerType getPlayerWhoTimedOut() const;
+		PlayerType getPlayerWhoMakesFirstMove() const;
 
 		bool isMovePossible(unsigned int column) const;
 		void makeMove(unsigned int column);
