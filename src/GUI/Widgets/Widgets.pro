@@ -1,5 +1,17 @@
 !include(../../Defines.pri)
 
-SOURCES += 
+SOURCES += Board.cpp \
+	   Chat.cpp \
+	   Game.cpp \
+	   BoardConfiguration.cpp \
+	   TimeLimitConfiguration.cpp \
+	   PlayerConfiguration.cpp \
+	   GameConfiguration.cpp
 
-HEADERS += 
+HEADERS += Board.hpp \
+	   Chat.hpp \
+	   Game.hpp \
+	   BoardConfiguration.hpp \
+	   TimeLimitConfiguration.hpp \
+	   PlayerConfiguration.hpp \
+	   GameConfiguration.hpp
