@@ -32,6 +32,19 @@ Game::Game(unsigned int nRows, unsigned int nColumns, Game::PlayerType firstMove
 }
 
 /**
+ * Copy constructor.
+ *
+ * @param orig Game to copy.
+ */
+Game::Game(const Game& orig)
+	: board(new Board(*(orig.board))), moves(orig.moves), winner(orig.winner),
+	  currentPlayer(orig.currentPlayer), timedOutPlayer(orig.timedOutPlayer),
+	  timeoutAction(orig.timeoutAction), isGameOver(orig.isGameOver), timeLimit(orig.timeLimit)
+{
+
+}
+
+/**
  * Frees all used resources.
  */
 Game::~Game()

@@ -28,11 +28,11 @@ namespace FourInALine
 class ArtificialIntelligence
 {
 	public:
-		typedef unsigned int PlayerType;
-		typedef unsigned int ColumnType;
-		typedef int ScoreType;
-		typedef std::pair<ColumnType, ScoreType> ScoredMoveType;
-		typedef std::map<ColumnType, ScoreType> ScoredMovesType;
+		using PlayerType = unsigned int;
+		using ColumnType = unsigned int;
+		using ScoreType = int;
+		using ScoredMoveType = std::pair<ColumnType, ScoreType>;
+		using ScoredMovesType = std::map<ColumnType, ScoreType>;
 
 		ArtificialIntelligence(unsigned int searchDepth);
 		virtual ~ArtificialIntelligence();
@@ -40,9 +40,9 @@ class ArtificialIntelligence
 		void setSearchDepth(unsigned int searchDepth);
 		unsigned int getSearchDepth() const;
 
-		unsigned int computeNextMove(const Game& game) const;
+		virtual unsigned int computeNextMove(const Game& game) const;
 
-	private:
+	protected:
 		enum class Node
 		{
 			MIN_NODE = 1, ///< Minimizing node.
@@ -51,8 +51,8 @@ class ArtificialIntelligence
 
 		PlayerType getOtherPlayer(PlayerType player) const;
 		ScoredMoveType findBestMove(Node node, const ScoredMovesType& scoredMoves) const;
-		ScoredMovesType minimax(Node node, const Board& board, PlayerType player, unsigned int depth,
-								ScoreType alpha, ScoreType beta) const;
+		virtual ScoredMovesType minimax(Node node, const Board& board, PlayerType player,
+								unsigned int depth, ScoreType alpha, ScoreType beta) const;
 
 		ScoreType computeScore(Node node, const Board& board, PlayerType player, unsigned int depth,
 							   ScoreType alpha, ScoreType beta) const;
@@ -60,7 +60,7 @@ class ArtificialIntelligence
 		ScoreType evaluateBoard(const Board& board, PlayerType player) const;
 		ScoreType computePlayerScore(const Board& board, unsigned int player) const;
 
-		bool canPruneBranch(Node node, ScoreType score, ScoreType& alpha, ScoreType&beta) const;
+		bool canPruneBranch(Node node, ScoreType score, ScoreType& alpha, ScoreType& beta) const;
 
 		/**
 		 * Maximum search depth (how many levels the search tree has).

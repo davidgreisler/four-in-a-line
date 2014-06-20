@@ -65,7 +65,7 @@ class Game
 		};
 
 		Game(unsigned int nRows, unsigned int nColumns, PlayerType firstMove = 1);
-		Game(const Game&) = delete;
+		Game(const Game& orig);
 		virtual ~Game();
 
 		Game& operator=(const Game&) = delete;
