@@ -193,12 +193,15 @@ CellSet Board::findWinningCells() const
 	CellSet result;
 	std::vector<CellSet> sets = this->getAllRows();
 	std::vector<CellSet>::const_iterator i;
-	unsigned int nConsecutive = 1;
-	::Game::Board::TokenType lastToken = 0;
+	unsigned int nConsecutive;
+	::Game::Board::TokenType lastToken;
 	::Game::Board::TokenType emptyToken = this->getEmptyToken();
 
 	for (i = sets.begin(); i != sets.end() && nConsecutive != 4; i++)
 	{
+		nConsecutive = 1;
+		lastToken = emptyToken;
+
 		for(CellSetIterator j = i->begin(); j != i->end(); j++)
 		{
 			if (lastToken == *j && emptyToken != *j)
