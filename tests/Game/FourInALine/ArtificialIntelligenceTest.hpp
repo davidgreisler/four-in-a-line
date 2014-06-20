@@ -14,6 +14,7 @@ class ArtificialIntelligenceTest : public QObject
 			void obviousWin();
 			void preventOpponentWin();
 			void basicTest();
+			void benchmark();
 };
 
 #endif // TESTS_GAME_FOUR_IN_A_LINE_ARTIFICIALINTELLIGENCETEST_HPP

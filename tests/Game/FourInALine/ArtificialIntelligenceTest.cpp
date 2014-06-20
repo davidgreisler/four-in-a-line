@@ -66,4 +66,20 @@ void ArtificialIntelligenceTest::basicTest()
 	QCOMPARE(ai.getSearchDepth(), 4u);
 }
 
+/**
+ * Creates a big board and benchmarks how long it takes the AI to find a next move.
+ */
+void ArtificialIntelligenceTest::benchmark()
+{
+	unsigned int columns = 8;
+	unsigned int rows = 8;
+	Game::FourInALine::Game game(columns, rows, 1);
+	Game::FourInALine::ArtificialIntelligence ai(7);
+
+	QBENCHMARK
+	{
+		ai.computeNextMove(game);
+	}
+}
+
 QTEST_MAIN(ArtificialIntelligenceTest)
