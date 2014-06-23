@@ -193,7 +193,7 @@ CellSet Board::findWinningCells() const
 	CellSet result;
 	std::vector<CellSet> sets = this->getAllRows();
 	std::vector<CellSet>::const_iterator i;
-	unsigned int nConsecutive;
+	unsigned int nConsecutive = 1;
 	::Game::Board::TokenType lastToken;
 	::Game::Board::TokenType emptyToken = this->getEmptyToken();
 
