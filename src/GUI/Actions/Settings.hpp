@@ -41,7 +41,7 @@ class Settings : public QObject
 	signals:
 
 	public slots:
-		void openSettings();
+		void showSettingsDialog();
 		void switchLanguage(QAction* action);
 
 	private:

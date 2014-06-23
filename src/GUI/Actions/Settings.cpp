@@ -1,6 +1,7 @@
 #include "Settings.hpp"
 #include "../../FourInALine.hpp"
 #include "../../FourInALineSettings.hpp"
+#include "../Dialogs/Settings.hpp"
 
 #include <QDebug>
 #include <QActionGroup>
@@ -69,14 +70,6 @@ QMenu* Settings::getLanguageMenu() const
 }
 
 /**
- * Opens settings dialog.
- */
-void Settings::openSettings()
-{
-
-}
-
-/**
  * Returns an action group containing one action for every language supported by the application.
  *
  * A language action changes the program's translation to the respective language when invoked.
@@ -86,6 +79,16 @@ void Settings::openSettings()
 QSharedPointer<QActionGroup> Settings::getLanguages() const
 {
 	return this->languageGroup;
+}
+
+/**
+ * Shows settings dialog.
+ */
+void Settings::showSettingsDialog()
+{
+	Dialogs::Settings dialog(this->parentWindow);
+
+	dialog.exec();
 }
 
 /**
@@ -120,6 +123,8 @@ void Settings::createActions()
 	settingsIcon.addFile(":/icons/fatcow/16x16/setting_tools.png", QSize(16, 16));
 	settingsIcon.addFile(":/icons/fatcow/32x32/setting_tools.png", QSize(32, 32));
 	this->openSettingsAction = new QAction(settingsIcon, "", this);
+	this->connect(this->openSettingsAction, &QAction::triggered,
+				  this, &Settings::showSettingsDialog);
 }
 
 /**
