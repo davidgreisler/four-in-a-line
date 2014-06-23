@@ -45,6 +45,14 @@ Board::~Board()
 }
 
 /**
+ * Clears the board (makes all cells empty).
+ */
+void Board::clear()
+{
+	std::fill(this->cells.begin(), this->cells.end(), this->emptyToken);
+}
+
+/**
  * Returns the number of rows on the board.
  *
  * @return Number of rows.

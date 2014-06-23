@@ -379,5 +379,32 @@ void BoardTest::checkAllRows()
 	QCOMPARE(allRows.size(), (std::size_t)22);
 }
 
+/**
+ * Creates a board and puts some tokens in it and then checks whether clear() makes it empty again.
+ */
+void BoardTest::clearBoard()
+{
+	Game::Board testBoard(3, 3, 0u);
+
+	testBoard.setCell(0, 0, 1u);
+	testBoard.setCell(1, 0, 2u);
+	testBoard.setCell(2, 1, 3u);
+	testBoard.setCell(0, 2, 4u);
+
+	testBoard.clear();
+
+	for (unsigned int y = 0; y < 3; ++y)
+	{
+		QVERIFY(testBoard.isRowEmpty(y) == true);
+		QVERIFY(testBoard.isRowFull(y) == false);
+
+		for (unsigned int x = 0; x < 3; ++x)
+		{
+			QVERIFY(testBoard.isCellEmpty(x, y) == true);
+			QVERIFY(testBoard.isCellOccupied(x, y) == false);
+		}
+	}
+}
+
 
 QTEST_MAIN(BoardTest)

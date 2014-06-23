@@ -18,6 +18,7 @@ class BoardTest : public QObject
 		void checkRowsAndColumns();
 		void checkDiagonalRows();
 		void checkAllRows();
+		void clearBoard();
 
 };
 

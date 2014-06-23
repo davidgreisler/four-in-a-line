@@ -58,6 +58,8 @@ class Board
 		Board(const Board& board);
 		virtual ~Board();
 
+		virtual void clear();
+
 		unsigned int getNumberOfRows() const;
 		unsigned int getNumberOfColumns() const;
 
