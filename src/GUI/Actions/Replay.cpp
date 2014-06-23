@@ -210,8 +210,8 @@ void Replay::createMenu()
 	this->menu->addAction(this->loadReplayAction);
 	this->menu->addAction(this->saveReplayAction);
 	this->menu->addSeparator();
-	this->menu->addAction(this->nextMoveAction);
 	this->menu->addAction(this->previousMoveAction);
+	this->menu->addAction(this->nextMoveAction);
 	this->menu->addAction(this->jumpToStartAction);
 	this->menu->addAction(this->jumpToEndAction);
 }
