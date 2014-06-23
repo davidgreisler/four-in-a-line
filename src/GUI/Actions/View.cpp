@@ -27,6 +27,11 @@ View::View(::GUI::MainWindow* mainWindow, QObject *parent) :
 	this->createActions();
 	this->createMenu();
 	this->retranslateUI();
+
+	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
+	::Settings::View* viewSettings = settings->getViewSettings();
+
+	this->connect(viewSettings, &::Settings::View::changed, this, &View::updateFullscreen);
 }
 
 /**
@@ -86,7 +91,19 @@ void View::changeFullscreen()
 
 	bool isFullscreen = this->fullscreenCheckboxAction->isChecked();
 	viewSettings->setFullscreen(isFullscreen);
-	this->mainWindow->setFullscreen(isFullscreen);
+	viewSettings->apply();
+}
+
+/**
+ * Updates the checkbox when the view settings were changed.
+ */
+void View::updateFullscreen()
+{
+	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
+	::Settings::View* viewSettings = settings->getViewSettings();
+
+	bool isFullscreen = viewSettings->isFullscreen();
+	this->fullscreenCheckboxAction->setChecked(isFullscreen);
 }
 
 /**

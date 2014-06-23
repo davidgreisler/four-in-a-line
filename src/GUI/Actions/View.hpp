@@ -46,6 +46,7 @@ class View : public QObject
 
 	public slots:
 		void changeFullscreen();
+		void updateFullscreen();
 
 	private:
 		Q_DISABLE_COPY(View)

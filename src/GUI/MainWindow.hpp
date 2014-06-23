@@ -36,6 +36,9 @@ class MainWindow : public QMainWindow
 
 		void setFullscreen(bool fullscreen);
 
+	private slots:
+		void updateFullscreen();
+
 	private:
 		Q_DISABLE_COPY(MainWindow)
 

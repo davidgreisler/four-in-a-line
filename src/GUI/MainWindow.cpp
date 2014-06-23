@@ -55,7 +55,10 @@ MainWindow::MainWindow(QWidget* parent)
 	// Geometry/state/view settings are saved when the window is closed, make sure it will is closed
 	// on exit.
 
-	this->connect(::FourInALine::getInstance(), &QApplication::aboutToQuit, this, &QMainWindow::close);
+	this->connect(::FourInALine::getInstance(), &QApplication::aboutToQuit,
+				  this, &QMainWindow::close);
+	this->connect(settings->getViewSettings(), &Settings::View::changed,
+				  this, &MainWindow::updateFullscreen);
 }
 
 /**
@@ -82,6 +85,16 @@ void MainWindow::setFullscreen(bool fullscreen)
 	{
 		this->showNormal();
 	}
+}
+
+/**
+ * Asks settings whether the window should be in fullscreen mode and then sets it up accordingly.
+ */
+void MainWindow::updateFullscreen()
+{
+	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
+
+	this->setFullscreen(settings->getViewSettings()->isFullscreen());
 }
 
 /**
