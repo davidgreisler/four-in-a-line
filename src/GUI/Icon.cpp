@@ -2,6 +2,7 @@
 
 #include <QSize>
 #include <QPainter>
+#include <QDebug>
 
 namespace GUI
 {
@@ -24,11 +25,24 @@ QIcon Icon::combineIcons(const QIcon& firstIcon, const QIcon& secondIcon)
 	{
 		iconSize = availableSizes[i];
 
+		if (!secondIcon.availableSizes().contains(iconSize))
+		{
+			// The second icon is not available in this size.
+
+			continue;
+		}
+
 		QImage image(iconSize, QImage::Format_ARGB32);
+		image.fill(QColor(0, 0, 0, 0));
 
-		painter.begin(&image);
+		if (!painter.begin(&image))
+		{
+			qDebug() << "[ Icon::combineIcons ] Failed to begin painting.";
+
+			continue;
+		}
+
 		painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
-
 		painter.drawPixmap(0, 0, firstIcon.pixmap(iconSize));
 		painter.drawPixmap(0, 0, secondIcon.pixmap(iconSize));
 
