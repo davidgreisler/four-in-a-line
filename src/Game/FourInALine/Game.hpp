@@ -84,7 +84,7 @@ class Game
 		bool isOver() const;
 		bool isDraw() const;
 		bool isTimeout() const;
-		unsigned int getWinner() const;
+		PlayerType getWinner() const;
 
 		bool hasTimeLimit() const;
 		unsigned int getTimeLimit() const;
@@ -93,6 +93,7 @@ class Game
 		TimeoutAction getTimeoutAction() const;
 		void setTimeoutAction(TimeoutAction action);
 
+		std::pair<unsigned int, unsigned int> computeMovePosition(unsigned int moveNo) const;
 		const std::vector<std::pair<unsigned int, unsigned int> >& getReplay() const;
 		unsigned int getNumberOfMoves() const;
 

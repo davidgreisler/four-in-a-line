@@ -298,6 +298,37 @@ void Game::setTimeoutAction(Game::TimeoutAction action)
 }
 
 /**
+ * Computes and returns the x/y coordinates of the token dropped in the given move.
+ *
+ * @param moveNo Number of the move.
+ * @return X/Y coordinates of the token.
+ */
+std::pair<unsigned int, unsigned int> Game::computeMovePosition(unsigned int moveNo) const
+{
+	if (moveNo >= this->getNumberOfMoves())
+	{
+		throw std::out_of_range("Move number must be smaller or equal to the number of moves.");
+	}
+
+	unsigned int x;
+	unsigned int y;
+	auto replay = this->getReplay();
+
+	x = replay.at(moveNo).second;
+	y = this->board->getNumberOfRows() - 1;
+
+	for (unsigned int i = 0; i < moveNo; ++i)
+	{
+		if (replay.at(i).second == x)
+		{
+			y--;
+		}
+	}
+
+	return std::make_pair(x, y);
+}
+
+/**
  * Returns a replay of the game.
  *
  * @return Vector containing pairs, first element is the player number, second element is the column

@@ -320,4 +320,42 @@ void GameTest::firstMove()
 	QCOMPARE(anotherGame.getPlayerWhoMakesFirstMove(), 2u);
 }
 
+/**
+ * Makes a few moves and computes the positions with computeMovePosition(), then checks whether the
+ * returned positions are correct.
+ */
+void GameTest::checkPositions()
+{
+	Game::FourInALine::Game game(5, 5, 1);
+
+	game.makeMove(0);
+
+	QCOMPARE(game.getBoard()->getCell(0, 4), Game::FourInALine::Game::PLAYER_ONE);
+	QCOMPARE(game.computeMovePosition(0).first, 0u);
+	QCOMPARE(game.computeMovePosition(0).second, 4u);
+
+	game.makeMove(0);
+
+	QCOMPARE(game.getBoard()->getCell(0, 3), Game::FourInALine::Game::PLAYER_TWO);
+	QCOMPARE(game.computeMovePosition(1).first, 0u);
+	QCOMPARE(game.computeMovePosition(1).second, 3u);
+
+	game.makeMove(1);
+
+	QCOMPARE(game.getBoard()->getCell(0, 4), Game::FourInALine::Game::PLAYER_ONE);
+	QCOMPARE(game.computeMovePosition(2).first, 1u);
+	QCOMPARE(game.computeMovePosition(2).second, 4u);
+
+	game.makeMove(0);
+
+	QCOMPARE(game.getBoard()->getCell(0, 2), Game::FourInALine::Game::PLAYER_TWO);
+	QCOMPARE(game.computeMovePosition(3).first, 0u);
+	QCOMPARE(game.computeMovePosition(3).second, 2u);
+
+	// Is the first move still the same?
+
+	QCOMPARE(game.computeMovePosition(0).first, 0u);
+	QCOMPARE(game.computeMovePosition(0).second, 4u);
+}
+
 QTEST_MAIN(GameTest)
