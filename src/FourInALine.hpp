@@ -13,6 +13,7 @@ class FourInALineSettings;
  */
 class FourInALine : public QApplication
 {
+		Q_OBJECT
 	public:
 		FourInALine(int& argc, char** argv);
 		virtual ~FourInALine();
@@ -24,6 +25,9 @@ class FourInALine : public QApplication
 		QMap<QString, QString> getAvailableLanguages() const;
 		void setLanguage(QString locale);
 		QString getLanguage() const;
+
+	private slots:
+		void updateLanguage();
 
 	private:
 		/**

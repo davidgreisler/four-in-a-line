@@ -24,6 +24,9 @@ FourInALine::FourInALine(int& argc, char** argv)
 	this->setLanguage(this->settings->getApplicationSettings()->getLanguage());
 	this->installTranslator(&this->qtTranslator);
 	this->installTranslator(&this->appTranslator);
+
+	this->connect(settings->getApplicationSettings(), &Settings::Application::changed,
+				  this, &FourInALine::updateLanguage);
 }
 
 /**
@@ -104,6 +107,8 @@ void FourInALine::setLanguage(QString locale)
 	this->appTranslator.load("fourinaline_" + locale, ":/i18n/");
 
 	this->currentLanguage = locale;
+
+	qDebug() << "[" << this << "] Language switched to: " << locale;
 }
 
 /**
@@ -114,4 +119,14 @@ void FourInALine::setLanguage(QString locale)
 QString FourInALine::getLanguage() const
 {
 	return this->currentLanguage;
+}
+
+/**
+ * Changes the application language to the language currently configured in the settings.
+ */
+void FourInALine::updateLanguage()
+{
+	auto applicationSettings = settings->getApplicationSettings();
+
+	this->setLanguage(applicationSettings->getLanguage());
 }

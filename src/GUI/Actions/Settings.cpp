@@ -100,18 +100,13 @@ void Settings::showSettingsDialog()
  */
 void Settings::switchLanguage(QAction* action)
 {
-	::FourInALine* application;
-	::Settings::Application* applicationSettings;
+	auto application = ::FourInALine::getInstance();
+	auto applicationSettings = application->getSettings()->getApplicationSettings();;
 
 	QString locale = action->data().toString();
 
-	application = ::FourInALine::getInstance();
-	applicationSettings = application->getSettings()->getApplicationSettings();
 	applicationSettings->setLanguage(locale);
 	applicationSettings->save();
-	application->setLanguage(locale);
-
-	qDebug() << "[" << this << "] Language switched to: " << locale;
 }
 
 /**
