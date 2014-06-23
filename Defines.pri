@@ -14,6 +14,6 @@ QMAKE_CXXFLAGS += -std=c++11
 CONFIG(debug)
 {
 	LIBS += -lgcov
-	QMAKE_CXXFLAGS += -g -fprofile-arcs -ftest-coverage -O0
+	QMAKE_CXXFLAGS += -g -fprofile-arcs -ftest-coverage -O0 -Wall -Wextra
 	QMAKE_LFLAGS += -g -fprofile-arcs -ftest-coverage -O0
 }
