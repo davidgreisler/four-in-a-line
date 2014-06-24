@@ -6,7 +6,10 @@ SOURCES += Board.cpp \
 	   BoardConfiguration.cpp \
 	   TimeLimitConfiguration.cpp \
 	   PlayerConfiguration.cpp \
-	   GameConfiguration.cpp
+	   GameConfiguration.cpp \
+	   GameSetup.cpp \
+	   ViewSettings.cpp \
+	   ApplicationSettings.cpp
 
 HEADERS += Board.hpp \
 	   Chat.hpp \
@@ -14,4 +17,7 @@ HEADERS += Board.hpp \
 	   BoardConfiguration.hpp \
 	   TimeLimitConfiguration.hpp \
 	   PlayerConfiguration.hpp \
-	   GameConfiguration.hpp
+	   GameConfiguration.hpp \
+	   GameSetup.hpp \
+	   ViewSettings.hpp \
+	   ApplicationSettings.hpp

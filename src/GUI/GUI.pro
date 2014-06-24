@@ -7,7 +7,16 @@ SOURCES += MainWindow.cpp \
 	   ControllerManager.cpp \
 	   AbstractPlayer.cpp \
 	   FileIO.cpp \
-	   Icon.cpp
+	   Icon.cpp \
+	   ArtificialIntelligencePlayer.cpp \
+	   NetworkPlayer.cpp \
+	   PlayerFactory.cpp \
+	   HumanPlayer.cpp \
+	   Game.cpp \
+	   GameLogic.cpp \
+	   PlaceholderPlayer.cpp \
+	   Replay.cpp \
+	   ParseError.cpp
 
 HEADERS += MainWindow.hpp \
 	   AbstractController.hpp \
@@ -16,4 +25,13 @@ HEADERS += MainWindow.hpp \
 	   ControllerManager.hpp \
 	   AbstractPlayer.hpp \
 	   FileIO.hpp \
-	   Icon.hpp
+	   Icon.hpp \
+	   ArtificialIntelligencePlayer.hpp \
+	   NetworkPlayer.hpp \
+	   PlayerFactory.hpp \
+	   HumanPlayer.hpp \
+	   Game.hpp \
+	   GameLogic.hpp \
+	   PlaceholderPlayer.hpp \
+	   Replay.hpp \
+	   ParseError.hpp
