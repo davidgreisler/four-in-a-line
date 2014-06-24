@@ -2,8 +2,10 @@
 #define GUI_WIDGETS_BOARD_HPP
 
 #include "../HumanPlayer.hpp"
+#include "../AbstractPlayer.hpp"
 
 #include <QWidget>
+#include <QSharedPointer>
 
 namespace GUI
 {
@@ -26,17 +28,18 @@ class Board : public QWidget
 
 	public slots:
 		void startNewGame(unsigned int nColumns, unsigned int nRows,
-						  const ::GUI::AbstractPlayer* firstPlayer,
-						  const ::GUI::AbstractPlayer* secondPlayer);
+						  QSharedPointer<const ::GUI::AbstractPlayer> firstPlayer,
+						  QSharedPointer<const ::GUI::AbstractPlayer> secondPlayer);
 		void gameOver();
+		void gameNotOverAnymore();
 		void endGame();
 
-		void startPlayerTurn(const ::GUI::AbstractPlayer* player);
+		void startPlayerTurn(QSharedPointer<const ::GUI::AbstractPlayer> player);
 		void updateTimeLimit(unsigned int timeLimit, unsigned int remainingTime);
 		void endPlayerTurn();
 
-		void makeMove(const ::GUI::AbstractPlayer*, unsigned int x);
-		void undoLastMove();
+		void makeMove(unsigned int x, unsigned int y, QSharedPointer<const ::GUI::AbstractPlayer>);
+		void makeCellEmpty(unsigned int x, unsigned int y);
 
 		void requestMove(std::vector<unsigned int> availableColumns,
 						 ::GUI::HumanPlayer::Controls controls);

@@ -1,6 +1,7 @@
 #include "Board.hpp"
 
 #include <QPalette>
+#include <QDebug>
 
 namespace GUI
 {
@@ -34,13 +35,18 @@ Board::~Board()
  * @todo Implement.
  */
 void Board::startNewGame(unsigned int nColumns, unsigned int nRows,
-						 const ::GUI::AbstractPlayer* firstPlayer,
-						 const ::GUI::AbstractPlayer* secondPlayer)
+						 QSharedPointer<const AbstractPlayer> firstPlayer,
+						 QSharedPointer<const AbstractPlayer> secondPlayer)
 {
 	Q_UNUSED(nColumns);
 	Q_UNUSED(nRows);
 	Q_UNUSED(firstPlayer);
 	Q_UNUSED(secondPlayer);
+
+	qDebug() << "[" << this << "::startNewGame ] New game started with" << nColumns << "columns and"
+			 << nRows << "rows.";
+	qDebug() << "[" << this << "::startNewGame ] First player:" << firstPlayer->getName();
+	qDebug() << "[" << this << "::startNewGame ] Second player:" << secondPlayer->getName();
 }
 
 /**
@@ -48,7 +54,15 @@ void Board::startNewGame(unsigned int nColumns, unsigned int nRows,
  */
 void Board::gameOver()
 {
+	qDebug() << "[" << this << "::gameOver ] Game is over.";
+}
 
+/**
+ * @todo Implement.
+ */
+void Board::gameNotOverAnymore()
+{
+	qDebug() << "[" << this << "::gameNotOverAnymore ] Game is not over anymore.";
 }
 
 /**
@@ -56,15 +70,17 @@ void Board::gameOver()
  */
 void Board::endGame()
 {
-
+	qDebug() << "[" << this << "::endGame ] Game ended.";
 }
 
 /**
  * @todo Implement.
  */
-void Board::startPlayerTurn(const AbstractPlayer* player)
+void Board::startPlayerTurn(QSharedPointer<const AbstractPlayer> player)
 {
 	Q_UNUSED(player);
+
+	qDebug() << "[" << this << "::startPlayerTurn ] Start player turn:" << player->getName();
 }
 
 /**
@@ -74,6 +90,8 @@ void Board::updateTimeLimit(unsigned int timeLimit, unsigned int remainingTime)
 {
 	Q_UNUSED(timeLimit);
 	Q_UNUSED(remainingTime);
+
+	qDebug() << "[" << this << "::updateTimeLimit ] Time remaining:" << remainingTime;
 }
 
 /**
@@ -81,24 +99,28 @@ void Board::updateTimeLimit(unsigned int timeLimit, unsigned int remainingTime)
  */
 void Board::endPlayerTurn()
 {
-
+	qDebug() << "[" << this << "::endPlayerTurn ] End player turn.";
 }
 
 /**
  * @todo Implement.
  */
-void Board::makeMove(const AbstractPlayer* player, unsigned int x)
+void Board::makeMove(unsigned int x, unsigned int y, QSharedPointer<const AbstractPlayer> player)
 {
 	Q_UNUSED(player);
 	Q_UNUSED(x);
+	Q_UNUSED(y);
+
+	qDebug() << "[" << this << "::makeMove ] Player " << player->getName()
+			 << "dropped token in" << x;
 }
 
 /**
  * @todo Implement.
  */
-void Board::undoLastMove()
+void Board::makeCellEmpty(unsigned int x, unsigned int y)
 {
-
+	qDebug() << "[" << this << "::makeCellEmpty ] Make cell empty, x:" << x << "y:" << y;
 }
 
 /**
@@ -108,6 +130,8 @@ void Board::requestMove(std::vector<unsigned int> availableColumns, HumanPlayer:
 {
 	Q_UNUSED(availableColumns);
 	Q_UNUSED(controls);
+
+	qDebug() << "[" << this << "::requestMove ] Move requested.";
 }
 
 /**
@@ -115,7 +139,7 @@ void Board::requestMove(std::vector<unsigned int> availableColumns, HumanPlayer:
  */
 void Board::abortRequestMove()
 {
-
+	qDebug() << "[" << this << "::abortRequestMove ] Move request aborted.";
 }
 
 /**
@@ -124,6 +148,8 @@ void Board::abortRequestMove()
 void Board::showColumnHints(std::vector<int> columnScores)
 {
 	Q_UNUSED(columnScores);
+
+	qDebug() << "[" << this << "::showColumnHints ] Showing column hints.";
 }
 
 }

@@ -1,7 +1,14 @@
-#include "GameController.hpp"
 #include "../Game/FourInALine/Game.hpp"
+
+#include "Dialogs/LoadGame.hpp"
+#include "Dialogs/NewGame.hpp"
+#include "Dialogs/GameOver.hpp"
+
+#include "GameController.hpp"
 #include "AbstractPlayer.hpp"
 #include "FileIO.hpp"
+#include "Game.hpp"
+#include "GameLogic.hpp"
 
 #include <QFile>
 #include <QTextStream>
@@ -20,14 +27,40 @@ namespace GUI
 GameController::GameController(ControllerManager* manager)
 	: AbstractController(manager)
 {
-	// @todo Implement game widget.
+	this->widget = new Widgets::Game(0);
+	this->gameLogic = new GameLogic(this);
 
-	this->widget = new QWidget(0);
-	this->widget->setAutoFillBackground(true);
+	this->connect(this->gameLogic, &GameLogic::gameStarted,
+				  this->widget->getBoardWidget(), &Widgets::Board::startNewGame);
 
-	QPalette palette = this->widget->palette();
-	palette.setColor(this->widget->backgroundRole(), Qt::red);
-	this->widget->setPalette(palette);
+	this->connect(this->gameLogic, &GameLogic::gameOver,
+				  this->widget->getBoardWidget(), &Widgets::Board::gameOver);
+	this->connect(this->gameLogic, &GameLogic::gameOver,
+				  this, &GameController::showGameOverDialog);
+
+	this->connect(this->gameLogic, &GameLogic::gameNotOverAnymore,
+				  this->widget->getBoardWidget(), &Widgets::Board::gameNotOverAnymore);
+
+	this->connect(this->gameLogic, &GameLogic::gameEnded,
+				  this->widget->getBoardWidget(), &Widgets::Board::endGame);
+
+	this->connect(this->gameLogic, &GameLogic::remainingTimeChanged,
+				  this->widget->getBoardWidget(), &Widgets::Board::updateTimeLimit);
+
+	this->connect(this->gameLogic, &GameLogic::setCell,
+				  this->widget->getBoardWidget(), &Widgets::Board::makeMove);
+
+	this->connect(this->gameLogic, &GameLogic::removeCell,
+				  this->widget->getBoardWidget(), &Widgets::Board::makeCellEmpty);
+
+	this->connect(this->gameLogic, &GameLogic::startPlayerTurn,
+				  this->widget->getBoardWidget(), &Widgets::Board::startPlayerTurn);
+
+	this->connect(this->gameLogic, &GameLogic::endPlayerTurn,
+				  this->widget->getBoardWidget(), &Widgets::Board::endPlayerTurn);
+
+	this->connect(this->gameLogic, &GameLogic::showColumnHints,
+				  this->widget->getBoardWidget(), &Widgets::Board::showColumnHints);
 }
 
 /**
@@ -63,29 +96,35 @@ bool GameController::hasGame() const
  *
  * @return The current game or a null pointer if no game is being played.
  */
-GameController::ConstGamePointerType GameController::getGame() const
+QSharedPointer<Game> GameController::getGame() const
 {
 	return this->game;
 }
 
 /**
- * Returns the first player of the game.
+ * Returns whether it is possible for the current player to undo a move.
  *
- * @return The first player or a null pointer when no game is being played.
+ * Returns false if no game is being played.
+ *
+ * @return When it is possible true, otherwise false.
+ * @see ::GUI::Game::isUndoPossible()
  */
-const QSharedPointer<const AbstractPlayer> GameController::getFirstPlayer() const
+bool GameController::isUndoPossible() const
 {
-	return this->firstPlayer;
+	return this->hasGame() && this->game->isUndoPossible();
 }
 
 /**
- * Returns the second player of the game.
+ * Returns whether it is possible for the current player to show a hint.
  *
- * @return The second player or a null pointer when no game is being played.
+ * Returns false if no game is being played.
+ *
+ * @return When it is possible true, otherwise false.
+ * @see ::GUI::Game::isShowHintPossible()
  */
-const QSharedPointer<const AbstractPlayer> GameController::getSecondPlayer() const
+bool GameController::isShowHintPossible() const
 {
-	return this->secondPlayer;
+	return this->hasGame() && this->game->isShowHintPossible();
 }
 
 /**
@@ -102,68 +141,15 @@ bool GameController::confirmDeactivation()
 }
 
 /**
- * Returns whether undoing the last move is possible for the current player.
- *
- * When no game is being played, returns false.
- *
- * @return When it is possible to undo the last move true, otherwise false.
- */
-bool GameController::isUndoPossible() const
-{
-	if (this->hasGame())
-	{
-		// At least 2 moves are required, one by the current player and one by the other player.
-
-		if (this->game->getNumberOfMoves() >= 2)
-		{
-			return true;
-		}
-	}
-
-	return false;
-}
-
-/**
- * Returns whether it is possible to show a hint for the current player, indicating which next move
- * would be best for him.
- *
- * When no game is being played, returns false.
- *
- * @return When showing a hint is possible true, otherwise false.
- */
-bool GameController::isShowHintPossible() const
-{
-	if (this->hasGame())
-	{
-		// @todo Check whether it is a local game against the artificial intelligence.
-
-		return true;
-	}
-
-	return false;
-}
-
-/**
  * Shows the new game dialog and then starts a new game.
  *
  * When the user aborts the new game dialog, no new game is started.
  */
-void GameController::startGame()
+void GameController::newGame()
 {
-	if (this->endGame())
+	if (this->confirmEndGame())
 	{
-		// @todo Show new game dialog.
-
-		// @todo Start new game.
-
-		if (this->requestActivation())
-		{
-			this->game = GamePointerType(new ::Game::FourInALine::Game(6, 6, 1));
-			this->firstPlayer = PlayerPointerType(new AbstractPlayer(this->tr("Player 1")));
-			this->secondPlayer = PlayerPointerType(new AbstractPlayer(this->tr("Player 1")));
-
-			emit this->stateChanged();
-		}
+		this->showNewGameDialog();
 	}
 }
 
@@ -192,6 +178,25 @@ bool GameController::endGame()
 }
 
 /**
+ * Starts the same game again from the beginning.
+ *
+ * If a game is currently being played, the user is asked whether the current game should be aborted.
+ */
+void GameController::playAgain()
+{
+	if (this->confirmEndGame())
+	{
+		PlayerFactory playerFactory(this->widget->getBoardWidget());
+		auto firstPlayer = playerFactory.createCopy(this->game->getFirstPlayer());
+		auto secondPlayer = playerFactory.createCopy(this->game->getSecondPlayer());
+
+		QSharedPointer<Game> newGame = Game::CreateWithSettingsFrom(this->game, firstPlayer, secondPlayer);
+
+		this->startGame(newGame);
+	}
+}
+
+/**
  * Shows a dialog for the user to select a savegame and then loads the savegame.
  *
  * If a game is currently being played, the user is asked whether the current game should be aborted.
@@ -200,6 +205,11 @@ void GameController::loadGame()
 {
 	QString fileName;
 	QString nameFilter = this->tr("Savegames (*.savegame)");
+
+	if (!this->confirmEndGame())
+	{
+		return;
+	}
 
 	if (FileIO::GetExistingFileName(this->getWidget(), fileName, nameFilter))
 	{
@@ -215,7 +225,7 @@ void GameController::loadGame()
  */
 void GameController::saveGame()
 {
-	if (!this->hasGame())
+	if (this->hasGame())
 	{
 		if (this->savegameFileName.isEmpty())
 		{
@@ -280,10 +290,9 @@ void GameController::saveReplay()
  */
 void GameController::undoLastMove()
 {
-	if (this->isUndoPossible())
+	if (this->hasGame() && this->game->isUndoPossible())
 	{
-		this->game->undoLastMove();
-		this->game->undoLastMove();
+		this->gameLogic->undoLastMove();
 
 		emit this->stateChanged();
 	}
@@ -296,9 +305,9 @@ void GameController::undoLastMove()
  */
 void GameController::showHint()
 {
-	if (!this->isShowHintPossible())
+	if (this->hasGame() && this->game->isShowHintPossible())
 	{
-		// @todo Implement this.
+		this->gameLogic->showHint();
 	}
 }
 
@@ -328,27 +337,118 @@ void GameController::deactivate()
 	emit this->deactivated();
 }
 
-/**
- * Destroys the game that is currently being played/frees all game resources.
- */
-void GameController::destroyGame()
+void GameController::showGameOverDialog()
 {
-	this->game.reset();
+	QString playerName;
+	Dialogs::GameOver::Result result;
+	int availableActions = static_cast<int>(Dialogs::GameOver::Action::NEW_GAME);
+	availableActions |= static_cast<int>(Dialogs::GameOver::Action::PLAY_AGAIN);
+	availableActions |= static_cast<int>(Dialogs::GameOver::Action::SAVE_REPLAY);
+
+	if (this->game->isArtificialIntelligenceGame())
+	{
+		availableActions |= static_cast<int>(Dialogs::GameOver::Action::UNDO_LAST_MOVE);
+	}
+
+	if (this->game->getGameEngine()->isDraw())
+	{
+		if (this->game->getGameEngine()->isTimeout())
+		{
+			result = Dialogs::GameOver::Result::DRAW_TIMEOUT;
+			playerName = this->game->getTimedOutPlayer()->getName();
+		}
+		else
+		{
+			result = Dialogs::GameOver::Result::DRAW_BOARD_FULL;
+		}
+	}
+	else
+	{
+		result = Dialogs::GameOver::Result::PLAYER_WON;
+		playerName = this->game->getWinningPlayer()->getName();
+	}
+
+	Dialogs::GameOver dialog(availableActions, result, playerName, this->getWidget());
+
+	this->connect(&dialog, &Dialogs::GameOver::newGame, this, &GameController::newGame);
+	this->connect(&dialog, &Dialogs::GameOver::playAgain, this, &GameController::playAgain);
+	this->connect(&dialog, &Dialogs::GameOver::saveReplay, this, &GameController::saveReplay);
+	this->connect(&dialog, &Dialogs::GameOver::undoLastMove, this, &GameController::undoLastMove);
+	this->connect(&dialog, &Dialogs::GameOver::undoLastMove, &dialog, &Dialogs::GameOver::accept);
+
+	// When a new game is started/play again invoked, close the game over dialog.
+
+	this->connect(this, &GameController::stateChanged, &dialog, &Dialogs::GameOver::accept);
+
+	dialog.exec();
+}
+
+/**
+ * Ends the current game and starts the given game.
+ *
+ * @param game The game to start.
+ */
+void GameController::startGame(QSharedPointer<Game> game)
+{
+	this->destroyGame();
+
+	this->game = game;
+	this->gameLogic->startGame(this->game);
+	this->widget->setChatWidgetVisible(this->game->isNetworkGame());
 
 	emit this->stateChanged();
 }
 
 /**
+ * Shows the new game dialog and starts a new game if the user wants that.
+ *
+ * The current game is ended when a new game is started, the user is not asked for confirmation.
+ *
+ * @return When a new game was started true, otherwise false.
+ */
+bool GameController::showNewGameDialog()
+{
+	Dialogs::NewGame dialog(this->getWidget());
+	dialog.exec();
+
+	if (dialog.result() == QDialog::Accepted && this->requestActivation())
+	{
+		PlayerFactory playerFactory(this->widget->getBoardWidget());
+		auto game = dialog.createGame(playerFactory);
+
+		this->startGame(game);
+
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * Destroys the game that is currently being played/frees all game resources.
+ */
+void GameController::destroyGame()
+{
+	if (this->hasGame())
+	{
+		this->gameLogic->endGame();
+		this->game.reset();
+
+		emit this->stateChanged();
+	}
+}
+
+/**
  * Displays a dialog to confirm whether the user wants to end the current game.
  *
- * Does nothing and returns true when no game is being played.
+ * Does nothing and returns true when no game is being played or the current game is already over.
  *
  * @return When the user wants to end the game or no game is running true, if the user declines
  *         false.
  */
 bool GameController::confirmEndGame() const
 {
-	if (this->hasGame())
+	if (this->hasGame() && !this->getGame()->getGameEngine()->isOver())
 	{
 		QMessageBox::StandardButton reply;
 
@@ -381,13 +481,7 @@ bool GameController::saveGameToFile(QString path)
 		return false;
 	}
 
-	// Save game to string.
-
-	QString content = "savegame";
-
-	// @todo Implement.
-
-	// Write string to file.
+	QString content = this->game->toString();
 
 	return FileIO::SetFileContent(this->getWidget(), path, content);
 }
@@ -409,18 +503,20 @@ bool GameController::loadGameFromFile(QString path)
 	{
 		this->endGame();
 
-		// Load savegame.
+		auto game = Game::CreateFromString(content);
 
-		// @todo Implement.
+		Dialogs::LoadGame dialog(game, this->getWidget());
+		dialog.exec();
 
-		this->game = GamePointerType(new ::Game::FourInALine::Game(6, 6, 1));
-		this->game->makeMove(1);
-		this->game->makeMove(2);
-		this->game->makeMove(3);
+		if (dialog.result() == QDialog::Accepted)
+		{
+			PlayerFactory playerFactory(this->widget->getBoardWidget());
+			dialog.replacePlayers(playerFactory);
 
-		emit this->stateChanged();
+			this->startGame(game);
 
-		return true;
+			return true;
+		}
 	}
 
 	return false;

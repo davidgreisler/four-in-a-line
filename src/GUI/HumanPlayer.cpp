@@ -37,7 +37,7 @@ HumanPlayer::~HumanPlayer()
  */
 void HumanPlayer::requestMove(const QSharedPointer<const ::GUI::Game>& game)
 {
-	auto availableColumns = game->getRawGame()->getBoard()->getAvailableColumns();
+	auto availableColumns = game->getGameEngine()->getBoard()->getAvailableColumns();
 
 	this->board->requestMove(availableColumns, this->controls);
 }

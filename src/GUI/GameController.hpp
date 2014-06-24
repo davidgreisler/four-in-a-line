@@ -2,6 +2,7 @@
 #define GUI_GAMECONTROLLER_HPP
 
 #include "AbstractController.hpp"
+#include "Widgets/Game.hpp"
 
 #include <QSharedPointer>
 
@@ -16,6 +17,8 @@ class Game;
 namespace GUI
 {
 
+class Game;
+class GameLogic;
 class AbstractPlayer;
 
 /**
@@ -43,11 +46,6 @@ class GameController : public AbstractController
 {
 		Q_OBJECT
 	public:
-		using GamePointerType = QSharedPointer< ::Game::FourInALine::Game>;
-		using ConstGamePointerType = const QSharedPointer<const ::Game::FourInALine::Game>;
-		using PlayerPointerType = QSharedPointer<AbstractPlayer>;
-		using ConstPlayerPointerType = const QSharedPointer<const AbstractPlayer>;
-
 		GameController(ControllerManager* manager);
 		virtual ~GameController();
 
@@ -55,10 +53,7 @@ class GameController : public AbstractController
 		virtual bool confirmDeactivation();
 
 		bool hasGame() const;
-		ConstGamePointerType getGame() const;
-
-		ConstPlayerPointerType getFirstPlayer() const;
-		ConstPlayerPointerType getSecondPlayer() const;
+		QSharedPointer<Game> getGame() const;
 
 		bool isUndoPossible() const;
 		bool isShowHintPossible() const;
@@ -72,8 +67,9 @@ class GameController : public AbstractController
 		void stateChanged();
 
 	public slots:
-		void startGame();
+		void newGame();
 		bool endGame();
+		void playAgain();
 
 		void loadGame();
 		void saveGame();
@@ -89,8 +85,14 @@ class GameController : public AbstractController
 		virtual void activate();
 		virtual void deactivate();
 
+	private slots:
+		void showGameOverDialog();
+		void startGame(QSharedPointer< ::GUI::Game> game);
+		
 	private:
 		Q_DISABLE_COPY(GameController)
+
+		bool showNewGameDialog();
 
 		bool saveGameToFile(QString path);
 		bool loadGameFromFile(QString path);
@@ -102,27 +104,22 @@ class GameController : public AbstractController
 		/**
 		 * The game widget.
 		 */
-		QWidget* widget;
-
-		/**
-		 * The current game.
-		 */
-		GamePointerType game;
-
-		/**
-		 * The first player.
-		 */
-		PlayerPointerType firstPlayer;
-
-		/**
-		 * The second player.
-		 */
-		PlayerPointerType secondPlayer;
+		Widgets::Game* widget;
 
 		/**
 		 * Path of the savegame of the current game or empty.
 		 */
 		QString savegameFileName;
+
+		/**
+		 * Controls game flow.
+		 */
+		GameLogic* gameLogic;
+
+		/**
+		 * The current game.
+		 */
+		QSharedPointer<Game> game;
 };
 
 }
