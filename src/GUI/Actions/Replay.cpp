@@ -16,6 +16,7 @@ namespace Actions
 /**
  * Creates a new replay action container.
  *
+ * @param gameController Game controller.
  * @param replayController Replay controller.
  * @param parentWindow Parent window, used for dialogs.
  * @param parent Parent object.
