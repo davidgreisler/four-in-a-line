@@ -1,7 +1,10 @@
 #ifndef GUI_REPLAYCONTROLLER_HPP
 #define GUI_REPLAYCONTROLLER_HPP
 
+#include "../Game/FourInALine/Game.hpp"
 #include "AbstractController.hpp"
+#include "Widgets/Board.hpp"
+#include "Replay.hpp"
 
 class QWidget;
 
@@ -57,10 +60,22 @@ class ReplayController : public AbstractController
 	private:
 		Q_DISABLE_COPY(ReplayController)
 
+		QSharedPointer<PlaceholderPlayer> playerIdToPlayer(::Game::FourInALine::Game::PlayerType playerId) const;
+
 		/**
 		 * The replay view widget.
 		 */
-		QWidget* widget;
+		Widgets::Board* widget;
+
+		/**
+		 * The currently loaded replay.
+		 */
+		QSharedPointer<Replay> replay;
+
+		/**
+		 * Current move number (position).
+		 */
+		unsigned int currentMoveNo;
 };
 
 }

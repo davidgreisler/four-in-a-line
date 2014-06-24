@@ -1,6 +1,10 @@
 #include "ReplayController.hpp"
+#include "Replay.hpp"
 #include "FileIO.hpp"
+#include "ParseError.hpp"
+#include "PlaceholderPlayer.hpp"
 
+#include <QMessageBox>
 #include <QWidget>
 #include <QMessageBox>
 #include <QFile>
@@ -16,16 +20,9 @@ namespace GUI
  * @param manager Controller manager to use.
  */
 ReplayController::ReplayController(ControllerManager* manager)
-	: AbstractController(manager)
+	: AbstractController(manager), currentMoveNo(0)
 {
-	// @todo Implement replay viewer widget.
-
-	this->widget = new QWidget(0);
-	this->widget->setAutoFillBackground(true);
-
-	QPalette palette = this->widget->palette();
-	palette.setColor(this->widget->backgroundRole(), Qt::green);
-	this->widget->setPalette(palette);
+	this->widget = new Widgets::Board(0);
 }
 
 /**
@@ -53,9 +50,7 @@ QWidget* ReplayController::getWidget() const
  */
 bool ReplayController::hasReplay() const
 {
-	// @todo Implement.
-
-	return false;
+	return !this->replay.isNull();
 }
 
 /**
@@ -67,7 +62,10 @@ bool ReplayController::hasReplay() const
  */
 bool ReplayController::hasNextMove() const
 {
-	// @todo Implement.
+	if (this->hasReplay())
+	{
+		return this->currentMoveNo + 1 < this->replay->getNumberOfMoves();
+	}
 
 	return false;
 }
@@ -81,7 +79,10 @@ bool ReplayController::hasNextMove() const
  */
 bool ReplayController::hasPreviousMove() const
 {
-	// @todo Implement.
+	if (this->hasReplay())
+	{
+		return this->currentMoveNo > 0;
+	}
 
 	return false;
 }
@@ -103,20 +104,30 @@ bool ReplayController::confirmDeactivation()
  */
 void ReplayController::loadReplay()
 {
+	QString fileContent;
 	QString fileName;
 	QString nameFilter = this->tr("Replays (*.replay)");
 
-	if (FileIO::GetExistingFileName(this->getWidget(), fileName, nameFilter))
+	if (FileIO::GetExistingFileName(this->getWidget(), fileName, nameFilter) &&
+		FileIO::GetFileContent(this->getWidget(), fileName, fileContent) &&
+		this->requestActivation())
 	{
-		if (this->requestActivation())
+		try
 		{
+			PlayerFactory playerFactory(this->widget);
+			auto loadedReplay = Replay::CreateFromString(fileContent, playerFactory);
+
 			this->closeReplay();
-
-			// Load replay.
-
-			// @todo Implement.
+			this->replay = loadedReplay;
+			this->currentMoveNo = 0;
+			this->jumpToStart();
 
 			emit this->stateChanged();
+		}
+		catch (const ParseError& error)
+		{
+			QMessageBox::critical(this->getWidget(), this->tr("Failed to load replay"),
+								  this->tr("Failed to load replay due to parse error: %1").arg(error.what()));
 		}
 	}
 }
@@ -130,7 +141,8 @@ void ReplayController::closeReplay()
 {
 	if (this->hasReplay())
 	{
-		// @todo Implement.
+		this->replay.reset();
+		this->currentMoveNo = 0;
 
 		emit this->stateChanged();
 	}
@@ -141,9 +153,20 @@ void ReplayController::closeReplay()
  */
 void ReplayController::nextMove()
 {
-	// @todo Implement.
+	if (this->hasNextMove())
+	{
+		this->currentMoveNo++;
 
-	emit this->stateChanged();
+		auto currentMove = this->replay->getMove(this->currentMoveNo);
+		auto position = this->replay->computeMovePosition(this->currentMoveNo);
+		auto player = this->playerIdToPlayer(currentMove.first);
+
+		this->widget->startPlayerTurn(player);
+		this->widget->makeMove(position.first, position.second, player);
+		this->widget->endPlayerTurn();
+
+		emit this->stateChanged();
+	}
 }
 
 /**
@@ -151,9 +174,16 @@ void ReplayController::nextMove()
  */
 void ReplayController::previousMove()
 {
-	// @todo Implement.
+	if (this->hasPreviousMove())
+	{
+		auto position = this->replay->computeMovePosition(this->currentMoveNo);
 
-	emit this->stateChanged();
+		this->widget->makeCellEmpty(position.first, position.second);
+
+		this->currentMoveNo--;
+
+		emit this->stateChanged();
+	}
 }
 
 /**
@@ -161,9 +191,25 @@ void ReplayController::previousMove()
  */
 void ReplayController::jumpToStart()
 {
-	// @todo Implement.
+	if (this->hasReplay())
+	{
+		this->widget->startNewGame(this->replay->getNumberOfColumns(),
+								   this->replay->getNumberOfRows(),
+								   this->replay->getFirstPlayer(),
+								   this->replay->getSecondPlayer());
 
-	emit this->stateChanged();
+		this->currentMoveNo = 0;
+
+		auto currentMove = this->replay->getMove(this->currentMoveNo);
+		auto position = this->replay->computeMovePosition(this->currentMoveNo);
+		auto player = this->playerIdToPlayer(currentMove.first);
+
+		this->widget->startPlayerTurn(player);
+		this->widget->makeMove(position.first, position.second, player);
+		this->widget->endPlayerTurn();
+
+		emit this->stateChanged();
+	}
 }
 
 /**
@@ -171,9 +217,28 @@ void ReplayController::jumpToStart()
  */
 void ReplayController::jumpToEnd()
 {
-	// @todo Implement.
+	while (this->hasNextMove())
+	{
+		this->nextMove();
+	}
+}
 
-	emit this->stateChanged();
+/**
+ * Returns the placeholder player for the given player id.
+ *
+ * @param playerId Player id as used in the game engine.
+ * @return Placeholder player with the given id.
+ */
+QSharedPointer<PlaceholderPlayer> ReplayController::playerIdToPlayer(::Game::FourInALine::Game::PlayerType playerId) const
+{
+	if (playerId == ::Game::FourInALine::Game::PLAYER_ONE)
+	{
+		return this->replay->getFirstPlayer();
+	}
+	else
+	{
+		return this->replay->getSecondPlayer();
+	}
 }
 
 }
