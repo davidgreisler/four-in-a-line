@@ -64,17 +64,17 @@ PlayerConfiguration::PlayerConfiguration(PlayerIdType playerId, QWidget* parent)
 				  this, &PlayerConfiguration::updatePlayerType);
 	this->connect(this->playerTypeComboBox,
 				  static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-				  this, &PlayerConfiguration::playerConfigurationChanged);
+				  this, &PlayerConfiguration::configurationChanged);
 	this->connect(this->playerNameEdit, &QLineEdit::textChanged,
-				  this, &PlayerConfiguration::playerConfigurationChanged);
+				  this, &PlayerConfiguration::configurationChanged);
 	this->connect(this->hostAddressEdit, &QLineEdit::textChanged,
-				  this, &PlayerConfiguration::playerConfigurationChanged);
+				  this, &PlayerConfiguration::configurationChanged);
 	this->connect(this->controlsComboBox,
 				  static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-				  this, &PlayerConfiguration::playerConfigurationChanged);
+				  this, &PlayerConfiguration::configurationChanged);
 	this->connect(this->levelOfDifficultyComboBox,
 				  static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-				  this, &PlayerConfiguration::playerConfigurationChanged);
+				  this, &PlayerConfiguration::configurationChanged);
 }
 
 /**

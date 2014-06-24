@@ -36,6 +36,9 @@ class GameConfiguration : public QGroupBox
 {
 		Q_OBJECT
 	public:
+		/**
+		 * Type used for player ids.
+		 */
 		using PlayerIdType = ::Game::FourInALine::Game::PlayerType;
 
 		explicit GameConfiguration(QWidget* parent = 0);
@@ -64,10 +67,6 @@ class GameConfiguration : public QGroupBox
 
 		void setAllowUndoEnabled(bool enabled);
 		bool isAllowUndoEnabled() const;
-
-	signals:
-
-	public slots:
 
 	private:
 		Q_DISABLE_COPY(GameConfiguration)

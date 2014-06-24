@@ -44,6 +44,9 @@ class PlayerConfiguration : public QGroupBox
 {
 		Q_OBJECT
 	public:
+		/**
+		 * Player id type.
+		 */
 		using PlayerIdType = ::Game::FourInALine::Game::PlayerType;
 
 		/**
@@ -90,7 +93,7 @@ class PlayerConfiguration : public QGroupBox
 		/**
 		 * Emitted when the player configuration changed.
 		 */
-		void playerConfigurationChanged();
+		void configurationChanged();
 
 	public slots:
 		void updatePlayerType();
