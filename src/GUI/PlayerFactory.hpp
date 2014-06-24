@@ -3,6 +3,7 @@
 
 #include "HumanPlayer.hpp"
 #include "ArtificialIntelligencePlayer.hpp"
+#include "PlaceholderPlayer.hpp"
 #include "NetworkPlayer.hpp"
 #include "Widgets/Board.hpp"
 
@@ -20,8 +21,19 @@ namespace GUI
 class PlayerFactory
 {
 	public:
+		/**
+		 * Level of difficulty for the artificial intelligence.
+		 */
 		using LOD = ArtificialIntelligencePlayer::LevelOfDifficulty;
+
+		/**
+		 * Artificial intelligence player.
+		 */
 		using AIPlayer = ArtificialIntelligencePlayer;
+
+		/**
+		 * Player id type.
+		 */
 		using PlayerType = ::Game::FourInALine::Game::PlayerType;
 
 		PlayerFactory(Widgets::Board* board);
@@ -34,6 +46,11 @@ class PlayerFactory
 																	LOD levelOfDifficulty) const;
 
 		QSharedPointer<NetworkPlayer> createNetworkPlayer(PlayerType playerId, QString name) const;
+
+		QSharedPointer<AbstractPlayer> createCopy(const QSharedPointer<const AbstractPlayer>& original);
+
+		QSharedPointer<PlaceholderPlayer> createPlaceholder(PlayerType playerId, QString name) const;
+		QSharedPointer<PlaceholderPlayer> createPlaceholder(const QSharedPointer<const AbstractPlayer>& player) const;
 
 	private:
 		/**

@@ -1,6 +1,9 @@
 #include "PlayerFactory.hpp"
 
 #include <QHostAddress>
+#include <QDebug>
+
+#include <stdexcept>
 
 namespace GUI
 {
@@ -37,7 +40,7 @@ PlayerFactory::createHumanPlayer(PlayerType playerId, QString name, HumanPlayer:
 {
 	QSharedPointer<HumanPlayer> player;
 
-	player.reset(new HumanPlayer(playerId, controls, this->board, name));
+	player.reset(new HumanPlayer(playerId, controls, this->board, name), &QObject::deleteLater);
 
 	return player;
 }
@@ -56,7 +59,7 @@ PlayerFactory::createArtificialIntelligencePlayer(PlayerType playerId, QString n
 {
 	QSharedPointer<ArtificialIntelligencePlayer> player;
 
-	player.reset(new ArtificialIntelligencePlayer(playerId, levelOfDifficulty, name));
+	player.reset(new ArtificialIntelligencePlayer(playerId, levelOfDifficulty, name), &QObject::deleteLater);
 
 	return player;
 }
@@ -72,9 +75,76 @@ QSharedPointer<NetworkPlayer> PlayerFactory::createNetworkPlayer(PlayerType play
 {
 	QSharedPointer<NetworkPlayer> player;
 
-	player.reset(new NetworkPlayer(playerId, QHostAddress(), name));
+	player.reset(new NetworkPlayer(playerId, QHostAddress(), name), &QObject::deleteLater);
 
 	return player;
+}
+
+/**
+ * Creates a copy of the given player.
+ *
+ * @param original The original player.
+ * @return A copy of the original player.
+ */
+QSharedPointer<AbstractPlayer> PlayerFactory::createCopy(const QSharedPointer<const AbstractPlayer>& original)
+{
+	QSharedPointer<AbstractPlayer> player;
+	auto humanOriginal = qSharedPointerDynamicCast<const HumanPlayer>(original);
+	auto aiOriginal = qSharedPointerDynamicCast<const ArtificialIntelligencePlayer>(original);
+
+	if (humanOriginal != nullptr)
+	{
+		player = PlayerFactory::createHumanPlayer(original->getPlayer(), original->getName(),
+												  humanOriginal->getControls());
+	}
+	else if (aiOriginal != nullptr)
+	{
+		player = PlayerFactory::createArtificialIntelligencePlayer(original->getPlayer(),
+																   original->getName(),
+																   aiOriginal->getLevelOfDifficulty());
+	}
+	else if (qSharedPointerCast<const NetworkPlayer>(original) != nullptr)
+	{
+		player = PlayerFactory::createNetworkPlayer(original->getPlayer(), original->getName());
+	}
+	else
+	{
+		throw std::runtime_error("Unknown player type.");
+	}
+
+	return player;
+}
+
+/**
+ * Creates a placeholder player with the given id and name.
+ *
+ * @param playerId Player id used by the game engine.
+ * @param name Player name.
+ * @return Placeholder player.
+ */
+QSharedPointer<PlaceholderPlayer> PlayerFactory::createPlaceholder(PlayerFactory::PlayerType playerId, QString name) const
+{
+	QSharedPointer<PlaceholderPlayer> placeholderPlayer;
+
+	placeholderPlayer.reset(new PlaceholderPlayer(playerId, name), &QObject::deleteLater);
+
+	return placeholderPlayer;
+}
+
+/**
+ * Creates a placeholder player from the given player.
+ *
+ * @param player The player to copy the player id and name from.
+ * @return Placeholder player.
+ */
+QSharedPointer<PlaceholderPlayer> PlayerFactory::createPlaceholder(const QSharedPointer<const AbstractPlayer>& player) const
+{
+	QSharedPointer<PlaceholderPlayer> placeholderPlayer;
+
+	placeholderPlayer.reset(new PlaceholderPlayer(player->getPlayer(), player->getName()),
+							&QObject::deleteLater);
+
+	return placeholderPlayer;
 }
 
 }
