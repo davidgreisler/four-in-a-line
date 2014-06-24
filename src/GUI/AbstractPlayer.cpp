@@ -7,10 +7,11 @@ namespace GUI
  * Creates a new abstract player.
  *
  * @param name Player name.
+ * @param playerId Player id as used by the game engine.
  * @param parent Parent object.
  */
-AbstractPlayer::AbstractPlayer(::Game::FourInALine::Game::PlayerType player, QString name, QObject* parent)
-	: QObject(parent), player(player), name(name)
+AbstractPlayer::AbstractPlayer(::Game::FourInALine::Game::PlayerType playerId, QString name, QObject* parent)
+	: QObject(parent), player(playerId), name(name)
 {
 
 }

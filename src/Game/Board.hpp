@@ -52,7 +52,10 @@ class CellSet;
 class Board
 {
 	public:
-		typedef unsigned int TokenType;
+		/**
+		 * Type used for the tokens in the board.
+		 */
+		using TokenType = unsigned int;
 
 		Board(unsigned int nColumns, unsigned int nRows, TokenType emptyToken = 0);
 		Board(const Board& board);

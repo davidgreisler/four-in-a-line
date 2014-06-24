@@ -28,7 +28,7 @@ class AbstractPlayer : public QObject
 {
 		Q_OBJECT
 	public:
-		AbstractPlayer(::Game::FourInALine::Game::PlayerType player, QString name = QString(""),
+		AbstractPlayer(::Game::FourInALine::Game::PlayerType playerId, QString name = QString(""),
 					   QObject *parent = 0);
 		virtual ~AbstractPlayer();
 

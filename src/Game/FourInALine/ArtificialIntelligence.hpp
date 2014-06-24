@@ -28,10 +28,29 @@ namespace FourInALine
 class ArtificialIntelligence
 {
 	public:
+		/**
+		 * Type used for a player id.
+		 */
 		using PlayerType = unsigned int;
+
+		/**
+		 * Type used for specifying columns of the board.
+		 */
 		using ColumnType = unsigned int;
+
+		/**
+		 * Type used for a score of a move.
+		 */
 		using ScoreType = int;
+
+		/**
+		 * Pair of a column index and a score.
+		 */
 		using ScoredMoveType = std::pair<ColumnType, ScoreType>;
+
+		/**
+		 * Map of column indexes to scores.
+		 */
 		using ScoredMovesType = std::map<ColumnType, ScoreType>;
 
 		ArtificialIntelligence(unsigned int searchDepth);
@@ -43,6 +62,9 @@ class ArtificialIntelligence
 		virtual unsigned int computeNextMove(const Game& game) const;
 
 	protected:
+		/**
+		 * Whether a node is maximizing or minimizing.
+		 */
 		enum class Node
 		{
 			MIN_NODE = 1, ///< Minimizing node.
