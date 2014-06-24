@@ -103,7 +103,7 @@ void TimeLimitConfiguration::setTimeLimit(unsigned int timeLimit)
 	newTimeLimit = std::min(TimeLimitConfiguration::MAXIMUM_TIME_LIMIT, timeLimit);
 	newTimeLimit = std::max(TimeLimitConfiguration::MINIMUM_TIME_LIMIT, timeLimit);
 
-	this->setTimeLimit(newTimeLimit);
+	this->timeLimitSpinBox->setValue(newTimeLimit);
 }
 
 /**
