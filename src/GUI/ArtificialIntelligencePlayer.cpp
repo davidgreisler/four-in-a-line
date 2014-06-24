@@ -35,7 +35,7 @@ ArtificialIntelligencePlayer::ArtificialIntelligencePlayer(::Game::FourInALine::
  */
 ArtificialIntelligencePlayer::~ArtificialIntelligencePlayer()
 {
-
+	this->abortMove();
 }
 
 /**
@@ -47,7 +47,9 @@ void ArtificialIntelligencePlayer::requestMove(const QSharedPointer<const::GUI::
 {
 	qDebug() << "[" << this << "::requestMove ] Move requested.";
 
-	this->artificialIntelligence.computeNextMoveAsynchronously(*(game->getRawGame().data()));
+	::Game::FourInALine::Game gameEngine(*(game->getGameEngine().data()));
+
+	this->artificialIntelligence.computeNextMoveAsynchronously(gameEngine);
 	this->timer->start();
 }
 
@@ -56,6 +58,7 @@ void ArtificialIntelligencePlayer::requestMove(const QSharedPointer<const::GUI::
  */
 void ArtificialIntelligencePlayer::abortMove()
 {
+	this->timer->stop();
 	this->artificialIntelligence.cancelComputation();
 }
 
