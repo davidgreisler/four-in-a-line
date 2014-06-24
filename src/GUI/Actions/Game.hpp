@@ -50,6 +50,7 @@ class Game : public QObject
 	public slots:
 		void exit();
 		void updateActions();
+		void showHighscoresDialog();
 
 	private:
 		Q_DISABLE_COPY(Game)

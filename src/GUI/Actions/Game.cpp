@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include "../Dialogs/Highscores.hpp"
 #include "../../FourInALine.hpp"
 #include "../GameController.hpp"
 #include "../ControllerManager.hpp"
@@ -18,7 +19,7 @@ namespace Actions
  * Creates a new game action container.
  *
  * @param controllerManager Controller manager, used to deactivate active controller on exit.
- * @param gameController, used to invoke game actions.
+ * @param gameController Game controller used to invoke game actions.
  * @param parentWindow Parent window, used for dialogs.
  * @param parent Parent object.
  */
@@ -173,6 +174,16 @@ void Game::updateActions()
 }
 
 /**
+ * Shows the highscores dialog.
+ */
+void Game::showHighscoresDialog()
+{
+	Dialogs::Highscores dialog(this->parentWindow);
+
+	dialog.exec();
+}
+
+/**
  * Create all actions and connect them.
  */
 void Game::createActions()
@@ -205,7 +216,7 @@ void Game::createActions()
 	QIcon newGameIcon = ::GUI::Icon::combineIcons(applicationIcon, newBullet);
 	this->newGameAction = new QAction(newGameIcon, "", this);
 	this->connect(this->newGameAction, &QAction::triggered,
-				  this->gameController, &::GUI::GameController::startGame);
+				  this->gameController, &::GUI::GameController::newGame);
 
 	QIcon endGameIcon = ::GUI::Icon::combineIcons(applicationIcon, endBullet);
 	this->endGameAction = new QAction(endGameIcon, "", this);
@@ -233,6 +244,8 @@ void Game::createActions()
 	showHighscoresIcon.addFile(":/icons/fatcow/16x16/cup_gold.png", QSize(16, 16));
 	showHighscoresIcon.addFile(":/icons/fatcow/32x32/cup_gold.png", QSize(32, 32));
 	this->showHighscoresAction = new QAction(showHighscoresIcon, "", this);
+	this->connect(this->showHighscoresAction, &QAction::triggered,
+				  this, &Game::showHighscoresDialog);
 
 	QIcon exitIcon;
 	exitIcon.addFile(":/icons/fatcow/16x16/cross.png", QSize(16, 16));
