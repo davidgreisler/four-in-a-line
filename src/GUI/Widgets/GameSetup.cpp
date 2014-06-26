@@ -29,10 +29,10 @@ GameSetup::GameSetup(QWidget *parent) :
 	this->boardConfigurationWidget = new BoardConfiguration;
 	this->boardConfigurationWidget->setMinimumNumberOfColumns(6);
 	this->boardConfigurationWidget->setMaximumNumberOfColumns(9);
-	this->boardConfigurationWidget->setNumberOfColumns(8);
+	this->boardConfigurationWidget->setNumberOfColumns(7);
 	this->boardConfigurationWidget->setMinimumNumberOfRows(6);
 	this->boardConfigurationWidget->setMaximumNumberOfRows(9);
-	this->boardConfigurationWidget->setNumberOfRows(8);
+	this->boardConfigurationWidget->setNumberOfRows(6);
 	this->layout->addWidget(this->boardConfigurationWidget, 0, 0, 1, 2);
 
 	this->timeLimitConfigurationWidget = new TimeLimitConfiguration;
