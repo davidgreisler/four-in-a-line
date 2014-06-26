@@ -30,6 +30,8 @@ class FourInALine : public QApplication
 		void updateLanguage();
 
 	private:
+		Q_DISABLE_COPY(FourInALine)
+
 		/**
 		 * The application's settings.
 		 */
