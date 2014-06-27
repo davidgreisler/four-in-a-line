@@ -6,7 +6,6 @@ TEMPLATE = app
 TARGET = FourInALine
 
 LIBS += -Wl,--start-group \
-        $${BUILD_DIRECTORY}/src/libApplication.a \
         $${BUILD_DIRECTORY}/src/GUI/libGUI.a \
 	$${BUILD_DIRECTORY}/src/GUI/Actions/libActions.a \
 	$${BUILD_DIRECTORY}/src/GUI/Widgets/libWidgets.a \
@@ -16,7 +15,10 @@ LIBS += -Wl,--start-group \
         $${BUILD_DIRECTORY}/src/Game/FourInALine/libFourInALine.a \
         -Wl,--end-group
 
-SOURCES +=  main.cpp 
+SOURCES += FourInALine.cpp \
+           main.cpp
+
+HEADERS  += FourInALine.hpp
 
 RESOURCES += $${ROOT_DIRECTORY}/resources/resources.qrc
 

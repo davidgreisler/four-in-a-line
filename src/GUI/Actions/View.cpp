@@ -1,7 +1,7 @@
 #include "View.hpp"
 #include "../MainWindow.hpp"
-#include "../../FourInALine.hpp"
-#include "../../FourInALineSettings.hpp"
+#include "../../../app/FourInALine.hpp"
+#include "../../Settings/FourInALine.hpp"
 #include "../../Settings/View.hpp"
 
 #include <QWidget>
@@ -28,8 +28,8 @@ View::View(::GUI::MainWindow* mainWindow, QObject *parent) :
 	this->createMenu();
 	this->retranslateUI();
 
-	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
-	::Settings::View* viewSettings = settings->getViewSettings();
+	auto settings = ::FourInALine::getInstance()->getSettings();
+	auto viewSettings = settings->getViewSettings();
 
 	this->connect(viewSettings, &::Settings::View::changed, this, &View::updateFullscreen);
 }
@@ -86,8 +86,8 @@ QMenu* View::getToolbarMenu() const
  */
 void View::changeFullscreen()
 {
-	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
-	::Settings::View* viewSettings = settings->getViewSettings();
+	auto settings = ::FourInALine::getInstance()->getSettings();
+	auto viewSettings = settings->getViewSettings();
 
 	bool isFullscreen = this->fullscreenCheckboxAction->isChecked();
 	viewSettings->setFullscreen(isFullscreen);
@@ -99,8 +99,8 @@ void View::changeFullscreen()
  */
 void View::updateFullscreen()
 {
-	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
-	::Settings::View* viewSettings = settings->getViewSettings();
+	auto settings = ::FourInALine::getInstance()->getSettings();
+	auto viewSettings = settings->getViewSettings();
 
 	bool isFullscreen = viewSettings->isFullscreen();
 	this->fullscreenCheckboxAction->setChecked(isFullscreen);
@@ -127,8 +127,8 @@ void View::updateToolbars(QList<QAction*> actions)
  */
 void View::createActions()
 {
-	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
-	::Settings::View* viewSettings = settings->getViewSettings();
+	auto settings = ::FourInALine::getInstance()->getSettings();
+	auto viewSettings = settings->getViewSettings();
 
 	QIcon fullscreenCheckboxIcon;
 	fullscreenCheckboxIcon.addFile(":/icons/fatcow/16x16/monitor.png", QSize(16, 16));

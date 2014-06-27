@@ -1,5 +1,5 @@
 #include "../src/GUI/MainWindow.hpp"
-#include "../src/FourInALine.hpp"
+#include "FourInALine.hpp"
 
 /**
  * Four in a line game.

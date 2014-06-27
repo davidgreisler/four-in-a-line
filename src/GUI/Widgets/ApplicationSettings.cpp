@@ -1,5 +1,5 @@
 #include "ApplicationSettings.hpp"
-#include "../../FourInALine.hpp"
+#include "../../../app/FourInALine.hpp"
 
 #include <QEvent>
 #include <QLabel>

@@ -1,6 +1,6 @@
 #include "Settings.hpp"
-#include "../../FourInALine.hpp"
-#include "../../FourInALineSettings.hpp"
+#include "../../../app/FourInALine.hpp"
+#include "../../Settings/FourInALine.hpp"
 
 #include <QEvent>
 #include <QGridLayout>

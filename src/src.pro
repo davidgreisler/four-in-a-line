@@ -10,5 +10,4 @@ SUBDIRS = ./GUI \
           ./GUI/Dialogs \
           ./Settings \
           ./Game \
-          ./Game/FourInALine \
-          ./Application.pro
+          ./Game/FourInALine

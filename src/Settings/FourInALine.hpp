@@ -1,10 +1,13 @@
-#ifndef FOUR_IN_A_LINE_SETTINGS_HPP
-#define FOUR_IN_A_LINE_SETTINGS_HPP
+#ifndef SETTINGS_FOUR_IN_A_LINE_HPP
+#define SETTINGS_FOUR_IN_A_LINE_HPP
 
-#include "Settings/Application.hpp"
-#include "Settings/View.hpp"
+#include "Application.hpp"
+#include "View.hpp"
 
 #include <QObject>
+
+namespace Settings
+{
 
 /**
  * Stores and retrieves application settings and other information.
@@ -19,19 +22,19 @@
  * Use the read()/save()/apply() methods of the individual containers to read/save/apply only their
  * settings.
  */
-class FourInALineSettings : public QObject
+class FourInALine : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit FourInALineSettings(QObject *parent = 0);
-		virtual ~FourInALineSettings();
+		explicit FourInALine(QObject *parent = 0);
+		virtual ~FourInALine();
 
-		void read();
-		void apply();
-		void save();
+		virtual void read();
+		virtual void apply();
+		virtual void save();
 
-		Settings::Application* getApplicationSettings() const;
-		Settings::View* getViewSettings() const;
+		Application* getApplicationSettings() const;
+		View* getViewSettings() const;
 
 	signals:
 		/**
@@ -44,8 +47,6 @@ class FourInALineSettings : public QObject
 		 */
 		void saved();
 
-	public slots:
-
 	private:
 		/**
 		 * Key/value storage for the settings.
@@ -55,12 +56,14 @@ class FourInALineSettings : public QObject
 		/**
 		 * Application settings like GUI language.
 		 */
-		Settings::Application* applicationSettings;
+		Application* applicationSettings;
 
 		/**
 		 * View settings.
 		 */
-		Settings::View* viewSettings;
+		View* viewSettings;
 };
 
-#endif // FOUR_IN_A_LINE_SETTINGS_HPP
+}
+
+#endif // SETTINGS_FOUR_IN_A_LINE_HPP

@@ -1,6 +1,6 @@
 #include "MainWindow.hpp"
-#include "../FourInALine.hpp"
-#include "../FourInALineSettings.hpp"
+#include "../../app/FourInALine.hpp"
+#include "../Settings/FourInALine.hpp"
 #include "GameController.hpp"
 #include "ReplayController.hpp"
 
@@ -20,7 +20,7 @@ namespace GUI
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent)
 {
-	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
+	auto settings = ::FourInALine::getInstance()->getSettings();
 
 	// Create controllers and manager.
 
@@ -92,7 +92,7 @@ void MainWindow::setFullscreen(bool fullscreen)
  */
 void MainWindow::updateFullscreen()
 {
-	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
+	auto settings = ::FourInALine::getInstance()->getSettings();
 
 	this->setFullscreen(settings->getViewSettings()->isFullscreen());
 }
@@ -159,7 +159,7 @@ void MainWindow::closeEvent(QCloseEvent* event)
 {
 	Q_UNUSED(event);
 
-	::FourInALineSettings* settings = ::FourInALine::getInstance()->getSettings();
+	auto settings = ::FourInALine::getInstance()->getSettings();
 
 	settings->getViewSettings()->setWindowGeometry("MainWindow", this->saveGeometry());
 	settings->getViewSettings()->setWindowState("MainWindow", this->saveState(MainWindow::version));

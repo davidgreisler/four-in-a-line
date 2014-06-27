@@ -1,5 +1,5 @@
 #include "FourInALine.hpp"
-#include "FourInALineSettings.hpp"
+#include "../src/Settings/FourInALine.hpp"
 
 #include <QDir>
 #include <QLibraryInfo>
@@ -19,7 +19,7 @@ FourInALine::FourInALine(int& argc, char** argv)
 	QApplication::setApplicationName("FourInALine");
 	QApplication::setApplicationVersion("0.1");
 
-	this->settings = new FourInALineSettings(this);
+	this->settings = new Settings::FourInALine(this);
 
 	this->setLanguage(this->settings->getApplicationSettings()->getLanguage());
 	this->installTranslator(&this->qtTranslator);
@@ -42,7 +42,7 @@ FourInALine::~FourInALine()
  *
  * @return Settings.
  */
-FourInALineSettings* FourInALine::getSettings() const
+Settings::FourInALine* FourInALine::getSettings() const
 {
 	return this->settings;
 }

@@ -1,12 +1,15 @@
-#ifndef FOUR_IN_A_LINE_HPP
-#define FOUR_IN_A_LINE_HPP
+#ifndef APP_FOUR_IN_A_LINE_HPP
+#define APP_FOUR_IN_A_LINE_HPP
 
 #include <QApplication>
 #include <QMap>
 #include <QString>
 #include <QTranslator>
 
-class FourInALineSettings;
+namespace Settings
+{
+	class FourInALine;
+}
 
 /**
  * Sets up application at start and contains frequently used objects.
@@ -20,7 +23,7 @@ class FourInALine : public QApplication
 
 		static FourInALine* getInstance();
 
-		FourInALineSettings* getSettings() const;
+		Settings::FourInALine* getSettings() const;
 
 		QMap<QString, QString> getAvailableLanguages() const;
 		void setLanguage(QString locale);
@@ -35,7 +38,7 @@ class FourInALine : public QApplication
 		/**
 		 * The application's settings.
 		 */
-		FourInALineSettings* settings;
+		Settings::FourInALine* settings;
 
 		/**
 		 * The current language name/locale.
@@ -53,4 +56,4 @@ class FourInALine : public QApplication
 		QTranslator appTranslator;
 };
 
-#endif // FOUR_IN_A_LINE_HPP
+#endif // APP_FOUR_IN_A_LINE_HPP

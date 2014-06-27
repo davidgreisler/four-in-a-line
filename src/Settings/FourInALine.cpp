@@ -1,13 +1,16 @@
-#include "FourInALineSettings.hpp"
+#include "FourInALine.hpp"
 
 #include <QApplication>
+
+namespace Settings
+{
 
 /**
  * Creates a new settings container and reads all settings.
  *
  * @param parent Parent object.
  */
-FourInALineSettings::FourInALineSettings(QObject *parent) :
+FourInALine::FourInALine(QObject *parent) :
 	QObject(parent)
 {
 	QString organization = QApplication::organizationName();
@@ -23,7 +26,7 @@ FourInALineSettings::FourInALineSettings(QObject *parent) :
 /**
  * Frees all used resources.
  */
-FourInALineSettings::~FourInALineSettings()
+FourInALine::~FourInALine()
 {
 
 }
@@ -33,7 +36,7 @@ FourInALineSettings::~FourInALineSettings()
  *
  * @return Application settings.
  */
-Settings::Application* FourInALineSettings::getApplicationSettings() const
+Application* FourInALine::getApplicationSettings() const
 {
 	return this->applicationSettings;
 }
@@ -43,7 +46,7 @@ Settings::Application* FourInALineSettings::getApplicationSettings() const
  *
  * @return View settings.
  */
-Settings::View* FourInALineSettings::getViewSettings() const
+View* FourInALine::getViewSettings() const
 {
 	return this->viewSettings;
 }
@@ -51,7 +54,7 @@ Settings::View* FourInALineSettings::getViewSettings() const
 /**
  * Reads all settings and emits changed().
  */
-void FourInALineSettings::read()
+void FourInALine::read()
 {
 	this->applicationSettings->read();
 	this->viewSettings->read();
@@ -62,7 +65,7 @@ void FourInALineSettings::read()
 /**
  * Emits changed().
  */
-void FourInALineSettings::apply()
+void FourInALine::apply()
 {
 	emit this->changed();
 }
@@ -70,10 +73,12 @@ void FourInALineSettings::apply()
 /**
  * Saves all settings and emits saved().
  */
-void FourInALineSettings::save()
+void FourInALine::save()
 {
 	this->applicationSettings->save();
 	this->viewSettings->save();
 
 	emit this->saved();
+}
+
 }

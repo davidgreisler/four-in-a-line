@@ -1,6 +1,6 @@
 #include "Game.hpp"
 #include "../Dialogs/Highscores.hpp"
-#include "../../FourInALine.hpp"
+#include "../../../app/FourInALine.hpp"
 #include "../GameController.hpp"
 #include "../ControllerManager.hpp"
 #include "../Icon.hpp"
