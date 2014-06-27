@@ -56,9 +56,9 @@ MainWindow::MainWindow(QWidget* parent)
 	// on exit.
 
 	this->connect(::FourInALine::getInstance(), &QApplication::aboutToQuit,
-				  this, &QMainWindow::close);
+	              this, &QMainWindow::close);
 	this->connect(settings->getViewSettings(), &Settings::View::changed,
-				  this, &MainWindow::updateFullscreen);
+	              this, &MainWindow::updateFullscreen);
 }
 
 /**

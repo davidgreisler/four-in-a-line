@@ -12,8 +12,8 @@ namespace GUI
  * @param parent Parent object.
  */
 NetworkPlayer::NetworkPlayer(::Game::FourInALine::Game::PlayerType player, QHostAddress address,
-							 QString name, QObject *parent) :
-	AbstractPlayer(player, name, parent), address(address)
+                             QString name, QObject *parent) :
+    AbstractPlayer(player, name, parent), address(address)
 {
 
 }

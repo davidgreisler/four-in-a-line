@@ -40,7 +40,7 @@ class CellSet
 	public:
 		CellSet();
 		CellSet(const Board* board, unsigned int startX, unsigned int startY,
-				int deltaX, int deltaY, unsigned int length);
+		        int deltaX, int deltaY, unsigned int length);
 		CellSet(const CellSet& orig);
 		virtual ~CellSet();
 

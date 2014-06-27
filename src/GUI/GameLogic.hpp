@@ -40,8 +40,8 @@ class GameLogic : public QObject
 		 * Emitted when a new game is started.
 		 */
 		void gameStarted(unsigned int nColumns, unsigned int nRows,
-						 QSharedPointer<const ::GUI::AbstractPlayer> firstPlayer,
-						 QSharedPointer<const ::GUI::AbstractPlayer> secondPlayer);
+		                 QSharedPointer<const ::GUI::AbstractPlayer> firstPlayer,
+		                 QSharedPointer<const ::GUI::AbstractPlayer> secondPlayer);
 
 		/**
 		 * Emitted when a game is over.
@@ -79,7 +79,7 @@ class GameLogic : public QObject
 		 * @param player The player who made the move.
 		 */
 		void setCell(unsigned int x, unsigned int y,
-					 QSharedPointer<const ::GUI::AbstractPlayer> player);
+		             QSharedPointer<const ::GUI::AbstractPlayer> player);
 
 		/**
 		 * Emitted when a cell should be made empty (undo move).

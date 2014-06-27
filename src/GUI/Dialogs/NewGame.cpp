@@ -37,12 +37,12 @@ NewGame::NewGame(QWidget *parent) :
 	this->connect(this->buttonBox, &QDialogButtonBox::rejected, this, &NewGame::reject);
 
 	this->connect(this->gameSetupWidget,
-				  &Widgets::GameSetup::configurationChanged,
-				  this, &NewGame::updateNewGameButton);
+	              &Widgets::GameSetup::configurationChanged,
+	              this, &NewGame::updateNewGameButton);
 
 	this->connect(this->gameSetupWidget,
-				  &Widgets::GameSetup::configurationChanged,
-				  this, &NewGame::updateNewGameButton);
+	              &Widgets::GameSetup::configurationChanged,
+	              this, &NewGame::updateNewGameButton);
 
 	this->retranslateUI();
 	this->updateNewGameButton();
@@ -108,11 +108,11 @@ QSharedPointer<GUI::Game> NewGame::createGame(PlayerFactory& factory) const
 
 	game = QSharedPointer<GUI::Game>(new GUI::Game(fourInALine, firstPlayer, secondPlayer));
 	game->setAllowHint(gameConfigurationWidget->isAllowHintEnabled() &&
-					   gameConfigurationWidget->getAllowHint());
+	                   gameConfigurationWidget->getAllowHint());
 	game->setAllowUndo(gameConfigurationWidget->isAllowUndoEnabled() &&
-					   gameConfigurationWidget->getAllowUndo());
+	                   gameConfigurationWidget->getAllowUndo());
 	game->setSaveHighscore(gameConfigurationWidget->isSaveHighscoreEnabled() &&
-						   gameConfigurationWidget->getSaveHighscore());
+	                       gameConfigurationWidget->getSaveHighscore());
 
 	return game;
 }

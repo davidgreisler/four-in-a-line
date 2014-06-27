@@ -10,7 +10,7 @@ namespace GUI
  * @param manager The controller manager.
  */
 AbstractController::AbstractController(ControllerManager* manager) :
-	QObject(manager), manager(manager)
+    QObject(manager), manager(manager)
 {
 }
 

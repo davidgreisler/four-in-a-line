@@ -48,20 +48,20 @@ GameSetup::GameSetup(QWidget *parent) :
 	this->layout->addWidget(this->gameConfigurationWidget, 3, 0, 1, 2);
 
 	this->connect(this->firstPlayerConfigurationWidget,
-				  &PlayerConfiguration::playerTypeChanged,
-				  this, &GameSetup::updatePlayerType);
+	              &PlayerConfiguration::playerTypeChanged,
+	              this, &GameSetup::updatePlayerType);
 
 	this->connect(this->secondPlayerConfigurationWidget,
-				  &PlayerConfiguration::playerTypeChanged,
-				  this, &GameSetup::updatePlayerType);
+	              &PlayerConfiguration::playerTypeChanged,
+	              this, &GameSetup::updatePlayerType);
 
 	this->connect(this->firstPlayerConfigurationWidget,
-				  &PlayerConfiguration::configurationChanged,
-				  this, &GameSetup::updateValidity);
+	              &PlayerConfiguration::configurationChanged,
+	              this, &GameSetup::updateValidity);
 
 	this->connect(this->secondPlayerConfigurationWidget,
-				  &PlayerConfiguration::configurationChanged,
-				  this, &GameSetup::updateValidity);
+	              &PlayerConfiguration::configurationChanged,
+	              this, &GameSetup::updateValidity);
 
 	this->retranslateUI();
 	this->updatePlayerType();

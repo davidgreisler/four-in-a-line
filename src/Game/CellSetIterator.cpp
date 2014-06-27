@@ -10,7 +10,7 @@ namespace Game
  * Creates an empty and unusable iterator.
  */
 CellSetIterator::CellSetIterator()
-	: cellSet(0), index(0)
+    : cellSet(0), index(0)
 {
 
 }
@@ -22,7 +22,7 @@ CellSetIterator::CellSetIterator()
  * @param index Position of the iterator. Default 0 (first item).
  */
 CellSetIterator::CellSetIterator(const CellSet* cellSet, unsigned int index)
-	: cellSet(cellSet), index(index)
+    : cellSet(cellSet), index(index)
 {
 
 }
@@ -33,7 +33,7 @@ CellSetIterator::CellSetIterator(const CellSet* cellSet, unsigned int index)
  * @param orig Original object.
  */
 CellSetIterator::CellSetIterator(const CellSetIterator& orig)
-	: cellSet(orig.cellSet), index(orig.index)
+    : cellSet(orig.cellSet), index(orig.index)
 {
 
 }

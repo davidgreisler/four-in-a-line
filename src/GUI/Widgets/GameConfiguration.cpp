@@ -17,7 +17,7 @@ namespace Widgets
  * @param parent Parent widget.
  */
 GameConfiguration::GameConfiguration(QWidget* parent) :
-	QGroupBox(parent)
+    QGroupBox(parent)
 {
 	this->formLayout = new QFormLayout(this);
 	this->setLayout(this->formLayout);

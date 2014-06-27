@@ -24,7 +24,7 @@ class ApplicationSettings : public QGroupBox
 		Q_OBJECT
 	public:
 		explicit ApplicationSettings(::Settings::Application* applicationSettings,
-									 QWidget *parent = 0);
+		                             QWidget *parent = 0);
 		virtual ~ApplicationSettings();
 
 	signals:

@@ -17,7 +17,7 @@ const ::Game::Board::TokenType Board::CELL_EMPTY = 0;
  * @param nRows Number of rows. Minimum 1.
  */
 Board::Board(unsigned int nColumns, unsigned int nRows)
-	: ::Game::Board(nColumns, nRows, Board::CELL_EMPTY)
+    : ::Game::Board(nColumns, nRows, Board::CELL_EMPTY)
 {
 
 }
@@ -28,7 +28,7 @@ Board::Board(unsigned int nColumns, unsigned int nRows)
  * @param board Board to copy.
  */
 Board::Board(const Board& board)
-	: ::Game::Board(board)
+    : ::Game::Board(board)
 {
 
 }

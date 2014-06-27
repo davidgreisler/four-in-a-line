@@ -18,7 +18,7 @@ class NetworkPlayer : public AbstractPlayer
 		Q_OBJECT
 	public:
 		explicit NetworkPlayer(::Game::FourInALine::Game::PlayerType player, QHostAddress address,
-							   QString name = QString(""), QObject *parent = 0);
+		                       QString name = QString(""), QObject *parent = 0);
 		virtual ~NetworkPlayer();
 
 		virtual void requestMove(const QSharedPointer<const ::GUI::Game>& game);

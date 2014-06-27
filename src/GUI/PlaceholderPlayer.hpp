@@ -26,7 +26,7 @@ class PlaceholderPlayer : public AbstractPlayer
 		Q_OBJECT
 	public:
 		explicit PlaceholderPlayer(::Game::FourInALine::Game::PlayerType player,
-								   QString name = QString(""), QObject *parent = 0);
+		                           QString name = QString(""), QObject *parent = 0);
 		virtual ~PlaceholderPlayer();
 
 		virtual void requestMove(const QSharedPointer<const ::GUI::Game>& game);

@@ -20,7 +20,7 @@ namespace GUI
  * @param manager Controller manager to use.
  */
 ReplayController::ReplayController(ControllerManager* manager)
-	: AbstractController(manager), currentMoveNo(0)
+    : AbstractController(manager), currentMoveNo(0)
 {
 	this->widget = new Widgets::Board(0);
 }
@@ -109,8 +109,8 @@ void ReplayController::loadReplay()
 	QString nameFilter = this->tr("Replays (*.replay)");
 
 	if (FileIO::GetExistingFileName(this->getWidget(), fileName, nameFilter) &&
-		FileIO::GetFileContent(this->getWidget(), fileName, fileContent) &&
-		this->requestActivation())
+	        FileIO::GetFileContent(this->getWidget(), fileName, fileContent) &&
+	        this->requestActivation())
 	{
 		try
 		{
@@ -127,7 +127,7 @@ void ReplayController::loadReplay()
 		catch (const ParseError& error)
 		{
 			QMessageBox::critical(this->getWidget(), this->tr("Failed to load replay"),
-								  this->tr("Failed to load replay due to parse error: %1").arg(error.what()));
+			                      this->tr("Failed to load replay due to parse error: %1").arg(error.what()));
 		}
 	}
 }
@@ -194,9 +194,9 @@ void ReplayController::jumpToStart()
 	if (this->hasReplay())
 	{
 		this->widget->startNewGame(this->replay->getNumberOfColumns(),
-								   this->replay->getNumberOfRows(),
-								   this->replay->getFirstPlayer(),
-								   this->replay->getSecondPlayer());
+		                           this->replay->getNumberOfRows(),
+		                           this->replay->getFirstPlayer(),
+		                           this->replay->getSecondPlayer());
 
 		this->currentMoveNo = 0;
 

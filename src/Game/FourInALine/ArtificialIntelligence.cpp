@@ -20,7 +20,7 @@ namespace FourInALine
  * @param searchDepth The search depth to use.
  */
 ArtificialIntelligence::ArtificialIntelligence(unsigned int searchDepth)
-	: searchDepth(searchDepth)
+    : searchDepth(searchDepth)
 {
 
 }
@@ -68,8 +68,8 @@ unsigned int ArtificialIntelligence::computeNextMove(const Game& game) const
 	unsigned int player = game.getCurrentPlayer();
 
 	scoredMoves = this->minimax(Node::MAX_NODE, myBoard, player, this->searchDepth,
-								std::numeric_limits<ScoreType>::min(),
-								std::numeric_limits<ScoreType>::max());
+	                            std::numeric_limits<ScoreType>::min(),
+	                            std::numeric_limits<ScoreType>::max());
 
 	bestMove = this->findBestMove(Node::MAX_NODE, scoredMoves);
 
@@ -101,7 +101,7 @@ ArtificialIntelligence::getOtherPlayer(ArtificialIntelligence::PlayerType player
  */
 ArtificialIntelligence::ScoredMoveType
 ArtificialIntelligence::findBestMove(ArtificialIntelligence::Node node,
-									 const ArtificialIntelligence::ScoredMovesType& scoredMoves) const
+                                     const ArtificialIntelligence::ScoredMovesType& scoredMoves) const
 {
 	ScoredMoveType result;
 
@@ -150,8 +150,8 @@ ArtificialIntelligence::findBestMove(ArtificialIntelligence::Node node,
  */
 ArtificialIntelligence::ScoredMovesType
 ArtificialIntelligence::minimax(ArtificialIntelligence::Node node, const Board& board,
-								ArtificialIntelligence::PlayerType player, unsigned int depth,
-								ScoreType alpha, ScoreType beta) const
+                                ArtificialIntelligence::PlayerType player, unsigned int depth,
+                                ScoreType alpha, ScoreType beta) const
 {
 	ArtificialIntelligence::ScoredMovesType result;
 	std::vector<unsigned int> possibleMoves = board.getAvailableColumns();
@@ -209,8 +209,8 @@ ArtificialIntelligence::minimax(ArtificialIntelligence::Node node, const Board& 
  */
 ArtificialIntelligence::ScoreType
 ArtificialIntelligence::computeScore(ArtificialIntelligence::Node node, const Board& board,
-									 ArtificialIntelligence::PlayerType player, unsigned int depth,
-									 ScoreType alpha, ScoreType beta) const
+                                     ArtificialIntelligence::PlayerType player, unsigned int depth,
+                                     ScoreType alpha, ScoreType beta) const
 {
 	ScoreType score;
 	ScoredMovesType scoredMoves;
@@ -371,9 +371,9 @@ ArtificialIntelligence::computePlayerScore(const Board& board, unsigned int play
  * @return When the branch can be pruned true, otherwise false.
  */
 bool ArtificialIntelligence::canPruneBranch(ArtificialIntelligence::Node node,
-											ArtificialIntelligence::ScoreType score,
-											ArtificialIntelligence::ScoreType& alpha,
-											ArtificialIntelligence::ScoreType& beta) const
+                                            ArtificialIntelligence::ScoreType score,
+                                            ArtificialIntelligence::ScoreType& alpha,
+                                            ArtificialIntelligence::ScoreType& beta) const
 {
 	bool result = false;
 

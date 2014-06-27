@@ -17,7 +17,7 @@ namespace GUI
  * @param secondPlayer The second player.
  */
 Game::Game(GameEnginePointerType game, PlayerPointerType firstPlayer, PlayerPointerType secondPlayer)
-	: game(game), firstPlayer(firstPlayer), secondPlayer(secondPlayer)
+    : game(game), firstPlayer(firstPlayer), secondPlayer(secondPlayer)
 {
 
 }
@@ -98,7 +98,7 @@ void Game::replacePlayers(Game::PlayerPointerType firstPlayer, Game::PlayerPoint
 	if (!this->hasPlaceholderPlayers())
 	{
 		throw std::runtime_error("Replacing players is only possible when the current players are"
-								 " placeholders.");
+		                         " placeholders.");
 	}
 
 	this->firstPlayer = firstPlayer;
@@ -113,9 +113,9 @@ void Game::replacePlayers(Game::PlayerPointerType firstPlayer, Game::PlayerPoint
 bool Game::hasPlaceholderPlayers() const
 {
 	bool firstPlayerIsPlaceholder =
-			(nullptr != dynamic_cast<PlaceholderPlayer*>(this->firstPlayer.data()));
+	        (nullptr != dynamic_cast<PlaceholderPlayer*>(this->firstPlayer.data()));
 	bool secondPlayerIsPlaceholder =
-			(nullptr != dynamic_cast<PlaceholderPlayer*>(this->secondPlayer.data()));
+	        (nullptr != dynamic_cast<PlaceholderPlayer*>(this->secondPlayer.data()));
 
 	return firstPlayerIsPlaceholder && secondPlayerIsPlaceholder;
 }
@@ -158,9 +158,9 @@ Game::ConstPlayerPointerType Game::getSecondPlayer() const
 bool Game::isArtificialIntelligenceGame() const
 {
 	bool firstPlayerIsAI =
-			(nullptr != dynamic_cast<ArtificialIntelligencePlayer*>(this->firstPlayer.data()));
+	        (nullptr != dynamic_cast<ArtificialIntelligencePlayer*>(this->firstPlayer.data()));
 	bool secondPlayerIsAI =
-			(nullptr != dynamic_cast<ArtificialIntelligencePlayer*>(this->secondPlayer.data()));
+	        (nullptr != dynamic_cast<ArtificialIntelligencePlayer*>(this->secondPlayer.data()));
 
 	return firstPlayerIsAI || secondPlayerIsAI;
 }
@@ -173,9 +173,9 @@ bool Game::isArtificialIntelligenceGame() const
 bool Game::isNetworkGame() const
 {
 	bool firstPlayerIsNetwork =
-			(nullptr != dynamic_cast<NetworkPlayer*>(this->firstPlayer.data()));
+	        (nullptr != dynamic_cast<NetworkPlayer*>(this->firstPlayer.data()));
 	bool secondPlayerIsNetwork =
-			(nullptr != dynamic_cast<NetworkPlayer*>(this->secondPlayer.data()));
+	        (nullptr != dynamic_cast<NetworkPlayer*>(this->secondPlayer.data()));
 
 	return firstPlayerIsNetwork || secondPlayerIsNetwork;
 }
@@ -193,7 +193,7 @@ bool Game::isUndoPossible() const
 
 	if (this->isUndoAllowed() && this->game->getNumberOfMoves() >= 2)
 	{
-			return true;
+		return true;
 	}
 
 	return false;
@@ -334,12 +334,12 @@ QSharedPointer<Game> Game::CreateFromString(const QString& savegame)
 
 	QSharedPointer< ::Game::FourInALine::Game> gameEngine(new ::Game::FourInALine::Game(5, 5, 1));
 	QSharedPointer<PlaceholderPlayer> firstPlayer(new PlaceholderPlayer(::Game::FourInALine::Game::PLAYER_ONE,
-																		"Player 1"));
+	                                                                    "Player 1"));
 	QSharedPointer<PlaceholderPlayer> secondPlayer(new PlaceholderPlayer(::Game::FourInALine::Game::PLAYER_TWO,
-																		 "Player 2"));
+	                                                                     "Player 2"));
 
 	QSharedPointer<Game> newGame = QSharedPointer<Game>(new Game(gameEngine, firstPlayer,
-																 secondPlayer));
+	                                                             secondPlayer));
 
 	return newGame;
 }
@@ -353,8 +353,8 @@ QSharedPointer<Game> Game::CreateFromString(const QString& savegame)
  * @return New game with the given players and the settings from the given game.
  */
 QSharedPointer<Game> Game::CreateWithSettingsFrom(QSharedPointer<const Game> game,
-												  PlayerPointerType firstPlayer,
-												  PlayerPointerType secondPlayer)
+                                                  PlayerPointerType firstPlayer,
+                                                  PlayerPointerType secondPlayer)
 {
 	using GameEngine = ::Game::FourInALine::Game;
 

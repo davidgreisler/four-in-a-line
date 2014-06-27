@@ -88,7 +88,7 @@ class GameController : public AbstractController
 	private slots:
 		void showGameOverDialog();
 		void startGame(QSharedPointer< ::GUI::Game> game);
-		
+
 	private:
 		Q_DISABLE_COPY(GameController)
 

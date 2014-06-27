@@ -28,9 +28,9 @@ namespace Dialogs
  * @param parent Parent widget.
  */
 GameOver::GameOver(int availableActions, Result result, QString playerName, QWidget *parent) :
-	QDialog(parent), result(result), playerName(playerName), undoLastMoveButton(nullptr),
-	saveReplayButton(nullptr), playAgainButton(nullptr), newGameButton(nullptr),
-	acceptButton(nullptr)
+    QDialog(parent), result(result), playerName(playerName), undoLastMoveButton(nullptr),
+    saveReplayButton(nullptr), playAgainButton(nullptr), newGameButton(nullptr),
+    acceptButton(nullptr)
 {
 	this->layout = new QVBoxLayout(this);
 	this->setLayout(this->layout);
@@ -49,7 +49,7 @@ GameOver::GameOver(int availableActions, Result result, QString playerName, QWid
 		this->undoLastMoveButton = new QPushButton(this);
 		this->buttonBox->addButton(this->undoLastMoveButton, QDialogButtonBox::ActionRole);
 		this->connect(this->undoLastMoveButton, &QPushButton::clicked,
-					  this, &GameOver::undoLastMove);
+		              this, &GameOver::undoLastMove);
 	}
 
 	if (availableActions & static_cast<int>(Action::SAVE_REPLAY))
@@ -57,7 +57,7 @@ GameOver::GameOver(int availableActions, Result result, QString playerName, QWid
 		this->saveReplayButton = new QPushButton(this);
 		this->buttonBox->addButton(this->saveReplayButton, QDialogButtonBox::ActionRole);
 		this->connect(this->saveReplayButton, &QPushButton::clicked,
-					  this, &GameOver::saveReplay);
+		              this, &GameOver::saveReplay);
 	}
 
 	if (availableActions & static_cast<int>(Action::PLAY_AGAIN))
@@ -65,7 +65,7 @@ GameOver::GameOver(int availableActions, Result result, QString playerName, QWid
 		this->playAgainButton = new QPushButton(this);
 		this->buttonBox->addButton(this->playAgainButton, QDialogButtonBox::ActionRole);
 		this->connect(this->playAgainButton, &QPushButton::clicked,
-					  this, &GameOver::playAgain);
+		              this, &GameOver::playAgain);
 	}
 
 	if (availableActions & static_cast<int>(Action::NEW_GAME))
@@ -73,7 +73,7 @@ GameOver::GameOver(int availableActions, Result result, QString playerName, QWid
 		this->newGameButton = new QPushButton(this);
 		this->buttonBox->addButton(this->newGameButton, QDialogButtonBox::ActionRole);
 		this->connect(this->newGameButton, &QPushButton::clicked,
-					  this, &GameOver::newGame);
+		              this, &GameOver::newGame);
 	}
 
 	this->acceptButton = new QPushButton(this);
@@ -98,30 +98,34 @@ void GameOver::retranslateUI()
 {
 	this->setWindowTitle(this->tr("Game over"));
 
+	QString text;
+
 	switch (this->result)
 	{
 		case Result::PLAYER_WON:
-			this->textLabel->setText(QString(this->tr(
-				"<span style=\"font-weight:bold;font-size:200%;color:red;\">"
-				"%1 has won the game!</span>").arg(this->playerName)));
+			text = this->tr(
+			           "<span style=\"font-weight:bold;font-size:200%;color:red;\">"
+			           "%1 has won the game!</span>").arg(this->playerName);
 			break;
 
 		case Result::DRAW_BOARD_FULL:
-			this->textLabel->setText(this->tr(
-				"<span style=\"font-weight:bold;font-size:200%;color:blue;\">"
-				"Draw! The board is full.</span>"));
+			text = this->tr(
+			           "<span style=\"font-weight:bold;font-size:200%;color:blue;\">"
+			           "Draw! The board is full.</span>");
 			break;
 
 		case Result::DRAW_TIMEOUT:
-			this->textLabel->setText(QString(this->tr(
-				"<span style=\"font-weight:bold;font-size:200%;color:blue;\">"
-				"Draw! %1 has exceeded the time limit for making a "
-				"move.</span>").arg(this->playerName)));
+			text = this->tr(
+			           "<span style=\"font-weight:bold;font-size:200%;color:blue;\">"
+			           "Draw! %1 has exceeded the time limit for making a "
+			           "move.</span>").arg(this->playerName);
 			break;
 
 		default:
 			throw std::runtime_error("Unknown game result.");
 	}
+
+	this->textLabel->setText(text);
 
 	if (nullptr != this->undoLastMoveButton)
 	{

@@ -17,7 +17,7 @@ namespace Widgets
  * @param parent Parent widget.
  */
 BoardConfiguration::BoardConfiguration(QWidget *parent) :
-	QGroupBox(parent)
+    QGroupBox(parent)
 {
 	this->layout = new QHBoxLayout;
 	this->setLayout(this->layout);

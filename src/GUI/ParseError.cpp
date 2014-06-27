@@ -9,7 +9,7 @@ namespace GUI
  * @param message Message describing the error.
  */
 ParseError::ParseError(QString message)
-	: std::runtime_error(message.toStdString())
+    : std::runtime_error(message.toStdString())
 {
 
 }

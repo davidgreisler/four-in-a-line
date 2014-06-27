@@ -74,10 +74,10 @@ class ArtificialIntelligence
 		PlayerType getOtherPlayer(PlayerType player) const;
 		ScoredMoveType findBestMove(Node node, const ScoredMovesType& scoredMoves) const;
 		virtual ScoredMovesType minimax(Node node, const Board& board, PlayerType player,
-								unsigned int depth, ScoreType alpha, ScoreType beta) const;
+		                                unsigned int depth, ScoreType alpha, ScoreType beta) const;
 
 		ScoreType computeScore(Node node, const Board& board, PlayerType player, unsigned int depth,
-							   ScoreType alpha, ScoreType beta) const;
+		                       ScoreType alpha, ScoreType beta) const;
 
 		ScoreType evaluateBoard(const Board& board, PlayerType player) const;
 		ScoreType computePlayerScore(const Board& board, unsigned int player) const;

@@ -21,7 +21,7 @@ namespace Widgets
  * @param parent Parent widget.
  */
 PlayerConfiguration::PlayerConfiguration(PlayerIdType playerId, QWidget* parent) :
-	QGroupBox(parent), playerId(playerId)
+    QGroupBox(parent), playerId(playerId)
 {
 	this->formLayout = new QFormLayout(this);
 	this->setLayout(this->formLayout);
@@ -60,21 +60,21 @@ PlayerConfiguration::PlayerConfiguration(PlayerIdType playerId, QWidget* parent)
 	this->updatePlayerType();
 
 	this->connect(this->playerTypeComboBox,
-				  static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-				  this, &PlayerConfiguration::updatePlayerType);
+	              static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+	              this, &PlayerConfiguration::updatePlayerType);
 	this->connect(this->playerTypeComboBox,
-				  static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-				  this, &PlayerConfiguration::configurationChanged);
+	              static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+	              this, &PlayerConfiguration::configurationChanged);
 	this->connect(this->playerNameEdit, &QLineEdit::textChanged,
-				  this, &PlayerConfiguration::configurationChanged);
+	              this, &PlayerConfiguration::configurationChanged);
 	this->connect(this->hostAddressEdit, &QLineEdit::textChanged,
-				  this, &PlayerConfiguration::configurationChanged);
+	              this, &PlayerConfiguration::configurationChanged);
 	this->connect(this->controlsComboBox,
-				  static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-				  this, &PlayerConfiguration::configurationChanged);
+	              static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+	              this, &PlayerConfiguration::configurationChanged);
 	this->connect(this->levelOfDifficultyComboBox,
-				  static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
-				  this, &PlayerConfiguration::configurationChanged);
+	              static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+	              this, &PlayerConfiguration::configurationChanged);
 }
 
 /**
@@ -221,13 +221,13 @@ QSharedPointer<AbstractPlayer> PlayerConfiguration::createPlayer(PlayerFactory& 
 	{
 		case PlayerType::HUMAN_PLAYER:
 			result = factory.createHumanPlayer(this->getPlayerId(), this->getPlayerName(),
-											   this->getControls());
+			                                   this->getControls());
 			break;
 
 		case PlayerType::ARTIFICIAL_INTELLIGENCE:
 			result = factory.createArtificialIntelligencePlayer(this->getPlayerId(),
-																this->getPlayerName(),
-																this->getLevelOfDifficulty());
+			                                                    this->getPlayerName(),
+			                                                    this->getLevelOfDifficulty());
 			break;
 
 		case PlayerType::NETWORK_PLAYER:
@@ -332,19 +332,19 @@ void PlayerConfiguration::setupControlsComboBox()
 	mouseIcon.addFile(":/icons/fatcow/16x16/mouse.png", QSize(16, 16));
 	mouseIcon.addFile(":/icons/fatcow/32x32/mouse.png", QSize(32, 32));
 	this->controlsComboBox->addItem(mouseIcon, this->tr("Mouse"),
-									QVariant::fromValue(::GUI::HumanPlayer::Controls::MOUSE));
+	                                QVariant::fromValue(::GUI::HumanPlayer::Controls::MOUSE));
 
 	QIcon keyboardIcon;
 	keyboardIcon.addFile(":/icons/fatcow/16x16/keyboard.png", QSize(16, 16));
 	keyboardIcon.addFile(":/icons/fatcow/32x32/keyboard.png", QSize(32, 32));
 	this->controlsComboBox->addItem(keyboardIcon, this->tr("Keyboard"),
-									QVariant::fromValue(::GUI::HumanPlayer::Controls::KEYBOARD));
+	                                QVariant::fromValue(::GUI::HumanPlayer::Controls::KEYBOARD));
 
 	QIcon keyboardAndMouseIcon;
 	keyboardAndMouseIcon.addFile(":/icons/fatcow/16x16/computer.png", QSize(16, 16));
 	keyboardAndMouseIcon.addFile(":/icons/fatcow/32x32/computer.png", QSize(32, 32));
 	this->controlsComboBox->addItem(keyboardAndMouseIcon, this->tr("Keyboard and mouse"),
-									QVariant::fromValue(::GUI::HumanPlayer::Controls::MOUSE_AND_KEYBOARD));
+	                                QVariant::fromValue(::GUI::HumanPlayer::Controls::MOUSE_AND_KEYBOARD));
 
 	// Restore index.
 
@@ -366,19 +366,19 @@ void PlayerConfiguration::setupPlayerTypeComboBox()
 	humanIcon.addFile(":/icons/fatcow/16x16/user.png", QSize(16, 16));
 	humanIcon.addFile(":/icons/fatcow/32x32/user.png", QSize(32, 32));
 	this->playerTypeComboBox->addItem(humanIcon, this->tr("Human player"),
-									  QVariant::fromValue(PlayerType::HUMAN_PLAYER));
+	                                  QVariant::fromValue(PlayerType::HUMAN_PLAYER));
 
 	QIcon artificialIntelligenceIcon;
 	artificialIntelligenceIcon.addFile(":/icons/fatcow/16x16/server.png", QSize(16, 16));
 	artificialIntelligenceIcon.addFile(":/icons/fatcow/32x32/server.png", QSize(32, 32));
 	this->playerTypeComboBox->addItem(artificialIntelligenceIcon, this->tr("Artificial intelligence"),
-									  QVariant::fromValue(PlayerType::ARTIFICIAL_INTELLIGENCE));
+	                                  QVariant::fromValue(PlayerType::ARTIFICIAL_INTELLIGENCE));
 
 	QIcon networkIcon;
 	networkIcon.addFile(":/icons/fatcow/16x16/connect.png", QSize(16, 16));
 	networkIcon.addFile(":/icons/fatcow/32x32/connect.png", QSize(32, 32));
 	this->playerTypeComboBox->addItem(networkIcon, this->tr("Network player"),
-									  QVariant::fromValue(PlayerType::NETWORK_PLAYER));
+	                                  QVariant::fromValue(PlayerType::NETWORK_PLAYER));
 
 	// Restore index.
 

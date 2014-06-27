@@ -18,7 +18,7 @@ namespace Dialogs
  * @param parent Parent widget.
  */
 LoadGame::LoadGame(QSharedPointer< ::GUI::Game> game, QWidget *parent) :
-	QDialog(parent), game(game)
+    QDialog(parent), game(game)
 {
 	this->layout = new QVBoxLayout;
 	this->setLayout(this->layout);
@@ -54,7 +54,7 @@ LoadGame::LoadGame(QSharedPointer< ::GUI::Game> game, QWidget *parent) :
 	auto secondPlayerWidget = this->gameSetupWidget->getSecondPlayerConfigurationWidget();
 	secondPlayerWidget->setPlayerName(game->getSecondPlayer()->getName());
 	secondPlayerWidget->setPlayerType(
-				::GUI::Widgets::PlayerConfiguration::PlayerType::ARTIFICIAL_INTELLIGENCE);
+	            ::GUI::Widgets::PlayerConfiguration::PlayerType::ARTIFICIAL_INTELLIGENCE);
 
 	// Disable widgets.
 
@@ -69,7 +69,7 @@ LoadGame::LoadGame(QSharedPointer< ::GUI::Game> game, QWidget *parent) :
 	this->connect(this->buttonBox, &QDialogButtonBox::accepted, this, &LoadGame::accept);
 	this->connect(this->buttonBox, &QDialogButtonBox::rejected, this, &LoadGame::reject);
 	this->connect(this->gameSetupWidget, &Widgets::GameSetup::configurationChanged,
-				  this, &LoadGame::updateLoadGameButton);
+	              this, &LoadGame::updateLoadGameButton);
 }
 
 /**
@@ -88,9 +88,9 @@ LoadGame::~LoadGame()
 void LoadGame::replacePlayers(PlayerFactory& playerFactory)
 {
 	auto firstPlayer =
-			this->gameSetupWidget->getFirstPlayerConfigurationWidget()->createPlayer(playerFactory);
+	        this->gameSetupWidget->getFirstPlayerConfigurationWidget()->createPlayer(playerFactory);
 	auto secondPlayer =
-			this->gameSetupWidget->getSecondPlayerConfigurationWidget()->createPlayer(playerFactory);
+	        this->gameSetupWidget->getSecondPlayerConfigurationWidget()->createPlayer(playerFactory);
 
 	this->game->replacePlayers(firstPlayer, secondPlayer);
 }

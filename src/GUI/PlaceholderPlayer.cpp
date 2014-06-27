@@ -13,7 +13,7 @@ namespace GUI
  * @param parent Parent object.
  */
 PlaceholderPlayer::PlaceholderPlayer(::Game::FourInALine::Game::PlayerType player, QString name, QObject *parent) :
-	AbstractPlayer(player, name, parent)
+    AbstractPlayer(player, name, parent)
 {
 
 }

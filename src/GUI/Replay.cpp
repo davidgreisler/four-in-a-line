@@ -15,9 +15,9 @@ namespace GUI
  * @param secondPlayer Placeholder player for the second player.
  */
 Replay::Replay(Replay::MovesVector moves, unsigned int nColumns, unsigned int nRows,
-			   Replay::PlayerPointer firstPlayer, Replay::PlayerPointer secondPlayer)
-	: moves(moves), nColumns(nColumns), nRows(nRows),
-	  firstPlayer(firstPlayer), secondPlayer(secondPlayer)
+               Replay::PlayerPointer firstPlayer, Replay::PlayerPointer secondPlayer)
+    : moves(moves), nColumns(nColumns), nRows(nRows),
+      firstPlayer(firstPlayer), secondPlayer(secondPlayer)
 {
 
 }
@@ -134,9 +134,9 @@ QSharedPointer<Replay> Replay::CreateFromGame(QSharedPointer<const Game> game, P
 	auto secondPlayer = playerFactory.createPlaceholder(game->getSecondPlayer());
 
 	result = QSharedPointer<Replay>::create(game->getGameEngine()->getReplay(),
-											game->getGameEngine()->getBoard()->getNumberOfColumns(),
-											game->getGameEngine()->getBoard()->getNumberOfRows(),
-											firstPlayer, secondPlayer);
+	                                        game->getGameEngine()->getBoard()->getNumberOfColumns(),
+	                                        game->getGameEngine()->getBoard()->getNumberOfRows(),
+	                                        firstPlayer, secondPlayer);
 
 	return result;
 }

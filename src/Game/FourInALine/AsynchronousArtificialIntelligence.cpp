@@ -24,7 +24,7 @@ class InterruptedException : public std::runtime_error
 		 * @param message Message.
 		 */
 		InterruptedException(const std::string& message)
-			: std::runtime_error(message)
+		    : std::runtime_error(message)
 		{
 		}
 };
@@ -35,8 +35,8 @@ class InterruptedException : public std::runtime_error
  * @param searchDepth Search depth.
  */
 AsynchronousArtificialIntelligence::AsynchronousArtificialIntelligence(unsigned int searchDepth)
-	: ArtificialIntelligence(searchDepth), cancel(false), running(false),
-	  lastResult(AsynchronousArtificialIntelligence::INVALID_RESULT)
+    : ArtificialIntelligence(searchDepth), cancel(false), running(false),
+      lastResult(AsynchronousArtificialIntelligence::INVALID_RESULT)
 {
 
 }
@@ -68,8 +68,8 @@ void AsynchronousArtificialIntelligence::computeNextMoveAsynchronously(const Gam
 	this->running = true;
 	this->cancel = false;
 	this->nextMoveTask = std::async(std::launch::async,
-									&AsynchronousArtificialIntelligence::computeNextMove,
-									this, game);
+	                                &AsynchronousArtificialIntelligence::computeNextMove,
+	                                this, game);
 }
 
 /**
@@ -123,7 +123,7 @@ unsigned int AsynchronousArtificialIntelligence::getNextMove(std::chrono::millis
 	}
 
 	bool taskValidAndReady = this->nextMoveTask.valid() &&
-							 this->nextMoveTask.wait_for(std::chrono::seconds(0)) == std::future_status::ready;
+	                         this->nextMoveTask.wait_for(std::chrono::seconds(0)) == std::future_status::ready;
 	if (!this->running && taskValidAndReady)
 	{
 		try
@@ -191,10 +191,10 @@ unsigned int AsynchronousArtificialIntelligence::computeNextMove(const Game& gam
  */
 ArtificialIntelligence::ScoredMovesType
 AsynchronousArtificialIntelligence::minimax(ArtificialIntelligence::Node node, const Board& board,
-											ArtificialIntelligence::PlayerType player,
-											unsigned int depth,
-											ArtificialIntelligence::ScoreType alpha,
-											ArtificialIntelligence::ScoreType beta) const
+                                            ArtificialIntelligence::PlayerType player,
+                                            unsigned int depth,
+                                            ArtificialIntelligence::ScoreType alpha,
+                                            ArtificialIntelligence::ScoreType beta) const
 {
 	if (this->cancel)
 	{

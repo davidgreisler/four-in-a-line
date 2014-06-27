@@ -15,9 +15,9 @@ namespace GUI
  * @param parent Parent object.
  */
 HumanPlayer::HumanPlayer(::Game::FourInALine::Game::PlayerType player,
-						 HumanPlayer::Controls controls, Widgets::Board* board,
-						 QString name, QObject* parent)
-	: AbstractPlayer(player, name, parent), controls(controls), board(board)
+                         HumanPlayer::Controls controls, Widgets::Board* board,
+                         QString name, QObject* parent)
+    : AbstractPlayer(player, name, parent), controls(controls), board(board)
 {
 
 }

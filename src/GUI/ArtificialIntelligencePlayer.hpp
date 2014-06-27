@@ -31,8 +31,8 @@ class ArtificialIntelligencePlayer : public AbstractPlayer
 		};
 
 		explicit ArtificialIntelligencePlayer(::Game::FourInALine::Game::PlayerType player,
-											  LevelOfDifficulty difficulty,
-											  QString name = QString(""), QObject *parent = 0);
+		                                      LevelOfDifficulty difficulty,
+		                                      QString name = QString(""), QObject *parent = 0);
 		virtual ~ArtificialIntelligencePlayer();
 
 		virtual void requestMove(const QSharedPointer<const ::GUI::Game>& game);

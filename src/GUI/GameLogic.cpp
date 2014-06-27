@@ -14,7 +14,7 @@ namespace GUI
  * @param parent Parent object.
  */
 GameLogic::GameLogic(QObject *parent) :
-	QObject(parent), moveRequested(false)
+    QObject(parent), moveRequested(false)
 {
 	this->timeLimitTimer = new QTimer(this);
 	this->timeLimitTimer->setInterval(1000);
@@ -45,14 +45,14 @@ void GameLogic::startGame(QSharedPointer<Game> game)
 	qDebug() << "[" << this << "::startGame ] " << "Player 2:" << game->getSecondPlayer()->getName();
 
 	this->connect(this->game->getFirstPlayer().data(), &AbstractPlayer::moveReady, this,
-				  &GameLogic::makeMove);
+	              &GameLogic::makeMove);
 	this->connect(this->game->getSecondPlayer().data(), &AbstractPlayer::moveReady, this,
-				  &GameLogic::makeMove);
+	              &GameLogic::makeMove);
 
 	emit this->gameStarted(game->getGameEngine()->getBoard()->getNumberOfColumns(),
-						   game->getGameEngine()->getBoard()->getNumberOfRows(),
-						   game->getFirstPlayer(),
-						   game->getSecondPlayer());
+	                       game->getGameEngine()->getBoard()->getNumberOfRows(),
+	                       game->getFirstPlayer(),
+	                       game->getSecondPlayer());
 
 	this->requestNextMove();
 }
@@ -119,7 +119,7 @@ void GameLogic::undoLastMove()
 void GameLogic::makeMove(unsigned int x)
 {
 	qDebug() << "[" << this << "::makeMove ] " << "Player " << game->getCurrentPlayer()->getName()
-			 << " made a move, token dropped in column " << x;
+	         << " made a move, token dropped in column " << x;
 
 	this->moveRequested = false;
 	this->timeLimitTimer->stop();
@@ -149,7 +149,7 @@ void GameLogic::updateRemainingTime()
 	if (0 == this->remainingSeconds)
 	{
 		qDebug() << "[" << this << "::updateRemainingTime ] " << "Player " << game->getCurrentPlayer()->getName()
-				 << " timed out.";
+		         << " timed out.";
 
 		this->timeLimitTimer->stop();
 		this->game->getGameEngine()->makeTimeoutMove();
@@ -197,7 +197,7 @@ void GameLogic::abortRequest()
 	}
 
 	qDebug() << "[" << this << "::abortRequest ] " << "Aborting request for next move by "
-			 << game->getCurrentPlayer()->getName() << ".";
+	         << game->getCurrentPlayer()->getName() << ".";
 
 	if (this->game->getGameEngine()->hasTimeLimit())
 	{
@@ -218,7 +218,7 @@ void GameLogic::abortRequest()
 void GameLogic::requestNextMove()
 {
 	qDebug() << "[" << this << "::requestNextMove ] " << "Requesting next move from player "
-			 << this->game->getCurrentPlayer()->getName() << ".";
+	         << this->game->getCurrentPlayer()->getName() << ".";
 
 	if (this->moveRequested)
 	{

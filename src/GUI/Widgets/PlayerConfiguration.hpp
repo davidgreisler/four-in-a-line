@@ -60,7 +60,7 @@ class PlayerConfiguration : public QGroupBox
 		};
 
 		explicit PlayerConfiguration(PlayerIdType playerId,
-									 QWidget* parent = 0);
+		                             QWidget* parent = 0);
 		virtual ~PlayerConfiguration();
 
 		void setPlayerId(::Game::FourInALine::Game::PlayerType playerId);

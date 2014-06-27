@@ -18,7 +18,7 @@ namespace Widgets
  * @param parent Parent widget.
  */
 ViewSettings::ViewSettings(Settings::View* viewSettings, QWidget *parent) :
-	QGroupBox(parent), viewSettings(viewSettings)
+    QGroupBox(parent), viewSettings(viewSettings)
 {
 	this->layout = new QFormLayout(this);
 	this->setLayout(this->layout);

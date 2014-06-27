@@ -35,8 +35,8 @@ Board::~Board()
  * @todo Implement.
  */
 void Board::startNewGame(unsigned int nColumns, unsigned int nRows,
-						 QSharedPointer<const AbstractPlayer> firstPlayer,
-						 QSharedPointer<const AbstractPlayer> secondPlayer)
+                         QSharedPointer<const AbstractPlayer> firstPlayer,
+                         QSharedPointer<const AbstractPlayer> secondPlayer)
 {
 	Q_UNUSED(nColumns);
 	Q_UNUSED(nRows);
@@ -44,7 +44,7 @@ void Board::startNewGame(unsigned int nColumns, unsigned int nRows,
 	Q_UNUSED(secondPlayer);
 
 	qDebug() << "[" << this << "::startNewGame ] New game started with" << nColumns << "columns and"
-			 << nRows << "rows.";
+	         << nRows << "rows.";
 	qDebug() << "[" << this << "::startNewGame ] First player:" << firstPlayer->getName();
 	qDebug() << "[" << this << "::startNewGame ] Second player:" << secondPlayer->getName();
 }
@@ -112,7 +112,7 @@ void Board::makeMove(unsigned int x, unsigned int y, QSharedPointer<const Abstra
 	Q_UNUSED(y);
 
 	qDebug() << "[" << this << "::makeMove ] Player " << player->getName()
-			 << "dropped token in" << x;
+	         << "dropped token in" << x;
 }
 
 /**

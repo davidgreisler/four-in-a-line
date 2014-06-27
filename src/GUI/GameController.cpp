@@ -25,42 +25,42 @@ namespace GUI
  * @param manager Controller manager.
  */
 GameController::GameController(ControllerManager* manager)
-	: AbstractController(manager)
+    : AbstractController(manager)
 {
 	this->widget = new Widgets::Game(0);
 	this->gameLogic = new GameLogic(this);
 
 	this->connect(this->gameLogic, &GameLogic::gameStarted,
-				  this->widget->getBoardWidget(), &Widgets::Board::startNewGame);
+	              this->widget->getBoardWidget(), &Widgets::Board::startNewGame);
 
 	this->connect(this->gameLogic, &GameLogic::gameOver,
-				  this->widget->getBoardWidget(), &Widgets::Board::gameOver);
+	              this->widget->getBoardWidget(), &Widgets::Board::gameOver);
 	this->connect(this->gameLogic, &GameLogic::gameOver,
-				  this, &GameController::showGameOverDialog);
+	              this, &GameController::showGameOverDialog);
 
 	this->connect(this->gameLogic, &GameLogic::gameNotOverAnymore,
-				  this->widget->getBoardWidget(), &Widgets::Board::gameNotOverAnymore);
+	              this->widget->getBoardWidget(), &Widgets::Board::gameNotOverAnymore);
 
 	this->connect(this->gameLogic, &GameLogic::gameEnded,
-				  this->widget->getBoardWidget(), &Widgets::Board::endGame);
+	              this->widget->getBoardWidget(), &Widgets::Board::endGame);
 
 	this->connect(this->gameLogic, &GameLogic::remainingTimeChanged,
-				  this->widget->getBoardWidget(), &Widgets::Board::updateTimeLimit);
+	              this->widget->getBoardWidget(), &Widgets::Board::updateTimeLimit);
 
 	this->connect(this->gameLogic, &GameLogic::setCell,
-				  this->widget->getBoardWidget(), &Widgets::Board::makeMove);
+	              this->widget->getBoardWidget(), &Widgets::Board::makeMove);
 
 	this->connect(this->gameLogic, &GameLogic::removeCell,
-				  this->widget->getBoardWidget(), &Widgets::Board::makeCellEmpty);
+	              this->widget->getBoardWidget(), &Widgets::Board::makeCellEmpty);
 
 	this->connect(this->gameLogic, &GameLogic::startPlayerTurn,
-				  this->widget->getBoardWidget(), &Widgets::Board::startPlayerTurn);
+	              this->widget->getBoardWidget(), &Widgets::Board::startPlayerTurn);
 
 	this->connect(this->gameLogic, &GameLogic::endPlayerTurn,
-				  this->widget->getBoardWidget(), &Widgets::Board::endPlayerTurn);
+	              this->widget->getBoardWidget(), &Widgets::Board::endPlayerTurn);
 
 	this->connect(this->gameLogic, &GameLogic::showColumnHints,
-				  this->widget->getBoardWidget(), &Widgets::Board::showColumnHints);
+	              this->widget->getBoardWidget(), &Widgets::Board::showColumnHints);
 }
 
 /**
@@ -254,7 +254,7 @@ void GameController::saveGameAs()
 	QString nameFilter = this->tr("Savegames (*.savegame)");
 
 	if (this->hasGame() && FileIO::GetSaveFileName(this->getWidget(), fileName, defaultSuffix,
-												   nameFilter))
+	                                               nameFilter))
 	{
 		if (this->saveGameToFile(fileName))
 		{
@@ -277,7 +277,7 @@ void GameController::saveReplay()
 	QString nameFilter = this->tr("Replays (*.replay)");
 
 	if (this->hasGame() && FileIO::GetSaveFileName(this->getWidget(), fileName, defaultSuffix,
-												   nameFilter))
+	                                               nameFilter))
 	{
 		this->saveReplayToFile(fileName);
 	}
@@ -453,9 +453,9 @@ bool GameController::confirmEndGame() const
 		QMessageBox::StandardButton reply;
 
 		reply = QMessageBox::question(this->getWidget(),
-									  this->tr("End current game?"),
-									  this->tr("Are you sure you want to end the current game?"),
-									  QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+		                              this->tr("End current game?"),
+		                              this->tr("Are you sure you want to end the current game?"),
+		                              QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
 
 		if (reply == QMessageBox::No || reply == QMessageBox::Cancel)
 		{

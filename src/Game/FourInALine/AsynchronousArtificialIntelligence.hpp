@@ -55,7 +55,7 @@ class AsynchronousArtificialIntelligence : public ArtificialIntelligence
 	private:
 		virtual unsigned int computeNextMove(const Game& game);
 		virtual ScoredMovesType minimax(Node node, const Board& board, PlayerType player,
-								unsigned int depth, ScoreType alpha, ScoreType beta) const;
+		                                unsigned int depth, ScoreType alpha, ScoreType beta) const;
 
 		/**
 		 * Whether the computation should be cancelled or not.

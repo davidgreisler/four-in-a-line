@@ -28,8 +28,8 @@ class Board : public QWidget
 
 	public slots:
 		void startNewGame(unsigned int nColumns, unsigned int nRows,
-						  QSharedPointer<const ::GUI::AbstractPlayer> firstPlayer,
-						  QSharedPointer<const ::GUI::AbstractPlayer> secondPlayer);
+		                  QSharedPointer<const ::GUI::AbstractPlayer> firstPlayer,
+		                  QSharedPointer<const ::GUI::AbstractPlayer> secondPlayer);
 		void gameOver();
 		void gameNotOverAnymore();
 		void endGame();
@@ -42,7 +42,7 @@ class Board : public QWidget
 		void makeCellEmpty(unsigned int x, unsigned int y);
 
 		void requestMove(std::vector<unsigned int> availableColumns,
-						 ::GUI::HumanPlayer::Controls controls);
+		                 ::GUI::HumanPlayer::Controls controls);
 		void abortRequestMove();
 
 		void showColumnHints(std::vector<int> columnScores);

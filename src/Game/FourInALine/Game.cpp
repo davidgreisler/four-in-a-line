@@ -20,10 +20,10 @@ const Game::PlayerType Game::PLAYER_TWO = 2;
  *        PLAYER_ONE).
  */
 Game::Game(unsigned int nRows, unsigned int nColumns, Game::PlayerType firstMove)
-	: winner(0), currentPlayer(firstMove), timedOutPlayer(0), timeoutAction(TimeoutAction::DRAW_GAME),
-	  isGameOver(false), timeLimit(0)
+    : winner(0), currentPlayer(firstMove), timedOutPlayer(0), timeoutAction(TimeoutAction::DRAW_GAME),
+      isGameOver(false), timeLimit(0)
 {
-    if (firstMove != Game::PLAYER_ONE && firstMove != Game::PLAYER_TWO)
+	if (firstMove != Game::PLAYER_ONE && firstMove != Game::PLAYER_TWO)
 	{
 		throw std::runtime_error("First move argument must be either PLAYER_ONE or PLAYER_TWO.");
 	}
@@ -37,9 +37,9 @@ Game::Game(unsigned int nRows, unsigned int nColumns, Game::PlayerType firstMove
  * @param orig Game to copy.
  */
 Game::Game(const Game& orig)
-	: board(new Board(*(orig.board))), moves(orig.moves), winner(orig.winner),
-	  currentPlayer(orig.currentPlayer), timedOutPlayer(orig.timedOutPlayer),
-	  timeoutAction(orig.timeoutAction), isGameOver(orig.isGameOver), timeLimit(orig.timeLimit)
+    : board(new Board(*(orig.board))), moves(orig.moves), winner(orig.winner),
+      currentPlayer(orig.currentPlayer), timedOutPlayer(orig.timedOutPlayer),
+      timeoutAction(orig.timeoutAction), isGameOver(orig.isGameOver), timeLimit(orig.timeLimit)
 {
 
 }
@@ -129,7 +129,7 @@ void Game::makeMove(unsigned int column)
 	this->board->dropToken(column, this->currentPlayer);
 	this->moves.push_back(std::make_pair(this->currentPlayer, column));
 
-    this->currentPlayer = (this->currentPlayer == Game::PLAYER_ONE) ? Game::PLAYER_TWO : Game::PLAYER_ONE;
+	this->currentPlayer = (this->currentPlayer == Game::PLAYER_ONE) ? Game::PLAYER_TWO : Game::PLAYER_ONE;
 
 	this->checkWinningCondition();
 }

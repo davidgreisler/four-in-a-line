@@ -10,7 +10,7 @@ namespace Settings
  * @param parent Parent object.
  */
 Application::Application(QSharedPointer<QSettings> settings, QObject *parent) :
-	AbstractSettings(settings, parent)
+    AbstractSettings(settings, parent)
 {
 	this->read();
 }

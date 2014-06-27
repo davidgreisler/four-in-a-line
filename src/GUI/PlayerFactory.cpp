@@ -14,7 +14,7 @@ namespace GUI
  * @param board Board widget to use for the human player.
  */
 PlayerFactory::PlayerFactory(Widgets::Board* board)
-	: board(board)
+    : board(board)
 {
 
 }
@@ -55,7 +55,7 @@ PlayerFactory::createHumanPlayer(PlayerType playerId, QString name, HumanPlayer:
  */
 QSharedPointer<PlayerFactory::AIPlayer>
 PlayerFactory::createArtificialIntelligencePlayer(PlayerType playerId, QString name,
-												  PlayerFactory::LOD levelOfDifficulty) const
+                                                  PlayerFactory::LOD levelOfDifficulty) const
 {
 	QSharedPointer<ArtificialIntelligencePlayer> player;
 
@@ -95,13 +95,13 @@ QSharedPointer<AbstractPlayer> PlayerFactory::createCopy(const QSharedPointer<co
 	if (humanOriginal != nullptr)
 	{
 		player = PlayerFactory::createHumanPlayer(original->getPlayer(), original->getName(),
-												  humanOriginal->getControls());
+		                                          humanOriginal->getControls());
 	}
 	else if (aiOriginal != nullptr)
 	{
 		player = PlayerFactory::createArtificialIntelligencePlayer(original->getPlayer(),
-																   original->getName(),
-																   aiOriginal->getLevelOfDifficulty());
+		                                                           original->getName(),
+		                                                           aiOriginal->getLevelOfDifficulty());
 	}
 	else if (qSharedPointerCast<const NetworkPlayer>(original) != nullptr)
 	{
@@ -142,7 +142,7 @@ QSharedPointer<PlaceholderPlayer> PlayerFactory::createPlaceholder(const QShared
 	QSharedPointer<PlaceholderPlayer> placeholderPlayer;
 
 	placeholderPlayer.reset(new PlaceholderPlayer(player->getPlayer(), player->getName()),
-							&QObject::deleteLater);
+	                        &QObject::deleteLater);
 
 	return placeholderPlayer;
 }

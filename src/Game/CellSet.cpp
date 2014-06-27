@@ -11,7 +11,7 @@ namespace Game
  * Creates an empty cell set.
  */
 CellSet::CellSet()
-	: board(0), startX(0), startY(0), deltaX(0), deltaY(0), length(0)
+    : board(0), startX(0), startY(0), deltaX(0), deltaY(0), length(0)
 {
 
 }
@@ -30,8 +30,8 @@ CellSet::CellSet()
  * @param length Length of the cell set.
  */
 CellSet::CellSet(const Board* board, unsigned int startX, unsigned int startY, int deltaX,
-				 int deltaY, unsigned int length)
-	: board(board), startX(startX), startY(startY), deltaX(deltaX), deltaY(deltaY), length(length)
+                 int deltaY, unsigned int length)
+    : board(board), startX(startX), startY(startY), deltaX(deltaX), deltaY(deltaY), length(length)
 {
 
 }
@@ -42,8 +42,8 @@ CellSet::CellSet(const Board* board, unsigned int startX, unsigned int startY, i
  * @param orig Original object.
  */
 CellSet::CellSet(const CellSet& orig)
-	: board(orig.board), startX(orig.startX), startY(orig.startY), deltaX(orig.deltaX),
-	  deltaY(orig.deltaY), length(orig.length)
+    : board(orig.board), startX(orig.startX), startY(orig.startY), deltaX(orig.deltaX),
+      deltaY(orig.deltaY), length(orig.length)
 {
 
 }

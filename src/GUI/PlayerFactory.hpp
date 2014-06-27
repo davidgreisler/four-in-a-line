@@ -40,10 +40,10 @@ class PlayerFactory
 		virtual ~PlayerFactory();
 
 		QSharedPointer<HumanPlayer> createHumanPlayer(PlayerType playerId, QString name,
-													  HumanPlayer::Controls controls) const;
+		                                              HumanPlayer::Controls controls) const;
 
 		QSharedPointer<AIPlayer> createArtificialIntelligencePlayer(PlayerType playerId, QString name,
-																	LOD levelOfDifficulty) const;
+		                                                            LOD levelOfDifficulty) const;
 
 		QSharedPointer<NetworkPlayer> createNetworkPlayer(PlayerType playerId, QString name) const;
 

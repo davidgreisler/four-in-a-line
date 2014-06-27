@@ -22,9 +22,9 @@ class FileIO
 		static bool SetFileContent(QWidget* parentWidget, QString fileName, const QString& content);
 
 		static bool GetExistingFileName(QWidget* parentWidget, QString& fileName,
-										QString nameFilter);
+		                                QString nameFilter);
 		static bool GetSaveFileName(QWidget* parentWidget, QString& fileName,
-									QString defaultSuffix, QString nameFilter);
+		                            QString defaultSuffix, QString nameFilter);
 
 	private:
 		FileIO();

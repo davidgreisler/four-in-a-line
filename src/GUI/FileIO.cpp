@@ -31,8 +31,8 @@ bool FileIO::GetFileContent(QWidget* parentWidget, QString fileName, QString& co
 	{
 		QString errorMessage = parentWidget->tr("Failed to open the file '%1' for reading.");
 		QMessageBox::critical(parentWidget, parentWidget->tr("Failed to open file"),
-							  errorMessage.arg(fileName),
-							  QMessageBox::Abort);
+		                      errorMessage.arg(fileName),
+		                      QMessageBox::Abort);
 	}
 
 	return false;
@@ -63,8 +63,8 @@ bool FileIO::SetFileContent(QWidget* parentWidget, QString fileName, const QStri
 	{
 		QString errorMessage = parentWidget->tr("Failed to open the file '%1' for writing.");
 		QMessageBox::critical(parentWidget, parentWidget->tr("Failed to open file"),
-							  errorMessage.arg(fileName),
-							  QMessageBox::Abort);
+		                      errorMessage.arg(fileName),
+		                      QMessageBox::Abort);
 	}
 
 	return false;
@@ -110,7 +110,7 @@ bool FileIO::GetExistingFileName(QWidget* parentWidget, QString& fileName, QStri
  * @return When the user specified a file name true, otherwise false.
  */
 bool FileIO::GetSaveFileName(QWidget* parentWidget,
-							 QString& fileName, QString defaultSuffix, QString nameFilter)
+                             QString& fileName, QString defaultSuffix, QString nameFilter)
 {
 	QFileDialog fileDialog(parentWidget);
 	fileDialog.setFileMode(QFileDialog::AnyFile);

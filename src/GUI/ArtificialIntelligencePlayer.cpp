@@ -18,16 +18,16 @@ namespace GUI
  * @param parent Parent object.
  */
 ArtificialIntelligencePlayer::ArtificialIntelligencePlayer(::Game::FourInALine::Game::PlayerType player,
-														   LevelOfDifficulty difficulty,
-														   QString name, QObject *parent) :
-	AbstractPlayer(player, name, parent), difficulty(difficulty),
-	artificialIntelligence(static_cast<unsigned int>(difficulty))
+                                                           LevelOfDifficulty difficulty,
+                                                           QString name, QObject *parent) :
+    AbstractPlayer(player, name, parent), difficulty(difficulty),
+    artificialIntelligence(static_cast<unsigned int>(difficulty))
 {
 	this->timer = new QTimer(this);
 	this->timer->setInterval(100);
 
 	this->connect(this->timer, &QTimer::timeout,
-				  this, &ArtificialIntelligencePlayer::checkIfNextMoveIsReady);
+	              this, &ArtificialIntelligencePlayer::checkIfNextMoveIsReady);
 }
 
 /**

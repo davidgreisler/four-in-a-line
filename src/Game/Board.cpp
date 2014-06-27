@@ -15,7 +15,7 @@ namespace Game
  * @param emptyToken Value to use as empty token.
  */
 Board::Board(unsigned int nColumns, unsigned int nRows, TokenType emptyToken)
-	: nRows(nRows), nColumns(nColumns), emptyToken(emptyToken)
+    : nRows(nRows), nColumns(nColumns), emptyToken(emptyToken)
 {
 	if (nRows < 1 || nColumns < 1)
 	{
@@ -31,7 +31,7 @@ Board::Board(unsigned int nColumns, unsigned int nRows, TokenType emptyToken)
  * @param board Board to copy.
  */
 Board::Board(const Board& board)
-	: nRows(board.nRows), nColumns(board.nColumns), emptyToken(board.emptyToken)
+    : nRows(board.nRows), nColumns(board.nColumns), emptyToken(board.emptyToken)
 {
 	this->cells = std::vector<Board::TokenType>(board.cells);
 }

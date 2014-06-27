@@ -44,7 +44,7 @@ class Replay
 		using PlayerPointer = QSharedPointer<PlaceholderPlayer>;
 
 		Replay(MovesVector moves, unsigned int nColumns, unsigned int nRows,
-			   PlayerPointer firstPlayer, PlayerPointer secondPlayer);
+		       PlayerPointer firstPlayer, PlayerPointer secondPlayer);
 		virtual ~Replay();
 
 		std::pair<unsigned int, unsigned int> getMove(unsigned int moveNo) const;
@@ -61,9 +61,9 @@ class Replay
 		unsigned int getNumberOfColumns() const;
 
 		static QSharedPointer<Replay> CreateFromString(const QString& string,
-													   PlayerFactory& playerFactory);
+		                                               PlayerFactory& playerFactory);
 		static QSharedPointer<Replay> CreateFromGame(QSharedPointer<const Game> game,
-													 PlayerFactory& playerFactory);
+		                                             PlayerFactory& playerFactory);
 
 	private:
 		/**

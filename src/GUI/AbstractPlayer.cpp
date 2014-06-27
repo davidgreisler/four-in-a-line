@@ -11,7 +11,7 @@ namespace GUI
  * @param parent Parent object.
  */
 AbstractPlayer::AbstractPlayer(::Game::FourInALine::Game::PlayerType playerId, QString name, QObject* parent)
-	: QObject(parent), player(playerId), name(name)
+    : QObject(parent), player(playerId), name(name)
 {
 
 }

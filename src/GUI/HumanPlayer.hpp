@@ -34,7 +34,7 @@ class HumanPlayer : public AbstractPlayer
 		};
 
 		explicit HumanPlayer(::Game::FourInALine::Game::PlayerType player, Controls controls,
-							 Widgets::Board* board, QString name = QString(""), QObject *parent = 0);
+		                     Widgets::Board* board, QString name = QString(""), QObject *parent = 0);
 		virtual ~HumanPlayer();
 
 		virtual void requestMove(const QSharedPointer<const ::GUI::Game>& game);

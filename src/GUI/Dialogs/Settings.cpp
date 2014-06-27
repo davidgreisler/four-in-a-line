@@ -29,7 +29,7 @@ Settings::Settings(QWidget *parent) :
 	auto viewSettings = ::FourInALine::getInstance()->getSettings()->getViewSettings();
 
 	this->applicationSettingsWidget =
-			new ::GUI::Widgets::ApplicationSettings(applicationSettings, this);
+	        new ::GUI::Widgets::ApplicationSettings(applicationSettings, this);
 	this->layout->addWidget(this->applicationSettingsWidget, 0, 0, 1, 1);
 
 	this->viewSettingsWidget = new ::GUI::Widgets::ViewSettings(viewSettings, this);

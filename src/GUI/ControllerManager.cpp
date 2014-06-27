@@ -14,7 +14,7 @@ namespace GUI
  * @param parent Parent object.
  */
 ControllerManager::ControllerManager(QMainWindow* mainWindow, QObject* parent)
-	: QObject(parent), mainWindow(mainWindow), currentController(nullptr)
+    : QObject(parent), mainWindow(mainWindow), currentController(nullptr)
 {
 
 }

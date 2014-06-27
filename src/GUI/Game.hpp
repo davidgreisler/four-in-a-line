@@ -97,8 +97,8 @@ class Game
 		QString toString() const;
 		static QSharedPointer<Game> CreateFromString(const QString& savegame);
 		static QSharedPointer<Game> CreateWithSettingsFrom(QSharedPointer<const Game> game,
-														   PlayerPointerType firstPlayer,
-														   PlayerPointerType secondPlayer);
+		                                                   PlayerPointerType firstPlayer,
+		                                                   PlayerPointerType secondPlayer);
 
 	private:
 		PlayerPointerType playerIdToPlayer(::Game::FourInALine::Game::PlayerType playerId) const;
