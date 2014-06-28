@@ -1,7 +1,7 @@
 #ifndef GUI_WIDGETS_TIMELIMITCONFIGURATION_HPP
 #define GUI_WIDGETS_TIMELIMITCONFIGURATION_HPP
 
-#include "../../Game/FourInALine/Game.hpp"
+#include "../../GameLogic/FourInALine/Game.hpp"
 
 #include <QGroupBox>
 
@@ -40,8 +40,8 @@ class TimeLimitConfiguration : public QGroupBox
 		unsigned int getTimeLimit() const;
 		void setTimeLimit(unsigned int timeLimit);
 
-		::Game::FourInALine::Game::TimeoutAction getTimeoutAction() const;
-		void setTimeoutAction(::Game::FourInALine::Game::TimeoutAction action);
+		::GameLogic::FourInALine::Game::TimeoutAction getTimeoutAction() const;
+		void setTimeoutAction(::GameLogic::FourInALine::Game::TimeoutAction action);
 
 		/**
 		 * Minimum time limit in seconds.
@@ -56,7 +56,7 @@ class TimeLimitConfiguration : public QGroupBox
 		/**
 		 * The default timeout action.
 		 */
-		static const ::Game::FourInALine::Game::TimeoutAction DEFAULT_TIMEOUT_ACTION;
+		static const ::GameLogic::FourInALine::Game::TimeoutAction DEFAULT_TIMEOUT_ACTION;
 
 	private:
 		Q_DISABLE_COPY(TimeLimitConfiguration)

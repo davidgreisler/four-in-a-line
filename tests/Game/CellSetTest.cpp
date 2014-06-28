@@ -1,6 +1,6 @@
 #include "CellSetTest.hpp"
-#include "../../src/Game/Board.hpp"
-#include "../../src/Game/CellSet.hpp"
+#include "../../src/GameLogic/Board.hpp"
+#include "../../src/GameLogic/CellSet.hpp"
 
 #include <QDebug>
 
@@ -11,12 +11,12 @@ void CellSetTest::createAndAssignCellSet()
 {
 	unsigned int rows = 5u;
 	unsigned int columns = 5u;
-	Game::Board::TokenType emptyToken = 12345;
-	Game::Board testBoard(columns, rows, emptyToken);
+	GameLogic::Board::TokenType emptyToken = 12345;
+	GameLogic::Board testBoard(columns, rows, emptyToken);
 
 	// Create a set from (0,0) to (4, 4).
 
-	Game::CellSet cellSet(&testBoard, 0, 0, 1, 1, 5);
+	GameLogic::CellSet cellSet(&testBoard, 0, 0, 1, 1, 5);
 
 	QVERIFY(cellSet.isEmpty() == false);
 	QCOMPARE(cellSet.getCellXPosition(0), 0u);
@@ -27,7 +27,7 @@ void CellSetTest::createAndAssignCellSet()
 
 	// Create an empty set, then copy the first set into the empty set.
 
-	Game::CellSet otherSet;
+	GameLogic::CellSet otherSet;
 	QVERIFY(otherSet.isEmpty() == true);
 
 	otherSet = cellSet;
@@ -41,7 +41,7 @@ void CellSetTest::createAndAssignCellSet()
 
 	// Copy the first set using the copy constructor.
 
-	Game::CellSet anotherSet(cellSet);
+	GameLogic::CellSet anotherSet(cellSet);
 
 	QCOMPARE(anotherSet.getCellXPosition(0), 0u);
 	QCOMPARE(anotherSet.getCellYPosition(0), 0u);
@@ -57,17 +57,17 @@ void CellSetTest::retrieveAllCells()
 {
 	unsigned int rows = 3u;
 	unsigned int columns = 3u;
-	Game::Board::TokenType emptyToken = 0u;
-	Game::Board testBoard(columns, rows, emptyToken);
+	GameLogic::Board::TokenType emptyToken = 0u;
+	GameLogic::Board testBoard(columns, rows, emptyToken);
 	testBoard.setCell(0, 0, 1u);
 	testBoard.setCell(1, 1, 2u);
 	testBoard.setCell(2, 2, 3u);
 
 	// Create a set from (0,0) to (2, 2).
 
-	Game::CellSet cellSet(&testBoard, 0, 0, 1, 1, 3);
+	GameLogic::CellSet cellSet(&testBoard, 0, 0, 1, 1, 3);
 
-	std::vector<Game::Board::TokenType> tokens = cellSet.getContents();
+	std::vector<GameLogic::Board::TokenType> tokens = cellSet.getContents();
 	QCOMPARE(tokens.size(), (std::size_t)3);
 	QCOMPARE(tokens.at(0), 1u);
 	QCOMPARE(tokens.at(1), 2u);
@@ -87,10 +87,10 @@ void CellSetTest::accessOutOfRange()
 {
 	unsigned int rows = 3u;
 	unsigned int columns = 3u;
-	Game::Board::TokenType emptyToken = 0u;
-	Game::Board testBoard(columns, rows, emptyToken);
+	GameLogic::Board::TokenType emptyToken = 0u;
+	GameLogic::Board testBoard(columns, rows, emptyToken);
 
-	Game::CellSet cellSet(&testBoard, 0, 0, 1, 1, 1);
+	GameLogic::CellSet cellSet(&testBoard, 0, 0, 1, 1, 1);
 
 	try
 	{
@@ -108,18 +108,18 @@ void CellSetTest::createIterator()
 {
 	unsigned int rows = 3u;
 	unsigned int columns = 3u;
-	Game::Board::TokenType emptyToken = 0u;
-	Game::Board testBoard(columns, rows, emptyToken);
+	GameLogic::Board::TokenType emptyToken = 0u;
+	GameLogic::Board testBoard(columns, rows, emptyToken);
 
 	testBoard.setCell(0, 0, 1u);
 	testBoard.setCell(1, 1, 2u);
 	testBoard.setCell(2, 2, 3u);
 
-	Game::CellSet cellSet(&testBoard, 0, 0, 1, 1, 3);
+	GameLogic::CellSet cellSet(&testBoard, 0, 0, 1, 1, 3);
 
 	QCOMPARE(cellSet.begin().getContent(), 1u);
 
-	Game::CellSetIterator end = cellSet.end();
+	GameLogic::CellSetIterator end = cellSet.end();
 	end--;
 	QCOMPARE(end.getContent(), 3u);
 }

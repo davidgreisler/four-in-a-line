@@ -1,7 +1,7 @@
 #include "AsynchronousArtificialIntelligenceTest.hpp"
-#include "../../../src/Game/FourInALine/ArtificialIntelligence.hpp"
-#include "../../../src/Game/FourInALine/AsynchronousArtificialIntelligence.hpp"
-#include "../../../src/Game/FourInALine/Game.hpp"
+#include "../../../src/GameLogic/FourInALine/ArtificialIntelligence.hpp"
+#include "../../../src/GameLogic/FourInALine/AsynchronousArtificialIntelligence.hpp"
+#include "../../../src/GameLogic/FourInALine/Game.hpp"
 
 #include <chrono>
 #include <QThread>
@@ -13,8 +13,8 @@ void AsynchronousArtificialIntelligenceTest::obviousWin()
 {
 	unsigned int columns = 4;
 	unsigned int rows = 4;
-	Game::FourInALine::Game game(columns, rows, 1);
-	Game::FourInALine::AsynchronousArtificialIntelligence ai(5);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::AsynchronousArtificialIntelligence ai(5);
 
 	game.makeMove(0);
 	game.makeMove(0);
@@ -44,8 +44,8 @@ void AsynchronousArtificialIntelligenceTest::preventOpponentWin()
 {
 	unsigned int columns = 8;
 	unsigned int rows = 8;
-	Game::FourInALine::Game game(columns, rows, 1);
-	Game::FourInALine::AsynchronousArtificialIntelligence ai(3);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::AsynchronousArtificialIntelligence ai(3);
 
 	game.makeMove(0);
 	game.makeMove(0);
@@ -66,12 +66,12 @@ void AsynchronousArtificialIntelligenceTest::preventOpponentWin()
  */
 void AsynchronousArtificialIntelligenceTest::basicTest()
 {
-	Game::FourInALine::AsynchronousArtificialIntelligence ai(3);
+	GameLogic::FourInALine::AsynchronousArtificialIntelligence ai(3);
 
 	QCOMPARE(ai.isNextMoveReady(), false);
 	QCOMPARE(ai.isNextMoveValid(), false);
 	QCOMPARE(ai.isComputing(), false);
-	QCOMPARE(ai.getNextMove(), Game::FourInALine::AsynchronousArtificialIntelligence::INVALID_RESULT);
+	QCOMPARE(ai.getNextMove(), GameLogic::FourInALine::AsynchronousArtificialIntelligence::INVALID_RESULT);
 
 	QCOMPARE(ai.getSearchDepth(), 3u);
 
@@ -88,15 +88,15 @@ void AsynchronousArtificialIntelligenceTest::testCancel()
 {
 	unsigned int columns = 9;
 	unsigned int rows = 9;
-	Game::FourInALine::Game game(columns, rows, 1);
-	Game::FourInALine::AsynchronousArtificialIntelligence ai(12);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::AsynchronousArtificialIntelligence ai(12);
 
 	ai.computeNextMoveAsynchronously(game);
 
 	QCOMPARE(ai.isNextMoveReady(), false);
 	QCOMPARE(ai.isNextMoveValid(), false);
 	QCOMPARE(ai.isComputing(), true);
-	QCOMPARE(ai.getNextMove(), Game::FourInALine::AsynchronousArtificialIntelligence::INVALID_RESULT);
+	QCOMPARE(ai.getNextMove(), GameLogic::FourInALine::AsynchronousArtificialIntelligence::INVALID_RESULT);
 
 	ai.cancelComputation();
 
@@ -105,7 +105,7 @@ void AsynchronousArtificialIntelligenceTest::testCancel()
 	QCOMPARE(ai.isNextMoveReady(), false);
 	QCOMPARE(ai.isNextMoveValid(), false);
 	QCOMPARE(ai.isComputing(), false);
-	QCOMPARE(ai.getNextMove(), Game::FourInALine::AsynchronousArtificialIntelligence::INVALID_RESULT);
+	QCOMPARE(ai.getNextMove(), GameLogic::FourInALine::AsynchronousArtificialIntelligence::INVALID_RESULT);
 }
 
 QTEST_MAIN(AsynchronousArtificialIntelligenceTest)

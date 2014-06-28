@@ -1,6 +1,6 @@
 #include "ArtificialIntelligenceTest.hpp"
-#include "../../../src/Game/FourInALine/ArtificialIntelligence.hpp"
-#include "../../../src/Game/FourInALine/Game.hpp"
+#include "../../../src/GameLogic/FourInALine/ArtificialIntelligence.hpp"
+#include "../../../src/GameLogic/FourInALine/Game.hpp"
 
 #include <QDebug>
 
@@ -11,8 +11,8 @@ void ArtificialIntelligenceTest::obviousWin()
 {
 	unsigned int columns = 4;
 	unsigned int rows = 4;
-	Game::FourInALine::Game game(columns, rows, 1);
-	Game::FourInALine::ArtificialIntelligence ai(3);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::ArtificialIntelligence ai(3);
 
 	game.makeMove(0);
 	game.makeMove(0);
@@ -36,8 +36,8 @@ void ArtificialIntelligenceTest::preventOpponentWin()
 {
 	unsigned int columns = 8;
 	unsigned int rows = 8;
-	Game::FourInALine::Game game(columns, rows, 1);
-	Game::FourInALine::ArtificialIntelligence ai(3);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::ArtificialIntelligence ai(3);
 
 	game.makeMove(0);
 	game.makeMove(0);
@@ -57,7 +57,7 @@ void ArtificialIntelligenceTest::preventOpponentWin()
  */
 void ArtificialIntelligenceTest::basicTest()
 {
-	Game::FourInALine::ArtificialIntelligence ai(3);
+	GameLogic::FourInALine::ArtificialIntelligence ai(3);
 
 	QCOMPARE(ai.getSearchDepth(), 3u);
 
@@ -73,8 +73,8 @@ void ArtificialIntelligenceTest::benchmark()
 {
 	unsigned int columns = 8;
 	unsigned int rows = 8;
-	Game::FourInALine::Game game(columns, rows, 1);
-	Game::FourInALine::ArtificialIntelligence ai(7);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::ArtificialIntelligence ai(7);
 
 	QBENCHMARK
 	{

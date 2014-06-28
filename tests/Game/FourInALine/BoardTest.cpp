@@ -1,7 +1,7 @@
 #include "BoardTest.hpp"
-#include "../../../src/Game/FourInALine/Board.hpp"
-#include "../../../src/Game/Board.hpp"
-#include "../../../src/Game/CellSet.hpp"
+#include "../../../src/GameLogic/FourInALine/Board.hpp"
+#include "../../../src/GameLogic/Board.hpp"
+#include "../../../src/GameLogic/CellSet.hpp"
 
 #include <QDebug>
 #include <memory>
@@ -16,7 +16,7 @@ void BoardTest::createAndCopy()
 
 	try
 	{
-		Game::FourInALine::Board invalidBoard(1, 0);
+		GameLogic::FourInALine::Board invalidBoard(1, 0);
 		QFAIL("Attempting to create an invalid board should throw an exception.");
 	}
 	catch(std::exception)
@@ -28,10 +28,10 @@ void BoardTest::createAndCopy()
 
 	unsigned int rows = 10u;
 	unsigned int columns = 5u;
-	Game::FourInALine::Board testBoard(columns, rows);
+	GameLogic::FourInALine::Board testBoard(columns, rows);
 	QVERIFY(testBoard.getNumberOfRows() == rows);
 	QVERIFY(testBoard.getNumberOfColumns() == columns);
-	QVERIFY(testBoard.getEmptyToken() == Game::FourInALine::Board::CELL_EMPTY);
+	QVERIFY(testBoard.getEmptyToken() == GameLogic::FourInALine::Board::CELL_EMPTY);
 	QVERIFY(testBoard.isEmpty() == true);
 
 	testBoard.dropToken(0, 123u);
@@ -42,7 +42,7 @@ void BoardTest::createAndCopy()
 	// Copy the board and check whether it is copied correctly and changes to the copy/original do
 	// not affect each other.
 
-	Game::FourInALine::Board copy(testBoard);
+	GameLogic::FourInALine::Board copy(testBoard);
 
 	QVERIFY(copy.isEmpty() == false);
 	QCOMPARE(copy.getCell(0, rows - 1), 123u);
@@ -50,7 +50,7 @@ void BoardTest::createAndCopy()
 	copy.dropToken(0, 456u);
 
 	QCOMPARE(copy.getCell(0, rows - 2), 456u);
-	QCOMPARE(testBoard.getCell(0, rows - 2), Game::FourInALine::Board::CELL_EMPTY);
+	QCOMPARE(testBoard.getCell(0, rows - 2), GameLogic::FourInALine::Board::CELL_EMPTY);
 
 }
 
@@ -61,7 +61,7 @@ void BoardTest::fillAndEmpty()
 {
 	unsigned int rows = 10u;
 	unsigned int columns = 5u;
-	Game::FourInALine::Board testBoard(columns, rows);
+	GameLogic::FourInALine::Board testBoard(columns, rows);
 
 	QVERIFY(testBoard.isEmpty() == true);
 
@@ -127,7 +127,7 @@ void BoardTest::accessOutOfRange()
 {
 	unsigned int rows = 2u;
 	unsigned int columns = 2u;
-	Game::FourInALine::Board testBoard(columns, rows);
+	GameLogic::FourInALine::Board testBoard(columns, rows);
 
 	try
 	{
@@ -168,7 +168,7 @@ void BoardTest::doTokensFallDownOnRemove()
 {
 	unsigned int rows = 3u;
 	unsigned int columns = 2u;
-	Game::FourInALine::Board testBoard(columns, rows);
+	GameLogic::FourInALine::Board testBoard(columns, rows);
 
 	testBoard.dropToken(0, 1u);
 	testBoard.dropToken(0, 2u);
@@ -182,19 +182,19 @@ void BoardTest::doTokensFallDownOnRemove()
 
 	QCOMPARE(testBoard.getCell(0, 2), 2u);
 	QCOMPARE(testBoard.getCell(0, 1), 3u);
-	QCOMPARE(testBoard.getCell(0, 0), Game::FourInALine::Board::CELL_EMPTY);
+	QCOMPARE(testBoard.getCell(0, 0), GameLogic::FourInALine::Board::CELL_EMPTY);
 
 	testBoard.removeToken(0, 2);
 
 	QCOMPARE(testBoard.getCell(0, 2), 3u);
-	QCOMPARE(testBoard.getCell(0, 1), Game::FourInALine::Board::CELL_EMPTY);
-	QCOMPARE(testBoard.getCell(0, 0), Game::FourInALine::Board::CELL_EMPTY);
+	QCOMPARE(testBoard.getCell(0, 1), GameLogic::FourInALine::Board::CELL_EMPTY);
+	QCOMPARE(testBoard.getCell(0, 0), GameLogic::FourInALine::Board::CELL_EMPTY);
 
 	testBoard.removeToken(0, 2);
 
-	QCOMPARE(testBoard.getCell(0, 2), Game::FourInALine::Board::CELL_EMPTY);
-	QCOMPARE(testBoard.getCell(0, 1), Game::FourInALine::Board::CELL_EMPTY);
-	QCOMPARE(testBoard.getCell(0, 0), Game::FourInALine::Board::CELL_EMPTY);
+	QCOMPARE(testBoard.getCell(0, 2), GameLogic::FourInALine::Board::CELL_EMPTY);
+	QCOMPARE(testBoard.getCell(0, 1), GameLogic::FourInALine::Board::CELL_EMPTY);
+	QCOMPARE(testBoard.getCell(0, 0), GameLogic::FourInALine::Board::CELL_EMPTY);
 }
 
 /**
@@ -205,7 +205,7 @@ void BoardTest::findWinningCells()
 {
 	unsigned int rows = 5u;
 	unsigned int columns = 5u;
-	std::unique_ptr<Game::FourInALine::Board> testBoard(new Game::FourInALine::Board(columns, rows));
+	std::unique_ptr<GameLogic::FourInALine::Board> testBoard(new GameLogic::FourInALine::Board(columns, rows));
 
 	// No winner yet, findWinningCells() should return an empty cell set.
 
@@ -218,11 +218,11 @@ void BoardTest::findWinningCells()
 	testBoard->dropToken(2, 1u);
 	testBoard->dropToken(3, 1u);
 
-	Game::CellSet winningCells = testBoard->findWinningCells();
+	GameLogic::CellSet winningCells = testBoard->findWinningCells();
 
 	QCOMPARE(winningCells.getLength(), 4u);
 
-	std::vector<Game::Board::TokenType> content = winningCells.getContents();
+	std::vector<GameLogic::Board::TokenType> content = winningCells.getContents();
 	for (unsigned int i = 0; i < 4; ++i)
 	{
 		QCOMPARE(content.at(i), 1u);
@@ -230,7 +230,7 @@ void BoardTest::findWinningCells()
 
 	// Vertical.
 
-	testBoard.reset(new Game::FourInALine::Board(columns, rows));
+	testBoard.reset(new GameLogic::FourInALine::Board(columns, rows));
 
 	testBoard->dropToken(0, 1u);
 	testBoard->dropToken(0, 1u);
@@ -249,7 +249,7 @@ void BoardTest::findWinningCells()
 
 	// Minor diagonal.
 
-	testBoard.reset(new Game::FourInALine::Board(columns, rows));
+	testBoard.reset(new GameLogic::FourInALine::Board(columns, rows));
 
 	testBoard->dropToken(0, 1u);
 	testBoard->dropToken(1, 2u);
@@ -274,7 +274,7 @@ void BoardTest::findWinningCells()
 
 	// Major diagonal.
 
-	testBoard.reset(new Game::FourInALine::Board(columns, rows));
+	testBoard.reset(new GameLogic::FourInALine::Board(columns, rows));
 
 	testBoard->dropToken(3, 1u);
 	testBoard->dropToken(2, 2u);
@@ -306,7 +306,7 @@ void BoardTest::getAvailableColumns()
 {
 	unsigned int rows = 1u;
 	unsigned int columns = 4u;
-	Game::FourInALine::Board testBoard(columns, rows);
+	GameLogic::FourInALine::Board testBoard(columns, rows);
 
 	testBoard.dropToken(0, 1u);
 	testBoard.dropToken(2, 2u);

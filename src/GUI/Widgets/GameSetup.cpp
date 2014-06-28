@@ -20,8 +20,8 @@ namespace Widgets
 GameSetup::GameSetup(QWidget *parent) :
     QWidget(parent)
 {
-	auto playerOneId = ::Game::FourInALine::Game::PLAYER_ONE;
-	auto playerTwoId = ::Game::FourInALine::Game::PLAYER_TWO;
+	auto playerOneId = ::GameLogic::FourInALine::Game::PLAYER_ONE;
+	auto playerTwoId = ::GameLogic::FourInALine::Game::PLAYER_TWO;
 
 	this->layout = new QGridLayout;
 	this->setLayout(this->layout);

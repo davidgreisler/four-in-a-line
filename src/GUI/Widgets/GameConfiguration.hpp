@@ -1,7 +1,7 @@
 #ifndef GUI_WIDGETS_GAMECONFIGURATION_HPP
 #define GUI_WIDGETS_GAMECONFIGURATION_HPP
 
-#include "../../Game/FourInALine/Game.hpp"
+#include "../../GameLogic/FourInALine/Game.hpp"
 
 #include <QGroupBox>
 
@@ -39,7 +39,7 @@ class GameConfiguration : public QGroupBox
 		/**
 		 * Type used for player ids.
 		 */
-		using PlayerIdType = ::Game::FourInALine::Game::PlayerType;
+		using PlayerIdType = ::GameLogic::FourInALine::Game::PlayerType;
 
 		explicit GameConfiguration(QWidget* parent = 0);
 		virtual ~GameConfiguration();

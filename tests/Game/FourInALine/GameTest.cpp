@@ -1,5 +1,5 @@
 #include "GameTest.hpp"
-#include "../../../src/Game/FourInALine/Game.hpp"
+#include "../../../src/GameLogic/FourInALine/Game.hpp"
 
 #include <QDebug>
 
@@ -10,11 +10,11 @@ void GameTest::createGame()
 {
 	unsigned int columns = 8;
 	unsigned int rows = 5;
-	Game::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
 
 	QCOMPARE(game.getBoard()->getNumberOfColumns(), columns);
 	QCOMPARE(game.getBoard()->getNumberOfRows(), rows);
-	QCOMPARE(game.getCurrentPlayer(), (Game::FourInALine::Game::PlayerType)1);
+	QCOMPARE(game.getCurrentPlayer(), (GameLogic::FourInALine::Game::PlayerType)1);
 	QCOMPARE(game.isUndoPossible(), false);
 	QCOMPARE(game.isMovePossible(0), true);
 	QCOMPARE(game.isOver(), false);
@@ -26,7 +26,7 @@ void GameTest::createGame()
 
 	try
 	{
-		Game::FourInALine::Game game(1, 2, 3);
+		GameLogic::FourInALine::Game game(1, 2, 3);
 		QFAIL("Attempting to create a game where the player who does the first move is neither player one or two should throw an exception.");
 	}
 	catch(std::exception) {}
@@ -39,7 +39,7 @@ void GameTest::playDraw()
 {
 	unsigned int columns = 2;
 	unsigned int rows = 4;
-	Game::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
 
 	QCOMPARE(game.isUndoPossible(), false);
 	QCOMPARE(game.isMovePossible(0), true);
@@ -88,7 +88,7 @@ void GameTest::playAndWin()
 {
 	unsigned int columns = 8;
 	unsigned int rows = 5;
-	Game::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
 
 	QCOMPARE(game.isUndoPossible(), false);
 	QCOMPARE(game.isMovePossible(0), true);
@@ -118,7 +118,7 @@ void GameTest::playAndWin()
 	QCOMPARE(game.isMovePossible(0), false);
 	QCOMPARE(game.isOver(), true);
 	QCOMPARE(game.isDraw(), false);
-	QCOMPARE(game.getWinner(), (Game::FourInALine::Game::PlayerType)1);
+	QCOMPARE(game.getWinner(), (GameLogic::FourInALine::Game::PlayerType)1);
 }
 
 /**
@@ -128,7 +128,7 @@ void GameTest::checkReplay()
 {
 	unsigned int columns = 8;
 	unsigned int rows = 5;
-	Game::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
 
 	// | 1 | 2 |
 
@@ -144,10 +144,10 @@ void GameTest::checkReplay()
 	QVERIFY(replay.size() == (std::size_t)4);
 	QCOMPARE(game.getNumberOfMoves(), 4u);
 
-	QCOMPARE(replay[0].first, (Game::FourInALine::Game::PlayerType)1);
-	QCOMPARE(replay[1].first, (Game::FourInALine::Game::PlayerType)2);
-	QCOMPARE(replay[2].first, (Game::FourInALine::Game::PlayerType)1);
-	QCOMPARE(replay[3].first, (Game::FourInALine::Game::PlayerType)2);
+	QCOMPARE(replay[0].first, (GameLogic::FourInALine::Game::PlayerType)1);
+	QCOMPARE(replay[1].first, (GameLogic::FourInALine::Game::PlayerType)2);
+	QCOMPARE(replay[2].first, (GameLogic::FourInALine::Game::PlayerType)1);
+	QCOMPARE(replay[3].first, (GameLogic::FourInALine::Game::PlayerType)2);
 
 	QCOMPARE(replay[0].second, 0u);
 	QCOMPARE(replay[1].second, 1u);
@@ -162,7 +162,7 @@ void GameTest::undoMove()
 {
 	unsigned int columns = 8;
 	unsigned int rows = 5;
-	Game::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
 
 	QCOMPARE(game.getNumberOfMoves(), 0u);
 	QCOMPARE(game.isUndoPossible(), false);
@@ -212,7 +212,7 @@ void GameTest::makeMistakes()
 {
 	unsigned int columns = 3;
 	unsigned int rows = 2;
-	Game::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
 
 	try
 	{
@@ -246,20 +246,20 @@ void GameTest::timeOutPlayer()
 {
 	unsigned int columns = 5;
 	unsigned int rows = 5;
-	Game::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::Game game(columns, rows, 1);
 
 	// Verify default values.
 
 	QCOMPARE(game.getTimeLimit(), 0u);
-	QCOMPARE(game.getTimeoutAction(), Game::FourInALine::Game::TimeoutAction::DRAW_GAME);
+	QCOMPARE(game.getTimeoutAction(), GameLogic::FourInALine::Game::TimeoutAction::DRAW_GAME);
 
 	// Change them and check whether that worked.
 
 	game.setTimeLimit(123);
-	game.setTimeoutAction(Game::FourInALine::Game::TimeoutAction::LOSE_GAME);
+	game.setTimeoutAction(GameLogic::FourInALine::Game::TimeoutAction::LOSE_GAME);
 
 	QCOMPARE(game.getTimeLimit(), 123u);
-	QCOMPARE(game.getTimeoutAction(), Game::FourInALine::Game::TimeoutAction::LOSE_GAME);
+	QCOMPARE(game.getTimeoutAction(), GameLogic::FourInALine::Game::TimeoutAction::LOSE_GAME);
 
 	// Time out player and check whether he loses.
 
@@ -283,7 +283,7 @@ void GameTest::timeOutPlayer()
 
 	// Time out player and check whether the game is a draw
 
-	game.setTimeoutAction(Game::FourInALine::Game::TimeoutAction::DRAW_GAME);
+	game.setTimeoutAction(GameLogic::FourInALine::Game::TimeoutAction::DRAW_GAME);
 	game.makeTimeoutMove();
 
 	QCOMPARE(game.isOver(), true);
@@ -299,7 +299,7 @@ void GameTest::timeOutPlayer()
  */
 void GameTest::firstMove()
 {
-	Game::FourInALine::Game game(5, 5, 1);
+	GameLogic::FourInALine::Game game(5, 5, 1);
 
 	QCOMPARE(game.getPlayerWhoMakesFirstMove(), 1u);
 
@@ -311,7 +311,7 @@ void GameTest::firstMove()
 
 	QCOMPARE(game.getPlayerWhoMakesFirstMove(), 1u);
 
-	Game::FourInALine::Game anotherGame(4, 4, 2);
+	GameLogic::FourInALine::Game anotherGame(4, 4, 2);
 
 	QCOMPARE(anotherGame.getPlayerWhoMakesFirstMove(), 2u);
 
@@ -326,29 +326,29 @@ void GameTest::firstMove()
  */
 void GameTest::checkPositions()
 {
-	Game::FourInALine::Game game(5, 5, 1);
+	GameLogic::FourInALine::Game game(5, 5, 1);
 
 	game.makeMove(0);
 
-	QCOMPARE(game.getBoard()->getCell(0, 4), Game::FourInALine::Game::PLAYER_ONE);
+	QCOMPARE(game.getBoard()->getCell(0, 4), GameLogic::FourInALine::Game::PLAYER_ONE);
 	QCOMPARE(game.computeMovePosition(0).first, 0u);
 	QCOMPARE(game.computeMovePosition(0).second, 4u);
 
 	game.makeMove(0);
 
-	QCOMPARE(game.getBoard()->getCell(0, 3), Game::FourInALine::Game::PLAYER_TWO);
+	QCOMPARE(game.getBoard()->getCell(0, 3), GameLogic::FourInALine::Game::PLAYER_TWO);
 	QCOMPARE(game.computeMovePosition(1).first, 0u);
 	QCOMPARE(game.computeMovePosition(1).second, 3u);
 
 	game.makeMove(1);
 
-	QCOMPARE(game.getBoard()->getCell(0, 4), Game::FourInALine::Game::PLAYER_ONE);
+	QCOMPARE(game.getBoard()->getCell(0, 4), GameLogic::FourInALine::Game::PLAYER_ONE);
 	QCOMPARE(game.computeMovePosition(2).first, 1u);
 	QCOMPARE(game.computeMovePosition(2).second, 4u);
 
 	game.makeMove(0);
 
-	QCOMPARE(game.getBoard()->getCell(0, 2), Game::FourInALine::Game::PLAYER_TWO);
+	QCOMPARE(game.getBoard()->getCell(0, 2), GameLogic::FourInALine::Game::PLAYER_TWO);
 	QCOMPARE(game.computeMovePosition(3).first, 0u);
 	QCOMPARE(game.computeMovePosition(3).second, 2u);
 

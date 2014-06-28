@@ -1,8 +1,8 @@
 #ifndef TESTS_GAME_FOUR_IN_A_LINE_ARTIFICIALINTELLIGENCETEST_HPP
 #define TESTS_GAME_FOUR_IN_A_LINE_ARTIFICIALINTELLIGENCETEST_HPP
 
-#include "../../../src/Game/FourInALine/Game.hpp"
-#include "../../../src/Game/FourInALine/AsynchronousArtificialIntelligence.hpp"
+#include "../../../src/GameLogic/FourInALine/Game.hpp"
+#include "../../../src/GameLogic/FourInALine/AsynchronousArtificialIntelligence.hpp"
 
 #include <QtTest/QTest>
 

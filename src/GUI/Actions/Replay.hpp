@@ -11,8 +11,8 @@ class QAction;
 namespace GUI
 {
 
-class GameController;
-class ReplayController;
+class GameView;
+class ReplayView;
 
 namespace Actions
 {
@@ -27,8 +27,8 @@ class Replay : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit Replay(::GUI::GameController* gameController,
-						::GUI::ReplayController* replayController, QWidget* parentWindow,
+		explicit Replay(::GUI::GameView* gameView,
+						::GUI::ReplayView* replayView, QWidget* parentWindow,
 						QObject *parent = 0);
 		virtual ~Replay();
 
@@ -62,14 +62,14 @@ class Replay : public QObject
 		QWidget* parentWindow;
 
 		/**
-		 * Game controller, used to save a replay.
+		 * Game view, used to save a replay.
 		 */
-		::GUI::GameController* gameController;
+		::GUI::GameView* gameView;
 
 		/**
-		 * Replay controller, used to load replays and navigate in the replays.
+		 * Replay view, used to load replays and navigate in the replays.
 		 */
-		::GUI::ReplayController* replayController;
+		::GUI::ReplayView* replayView;
 
 		/**
 		 * Loads a replay.

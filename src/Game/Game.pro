@@ -1,10 +1,11 @@
-include(../Defines.pri)
+include (../Defines.pri)
 
-SOURCES += Board.cpp \
-           CellSet.cpp \
-           CellSetIterator.cpp
+SOURCES += Game.cpp \
+	   Replay.cpp \
+	   ParseError.cpp \
+           GameController.cpp
 
-HEADERS += Board.hpp \
-           CellSet.hpp \
-           CellSetIterator.hpp
-
+HEADERS += Game.hpp \
+	   Replay.hpp \
+	   ParseError.hpp \
+           GameController.hpp

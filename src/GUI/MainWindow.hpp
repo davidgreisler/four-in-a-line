@@ -7,7 +7,7 @@
 #include "Actions/Help.hpp"
 #include "Actions/Replay.hpp"
 #include "Actions/Move.hpp"
-#include "ControllerManager.hpp"
+#include "ViewManager.hpp"
 
 #include <QMainWindow>
 
@@ -85,9 +85,9 @@ class MainWindow : public QMainWindow
 		Actions::Replay* replayActions;
 
 		/**
-		 * Manages controllers and central widget.
+		 * Manages views and central widget.
 		 */
-		ControllerManager* controllerManager;
+		ViewManager* viewManager;
 };
 
 }

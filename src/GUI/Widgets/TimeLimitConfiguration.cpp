@@ -13,7 +13,7 @@ namespace GUI
 namespace Widgets
 {
 
-using TimeoutAction = ::Game::FourInALine::Game::TimeoutAction;
+using TimeoutAction = ::GameLogic::FourInALine::Game::TimeoutAction;
 
 const unsigned int TimeLimitConfiguration::MINIMUM_TIME_LIMIT = 5;
 const unsigned int TimeLimitConfiguration::MAXIMUM_TIME_LIMIT = 86400;
@@ -113,7 +113,7 @@ void TimeLimitConfiguration::setTimeLimit(unsigned int timeLimit)
  */
 TimeoutAction TimeLimitConfiguration::getTimeoutAction() const
 {
-	Game::FourInALine::Game::TimeoutAction action;
+	GameLogic::FourInALine::Game::TimeoutAction action;
 
 	if (this->drawActionRadioButton->isChecked())
 	{

@@ -11,7 +11,7 @@ class QAction;
 namespace GUI
 {
 
-class GameController;
+class GameView;
 
 namespace Actions
 {
@@ -25,7 +25,7 @@ class Move : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit Move(::GUI::GameController* gameController, QWidget* parentWindow,
+		explicit Move(::GUI::GameView* gameView, QWidget* parentWindow,
 					  QObject *parent = 0);
 		virtual ~Move();
 
@@ -48,9 +48,9 @@ class Move : public QObject
 		bool event(QEvent* event);
 
 		/**
-		 * Game controller, used to invoke undo/show hint actions.
+		 * Game view, used to invoke undo/show hint actions.
 		 */
-		::GUI::GameController* gameController;
+		::GUI::GameView* gameView;
 
 		/**
 		 * Parent window, used for dialogs.

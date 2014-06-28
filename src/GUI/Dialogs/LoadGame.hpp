@@ -1,7 +1,7 @@
 #ifndef GUI_DIALOGS_LOADGAME_HPP
 #define GUI_DIALOGS_LOADGAME_HPP
 
-#include "../PlayerFactory.hpp"
+#include "../../Game/Players/Factory.hpp"
 #include "../Widgets/BoardConfiguration.hpp"
 #include "../Widgets/TimeLimitConfiguration.hpp"
 #include "../Widgets/PlayerConfiguration.hpp"
@@ -37,10 +37,10 @@ class LoadGame : public QDialog
 {
 		Q_OBJECT
 	public:
-		explicit LoadGame(QSharedPointer< ::GUI::Game> game, QWidget *parent = 0);
+		explicit LoadGame(QSharedPointer< ::Game::Game> game, QWidget *parent = 0);
 		virtual ~LoadGame();
 
-		void replacePlayers(PlayerFactory& playerFactory);
+		void replacePlayers(::Game::Players::Factory& playerFactory);
 
 	private slots:
 		void updateLoadGameButton();
@@ -74,7 +74,7 @@ class LoadGame : public QDialog
 		/**
 		 * The loaded game with placeholder players to replace.
 		 */
-		QSharedPointer< ::GUI::Game> game;
+		QSharedPointer< ::Game::Game> game;
 };
 
 }

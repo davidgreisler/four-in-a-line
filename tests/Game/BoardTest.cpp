@@ -1,6 +1,6 @@
 #include "BoardTest.hpp"
-#include "../../src/Game/Board.hpp"
-#include "../../src/Game/CellSet.hpp"
+#include "../../src/GameLogic/Board.hpp"
+#include "../../src/GameLogic/CellSet.hpp"
 
 #include <QDebug>
 
@@ -13,7 +13,7 @@ void BoardTest::createAndCopyBoard()
 
 	try
 	{
-		Game::Board invalidBoard(1, 0);
+		GameLogic::Board invalidBoard(1, 0);
 		QFAIL("Attempting to create an invalid board should throw an exception.");
 	}
 	catch(std::exception)
@@ -25,8 +25,8 @@ void BoardTest::createAndCopyBoard()
 
 	unsigned int rows = 10u;
 	unsigned int columns = 5u;
-	Game::Board::TokenType emptyToken = 12345;
-	Game::Board testBoard(columns, rows, emptyToken);
+	GameLogic::Board::TokenType emptyToken = 12345;
+	GameLogic::Board testBoard(columns, rows, emptyToken);
 	QVERIFY(testBoard.getNumberOfRows() == rows);
 	QVERIFY(testBoard.getNumberOfColumns() == columns);
 	QVERIFY(testBoard.getEmptyToken() == emptyToken);
@@ -55,7 +55,7 @@ void BoardTest::createAndCopyBoard()
 	// check whether changing a cell in the original doesn't affect the copy and the other way
 	// around.
 
-	Game::Board copy(testBoard);
+	GameLogic::Board copy(testBoard);
 	QVERIFY(copy.getNumberOfRows() == rows);
 	QVERIFY(copy.getNumberOfColumns() == columns);
 	QCOMPARE(copy.getCell(0, 0), 1u);
@@ -72,7 +72,7 @@ void BoardTest::fillWholeBoard()
 {
 	unsigned int rows = 5u;
 	unsigned int columns = 5u;
-	Game::Board testBoard(columns, rows, 0u);
+	GameLogic::Board testBoard(columns, rows, 0u);
 
 	// Fill whole board.
 
@@ -117,7 +117,7 @@ void BoardTest::swapCells()
 {
 	unsigned int rows = 5u;
 	unsigned int columns = 5u;
-	Game::Board testBoard(columns, rows, 0u);
+	GameLogic::Board testBoard(columns, rows, 0u);
 
 	// Swap two cells and check whether they have been swapped.
 
@@ -147,7 +147,7 @@ void BoardTest::accessOutOfRange()
 {
 	unsigned int rows = 2u;
 	unsigned int columns = 2u;
-	Game::Board testBoard(columns, rows, 0u);
+	GameLogic::Board testBoard(columns, rows, 0u);
 
 	try
 	{
@@ -263,7 +263,7 @@ void BoardTest::checkRowsAndColumns()
 {
 	unsigned int rows = 8u;
 	unsigned int columns = 5u;
-	Game::Board testBoard(columns, rows, 0u);
+	GameLogic::Board testBoard(columns, rows, 0u);
 
 	// Fill board, every cell gets a unique token.
 
@@ -279,7 +279,7 @@ void BoardTest::checkRowsAndColumns()
 
 	for (unsigned int x = 0; x < columns; ++x)
 	{
-		Game::CellSet column = testBoard.getColumn(x);
+		GameLogic::CellSet column = testBoard.getColumn(x);
 
 		for (unsigned int y = 0; y < column.getLength(); ++y)
 		{
@@ -291,7 +291,7 @@ void BoardTest::checkRowsAndColumns()
 
 	for (unsigned int y = 0; y < rows; ++y)
 	{
-		Game::CellSet row = testBoard.getRow(y);
+		GameLogic::CellSet row = testBoard.getRow(y);
 
 		for (unsigned int x = 0; x < row.getLength(); ++x)
 		{
@@ -308,7 +308,7 @@ void BoardTest::checkDiagonalRows()
 {
 	unsigned int rows = 5u;
 	unsigned int columns = 5u;
-	Game::Board testBoard(columns, rows, 0u);
+	GameLogic::Board testBoard(columns, rows, 0u);
 
 	// Fill board, every cell gets a unique token.
 
@@ -324,7 +324,7 @@ void BoardTest::checkDiagonalRows()
 
 	for(unsigned int i = 1; i < columns; ++i)
 	{
-		Game::CellSet diagonal = testBoard.getMajorDiagonal(i, 0);
+		GameLogic::CellSet diagonal = testBoard.getMajorDiagonal(i, 0);
 
 		for (unsigned int j = 0; j < diagonal.getLength(); ++j)
 		{
@@ -334,7 +334,7 @@ void BoardTest::checkDiagonalRows()
 
 	for(unsigned int i = 0; i < rows; ++i)
 	{
-		Game::CellSet diagonal = testBoard.getMajorDiagonal(0, i);
+		GameLogic::CellSet diagonal = testBoard.getMajorDiagonal(0, i);
 
 		for (unsigned int j = 0; j < diagonal.getLength(); ++j)
 		{
@@ -346,7 +346,7 @@ void BoardTest::checkDiagonalRows()
 
 	for(unsigned int i = 0; i < columns; ++i)
 	{
-		Game::CellSet diagonal = testBoard.getMinorDiagonal(i, 0);
+		GameLogic::CellSet diagonal = testBoard.getMinorDiagonal(i, 0);
 
 		for (unsigned int j = 0; j < diagonal.getLength(); ++j)
 		{
@@ -356,7 +356,7 @@ void BoardTest::checkDiagonalRows()
 
 	for(unsigned int i = 1; i < rows; ++i)
 	{
-		Game::CellSet diagonal = testBoard.getMinorDiagonal(i, columns - 1);
+		GameLogic::CellSet diagonal = testBoard.getMinorDiagonal(i, columns - 1);
 
 		for (unsigned int j = 0; j < diagonal.getLength(); ++j)
 		{
@@ -370,11 +370,11 @@ void BoardTest::checkDiagonalRows()
  */
 void BoardTest::checkAllRows()
 {
-	Game::Board testBoard(3, 3, 0u);
-	std::vector<Game::CellSet> allRows = testBoard.getAllRows();
+	GameLogic::Board testBoard(3, 3, 0u);
+	std::vector<GameLogic::CellSet> allRows = testBoard.getAllRows();
 	QCOMPARE(allRows.size(), (std::size_t)16);
 
-	Game::Board testBoard2 = Game::Board(4, 4, 0u);
+	GameLogic::Board testBoard2 = GameLogic::Board(4, 4, 0u);
 	allRows = testBoard2.getAllRows();
 	QCOMPARE(allRows.size(), (std::size_t)22);
 }
@@ -384,7 +384,7 @@ void BoardTest::checkAllRows()
  */
 void BoardTest::clearBoard()
 {
-	Game::Board testBoard(3, 3, 0u);
+	GameLogic::Board testBoard(3, 3, 0u);
 
 	testBoard.setCell(0, 0, 1u);
 	testBoard.setCell(1, 0, 2u);

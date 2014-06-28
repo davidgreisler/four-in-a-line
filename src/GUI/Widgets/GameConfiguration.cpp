@@ -44,7 +44,7 @@ GameConfiguration::GameConfiguration(QWidget* parent) :
 
 	// Set defaults.
 
-	this->setFirstMove(::Game::FourInALine::Game::PLAYER_ONE);
+	this->setFirstMove(::GameLogic::FourInALine::Game::PLAYER_ONE);
 	this->setSaveHighscore(true);
 	this->setAllowHint(true);
 	this->setAllowUndo(true);
@@ -65,7 +65,7 @@ GameConfiguration::~GameConfiguration()
  */
 void GameConfiguration::setFirstMove(GameConfiguration::PlayerIdType playerId)
 {
-	if (playerId == ::Game::FourInALine::Game::PLAYER_ONE)
+	if (playerId == ::GameLogic::FourInALine::Game::PLAYER_ONE)
 	{
 		this->firstMovePlayerOneButton->setChecked(true);
 	}
@@ -84,11 +84,11 @@ GameConfiguration::PlayerIdType GameConfiguration::getFirstMove() const
 {
 	if (this->firstMovePlayerOneButton->isChecked())
 	{
-		return ::Game::FourInALine::Game::PLAYER_ONE;
+		return ::GameLogic::FourInALine::Game::PLAYER_ONE;
 	}
 	else
 	{
-		return ::Game::FourInALine::Game::PLAYER_TWO;
+		return ::GameLogic::FourInALine::Game::PLAYER_TWO;
 	}
 }
 

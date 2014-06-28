@@ -90,7 +90,7 @@ PlayerConfiguration::~PlayerConfiguration()
  *
  * @param playerId Player id.
  */
-void PlayerConfiguration::setPlayerId(::Game::FourInALine::Game::PlayerType playerId)
+void PlayerConfiguration::setPlayerId(::GameLogic::FourInALine::Game::PlayerType playerId)
 {
 	this->playerId = playerId;
 }
@@ -100,7 +100,7 @@ void PlayerConfiguration::setPlayerId(::Game::FourInALine::Game::PlayerType play
  *
  * @return Player id.
  */
-::Game::FourInALine::Game::PlayerType PlayerConfiguration::getPlayerId() const
+::GameLogic::FourInALine::Game::PlayerType PlayerConfiguration::getPlayerId() const
 {
 	return this->playerId;
 }
@@ -157,7 +157,7 @@ PlayerConfiguration::PlayerType PlayerConfiguration::getPlayerType() const
  *
  * @param levelOfDifficulty Level of difficulty.
  */
-void PlayerConfiguration::setLevelOfDifficulty(ArtificialIntelligencePlayer::LevelOfDifficulty levelOfDifficulty)
+void PlayerConfiguration::setLevelOfDifficulty(::Game::Players::ArtificialIntelligence::LevelOfDifficulty levelOfDifficulty)
 {
 	int index = this->levelOfDifficultyComboBox->findData(QVariant::fromValue(levelOfDifficulty));
 
@@ -172,11 +172,11 @@ void PlayerConfiguration::setLevelOfDifficulty(ArtificialIntelligencePlayer::Lev
  *
  * @return Level of difficulty.
  */
-ArtificialIntelligencePlayer::LevelOfDifficulty PlayerConfiguration::getLevelOfDifficulty() const
+::Game::Players::ArtificialIntelligence::LevelOfDifficulty PlayerConfiguration::getLevelOfDifficulty() const
 {
 	QVariant itemData =  this->levelOfDifficultyComboBox->currentData();
 
-	return itemData.value<ArtificialIntelligencePlayer::LevelOfDifficulty>();
+	return itemData.value< ::Game::Players::ArtificialIntelligence::LevelOfDifficulty>();
 }
 
 /**
@@ -184,7 +184,7 @@ ArtificialIntelligencePlayer::LevelOfDifficulty PlayerConfiguration::getLevelOfD
  *
  * @param controls Human player controls.
  */
-void PlayerConfiguration::setControls(HumanPlayer::Controls controls)
+void PlayerConfiguration::setControls(::Game::Players::Human::Controls controls)
 {
 	int index = this->controlsComboBox->findData(QVariant::fromValue(controls));
 
@@ -199,11 +199,11 @@ void PlayerConfiguration::setControls(HumanPlayer::Controls controls)
  *
  * @return Controls for the human player.
  */
-HumanPlayer::Controls PlayerConfiguration::getControls() const
+::Game::Players::Human::Controls PlayerConfiguration::getControls() const
 {
 	QVariant itemData =  this->controlsComboBox->currentData();
 
-	return itemData.value<HumanPlayer::Controls>();
+	return itemData.value< ::Game::Players::Human::Controls>();
 }
 
 /**
@@ -213,9 +213,9 @@ HumanPlayer::Controls PlayerConfiguration::getControls() const
  * @param factory Player factory used to create the player.
  * @return A new player object.
  */
-QSharedPointer<AbstractPlayer> PlayerConfiguration::createPlayer(PlayerFactory& factory) const
+QSharedPointer< ::Game::Players::AbstractPlayer> PlayerConfiguration::createPlayer(Game::Players::Factory& factory) const
 {
-	QSharedPointer<AbstractPlayer> result;
+	QSharedPointer< ::Game::Players::AbstractPlayer> result;
 	PlayerType playerType = this->playerTypeComboBox->currentData().value<PlayerType>();
 	switch (playerType)
 	{
@@ -332,19 +332,19 @@ void PlayerConfiguration::setupControlsComboBox()
 	mouseIcon.addFile(":/icons/fatcow/16x16/mouse.png", QSize(16, 16));
 	mouseIcon.addFile(":/icons/fatcow/32x32/mouse.png", QSize(32, 32));
 	this->controlsComboBox->addItem(mouseIcon, this->tr("Mouse"),
-	                                QVariant::fromValue(::GUI::HumanPlayer::Controls::MOUSE));
+	                                QVariant::fromValue(::Game::Players::Human::Controls::MOUSE));
 
 	QIcon keyboardIcon;
 	keyboardIcon.addFile(":/icons/fatcow/16x16/keyboard.png", QSize(16, 16));
 	keyboardIcon.addFile(":/icons/fatcow/32x32/keyboard.png", QSize(32, 32));
 	this->controlsComboBox->addItem(keyboardIcon, this->tr("Keyboard"),
-	                                QVariant::fromValue(::GUI::HumanPlayer::Controls::KEYBOARD));
+	                                QVariant::fromValue(::Game::Players::Human::Controls::KEYBOARD));
 
 	QIcon keyboardAndMouseIcon;
 	keyboardAndMouseIcon.addFile(":/icons/fatcow/16x16/computer.png", QSize(16, 16));
 	keyboardAndMouseIcon.addFile(":/icons/fatcow/32x32/computer.png", QSize(32, 32));
 	this->controlsComboBox->addItem(keyboardAndMouseIcon, this->tr("Keyboard and mouse"),
-	                                QVariant::fromValue(::GUI::HumanPlayer::Controls::MOUSE_AND_KEYBOARD));
+	                                QVariant::fromValue(::Game::Players::Human::Controls::MOUSE_AND_KEYBOARD));
 
 	// Restore index.
 
@@ -398,19 +398,19 @@ void PlayerConfiguration::setupLevelOfDifficultyComboBox()
 
 	this->levelOfDifficultyComboBox->clear();
 
-	value = QVariant::fromValue(::GUI::ArtificialIntelligencePlayer::LevelOfDifficulty::VERY_EASY);
+	value = QVariant::fromValue(::Game::Players::ArtificialIntelligence::LevelOfDifficulty::VERY_EASY);
 	this->levelOfDifficultyComboBox->addItem(this->tr("Very easy"), value);
 
-	value = QVariant::fromValue(::GUI::ArtificialIntelligencePlayer::LevelOfDifficulty::EASY);
+	value = QVariant::fromValue(::Game::Players::ArtificialIntelligence::LevelOfDifficulty::EASY);
 	this->levelOfDifficultyComboBox->addItem(this->tr("Easy"), value);
 
-	value = QVariant::fromValue(::GUI::ArtificialIntelligencePlayer::LevelOfDifficulty::NORMAL);
+	value = QVariant::fromValue(::Game::Players::ArtificialIntelligence::LevelOfDifficulty::NORMAL);
 	this->levelOfDifficultyComboBox->addItem(this->tr("Normal"), value);
 
-	value = QVariant::fromValue(::GUI::ArtificialIntelligencePlayer::LevelOfDifficulty::DIFFICULT);
+	value = QVariant::fromValue(::Game::Players::ArtificialIntelligence::LevelOfDifficulty::DIFFICULT);
 	this->levelOfDifficultyComboBox->addItem(this->tr("Difficult"), value);
 
-	value = QVariant::fromValue(::GUI::ArtificialIntelligencePlayer::LevelOfDifficulty::CHALLENGE);
+	value = QVariant::fromValue(::Game::Players::ArtificialIntelligence::LevelOfDifficulty::CHALLENGE);
 	this->levelOfDifficultyComboBox->addItem(this->tr("Challenge"), value);
 
 	// Restore index.

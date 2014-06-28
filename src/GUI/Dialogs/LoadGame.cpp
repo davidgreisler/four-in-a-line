@@ -1,5 +1,5 @@
 #include "LoadGame.hpp"
-#include "../Game.hpp"
+#include "../../Game/Game.hpp"
 
 #include <QPushButton>
 #include <QEvent>
@@ -17,7 +17,7 @@ namespace Dialogs
  * @param game Game to load.
  * @param parent Parent widget.
  */
-LoadGame::LoadGame(QSharedPointer< ::GUI::Game> game, QWidget *parent) :
+LoadGame::LoadGame(QSharedPointer< ::Game::Game> game, QWidget *parent) :
     QDialog(parent), game(game)
 {
 	this->layout = new QVBoxLayout;
@@ -34,13 +34,13 @@ LoadGame::LoadGame(QSharedPointer< ::GUI::Game> game, QWidget *parent) :
 	// Load game settings.
 
 	auto boardWidget = this->gameSetupWidget->getBoardConfigurationWidget();
-	boardWidget->setNumberOfRows(game->getGameEngine()->getBoard()->getNumberOfRows());
-	boardWidget->setNumberOfColumns(game->getGameEngine()->getBoard()->getNumberOfColumns());
+	boardWidget->setNumberOfRows(game->getGameLogic()->getBoard()->getNumberOfRows());
+	boardWidget->setNumberOfColumns(game->getGameLogic()->getBoard()->getNumberOfColumns());
 
 	auto timeLimitWidget = this->gameSetupWidget->getTimeLimitConfigurationWidget();
-	timeLimitWidget->setHasTimeLimit(game->getGameEngine()->hasTimeLimit());
-	timeLimitWidget->setTimeLimit(game->getGameEngine()->getTimeLimit());
-	timeLimitWidget->setTimeoutAction(game->getGameEngine()->getTimeoutAction());
+	timeLimitWidget->setHasTimeLimit(game->getGameLogic()->hasTimeLimit());
+	timeLimitWidget->setTimeLimit(game->getGameLogic()->getTimeLimit());
+	timeLimitWidget->setTimeoutAction(game->getGameLogic()->getTimeoutAction());
 
 	auto gameWidget = this->gameSetupWidget->getGameConfigurationWidget();
 	gameWidget->setAllowHint(game->isHintAllowed());
@@ -85,7 +85,7 @@ LoadGame::~LoadGame()
  *
  * @param playerFactory Player factory used to create the players.
  */
-void LoadGame::replacePlayers(PlayerFactory& playerFactory)
+void LoadGame::replacePlayers(::Game::Players::Factory& playerFactory)
 {
 	auto firstPlayer =
 	        this->gameSetupWidget->getFirstPlayerConfigurationWidget()->createPlayer(playerFactory);

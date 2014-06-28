@@ -1,7 +1,7 @@
 #include "CellSetIteratorTest.hpp"
-#include "../../src/Game/Board.hpp"
-#include "../../src/Game/CellSet.hpp"
-#include "../../src/Game/CellSetIterator.hpp"
+#include "../../src/GameLogic/Board.hpp"
+#include "../../src/GameLogic/CellSet.hpp"
+#include "../../src/GameLogic/CellSetIterator.hpp"
 
 /**
  * Creates an iterator and a copy of it and then tests basic functionality.
@@ -10,11 +10,11 @@ void CellSetIteratorTest::basicTest()
 {
 	unsigned int rows = 3u;
 	unsigned int columns = 3u;
-	Game::Board testBoard(columns, rows, 0u);
+	GameLogic::Board testBoard(columns, rows, 0u);
 
-	Game::CellSet cellSet(&testBoard, 0, 0, 1, 1, 3);
-	Game::CellSetIterator i = cellSet.begin();
-	Game::CellSetIterator copy(i);
+	GameLogic::CellSet cellSet(&testBoard, 0, 0, 1, 1, 3);
+	GameLogic::CellSetIterator i = cellSet.begin();
+	GameLogic::CellSetIterator copy(i);
 
 	// Check whether attributes of the iterator and the copy are correct.
 
@@ -60,11 +60,11 @@ void CellSetIteratorTest::testComparisonOperators()
 {
 	unsigned int rows = 3u;
 	unsigned int columns = 3u;
-	Game::Board testBoard(columns, rows, 0u);
+	GameLogic::Board testBoard(columns, rows, 0u);
 
-	Game::CellSet cellSet(&testBoard, 0, 0, 1, 1, 3);
-	Game::CellSetIterator a = cellSet.begin();
-	Game::CellSetIterator b = cellSet.begin();
+	GameLogic::CellSet cellSet(&testBoard, 0, 0, 1, 1, 3);
+	GameLogic::CellSetIterator a = cellSet.begin();
+	GameLogic::CellSetIterator b = cellSet.begin();
 
 	QVERIFY((a == b) == true);
 	QVERIFY((a != b) == false);
@@ -105,13 +105,13 @@ void CellSetIteratorTest::iterateForward()
 {
 	unsigned int rows = 3u;
 	unsigned int columns = 3u;
-	Game::Board testBoard(columns, rows, 0u);
+	GameLogic::Board testBoard(columns, rows, 0u);
 	testBoard.setCell(0, 0, 0u);
 	testBoard.setCell(1, 0, 1u);
 	testBoard.setCell(2, 0, 2u);
 
-	Game::CellSet cellSet(&testBoard, 0, 0, 1, 0, 3);
-	Game::CellSetIterator i;
+	GameLogic::CellSet cellSet(&testBoard, 0, 0, 1, 0, 3);
+	GameLogic::CellSetIterator i;
 	unsigned int c;
 
 	// Post-increment operator.
@@ -149,13 +149,13 @@ void CellSetIteratorTest::iterateBackward()
 {
 	unsigned int rows = 3u;
 	unsigned int columns = 3u;
-	Game::Board testBoard(columns, rows, 0u);
+	GameLogic::Board testBoard(columns, rows, 0u);
 	testBoard.setCell(0, 0, 2u);
 	testBoard.setCell(1, 0, 1u);
 	testBoard.setCell(2, 0, 0u);
 
-	Game::CellSet cellSet(&testBoard, 0, 0, 1, 0, 3);
-	Game::CellSetIterator i;
+	GameLogic::CellSet cellSet(&testBoard, 0, 0, 1, 0, 3);
+	GameLogic::CellSetIterator i;
 	unsigned int c;
 
 	// Post-decrement operator.

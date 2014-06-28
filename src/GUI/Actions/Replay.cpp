@@ -1,6 +1,6 @@
 #include "Replay.hpp"
-#include "../ReplayController.hpp"
-#include "../GameController.hpp"
+#include "../ReplayView.hpp"
+#include "../GameView.hpp"
 
 #include <QAction>
 #include <QEvent>
@@ -16,22 +16,22 @@ namespace Actions
 /**
  * Creates a new replay action container.
  *
- * @param gameController Game controller.
- * @param replayController Replay controller.
+ * @param gameView Game view.
+ * @param replayView Replay view.
  * @param parentWindow Parent window, used for dialogs.
  * @param parent Parent object.
  */
-Replay::Replay(GameController* gameController, ReplayController* replayController,
+Replay::Replay(GameView* gameView, ReplayView* replayView,
 			   QWidget* parentWindow, QObject* parent) :
-	QObject(parent), parentWindow(parentWindow), gameController(gameController),
-	replayController(replayController)
+	QObject(parent), parentWindow(parentWindow), gameView(gameView),
+	replayView(replayView)
 {
 	this->createActions();
 	this->createMenu();
 	this->retranslateUI();
 	this->updateActions();
 
-	this->connect(this->replayController, &::GUI::ReplayController::stateChanged,
+	this->connect(this->replayView, &::GUI::ReplayView::stateChanged,
 				  this, &Replay::updateActions);
 }
 
@@ -134,22 +134,22 @@ void Replay::updateActions()
 
 	// Check which actions should be enabled.
 
-	if (this->gameController->isActive())
+	if (this->gameView->isActive())
 	{
-		if (this->gameController->hasGame())
+		if (this->gameView->hasGame())
 		{
 			this->saveReplayAction->setEnabled(true);
 		}
 	}
 
-	if (this->replayController->isActive())
+	if (this->replayView->isActive())
 	{
-		if (this->replayController->hasReplay())
+		if (this->replayView->hasReplay())
 		{
-			this->jumpToStartAction->setEnabled(!this->replayController->hasPreviousMove());
-			this->jumpToEndAction->setEnabled(!this->replayController->hasNextMove());
-			this->nextMoveAction->setEnabled(this->replayController->hasNextMove());
-			this->previousMoveAction->setEnabled(this->replayController->hasPreviousMove());
+			this->jumpToStartAction->setEnabled(!this->replayView->hasPreviousMove());
+			this->jumpToEndAction->setEnabled(!this->replayView->hasNextMove());
+			this->nextMoveAction->setEnabled(this->replayView->hasNextMove());
+			this->previousMoveAction->setEnabled(this->replayView->hasPreviousMove());
 		}
 	}
 }
@@ -164,42 +164,42 @@ void Replay::createActions()
 	loadReplayIcon.addFile(":/icons/fatcow/32x32/film.png", QSize(32, 32));
 	this->loadReplayAction = new QAction(loadReplayIcon, "", this);
 	this->connect(this->loadReplayAction, &QAction::triggered,
-				  this->replayController, &::GUI::ReplayController::loadReplay);
+				  this->replayView, &::GUI::ReplayView::loadReplay);
 
 	QIcon saveReplayIcon;
 	saveReplayIcon.addFile(":/icons/fatcow/16x16/film_save.png", QSize(16, 16));
 	saveReplayIcon.addFile(":/icons/fatcow/32x32/film_save.png", QSize(32, 32));
 	this->saveReplayAction = new QAction(saveReplayIcon, "", this);
 	this->connect(this->saveReplayAction, &QAction::triggered,
-				  this->gameController, &::GUI::GameController::saveReplay);
+				  this->gameView, &::GUI::GameView::saveReplay);
 
 	QIcon nextMoveIcon;
 	nextMoveIcon.addFile(":/icons/fatcow/16x16/control_play_blue.png", QSize(16, 16));
 	nextMoveIcon.addFile(":/icons/fatcow/32x32/control_play_blue.png", QSize(32, 32));
 	this->nextMoveAction = new QAction(nextMoveIcon, "", this);
 	this->connect(this->nextMoveAction, &QAction::triggered,
-				  this->replayController, &::GUI::ReplayController::nextMove);
+				  this->replayView, &::GUI::ReplayView::nextMove);
 
 	QIcon previousMoveIcon;
 	previousMoveIcon.addFile(":/icons/fatcow/16x16/control_play_blue_mirror.png", QSize(16, 16));
 	previousMoveIcon.addFile(":/icons/fatcow/32x32/control_play_blue_mirror.png", QSize(32, 32));
 	this->previousMoveAction = new QAction(previousMoveIcon, "", this);
 	this->connect(this->previousMoveAction, &QAction::triggered,
-				  this->replayController, &::GUI::ReplayController::previousMove);
+				  this->replayView, &::GUI::ReplayView::previousMove);
 
 	QIcon jumpToStartIcon;
 	jumpToStartIcon.addFile(":/icons/fatcow/16x16/control_start_blue.png", QSize(16, 16));
 	jumpToStartIcon.addFile(":/icons/fatcow/32x32/control_start_blue.png", QSize(32, 32));
 	this->jumpToStartAction = new QAction(jumpToStartIcon, "", this);
 	this->connect(this->jumpToStartAction, &QAction::triggered,
-				  this->replayController, &::GUI::ReplayController::jumpToStart);
+				  this->replayView, &::GUI::ReplayView::jumpToStart);
 
 	QIcon jumpToEndIcon;
 	jumpToEndIcon.addFile(":/icons/fatcow/16x16/control_end_blue.png", QSize(16, 16));
 	jumpToEndIcon.addFile(":/icons/fatcow/32x32/control_end_blue.png", QSize(32, 32));
 	this->jumpToEndAction = new QAction(jumpToEndIcon, "", this);
 	this->connect(this->jumpToEndAction, &QAction::triggered,
-				  this->replayController, &::GUI::ReplayController::jumpToEnd);
+				  this->replayView, &::GUI::ReplayView::jumpToEnd);
 }
 
 /**

@@ -1,5 +1,5 @@
 #include "NewGame.hpp"
-#include "../Game.hpp"
+#include "../../Game/Game.hpp"
 #include "../Widgets/PlayerConfiguration.hpp"
 #include "../Widgets/TimeLimitConfiguration.hpp"
 #include "../Widgets/GameConfiguration.hpp"
@@ -62,7 +62,7 @@ NewGame::~NewGame()
  * @param factory Player factory to use to create the player.
  * @return First player.
  */
-QSharedPointer<AbstractPlayer> NewGame::createFirstPlayer(PlayerFactory& factory) const
+QSharedPointer< ::Game::Players::AbstractPlayer> NewGame::createFirstPlayer(::Game::Players::Factory& factory) const
 {
 	return this->gameSetupWidget->getFirstPlayerConfigurationWidget()->createPlayer(factory);
 }
@@ -73,7 +73,7 @@ QSharedPointer<AbstractPlayer> NewGame::createFirstPlayer(PlayerFactory& factory
  * @param factory Player factory to use to create the player.
  * @return Second player.
  */
-QSharedPointer<AbstractPlayer> NewGame::createSecondPlayer(PlayerFactory& factory) const
+QSharedPointer< ::Game::Players::AbstractPlayer> NewGame::createSecondPlayer(::Game::Players::Factory& factory) const
 {
 	return this->gameSetupWidget->getSecondPlayerConfigurationWidget()->createPlayer(factory);
 }
@@ -84,12 +84,12 @@ QSharedPointer<AbstractPlayer> NewGame::createSecondPlayer(PlayerFactory& factor
  * @param factory Player factory to use to create the players.
  * @return New game.
  */
-QSharedPointer<GUI::Game> NewGame::createGame(PlayerFactory& factory) const
+QSharedPointer< ::Game::Game> NewGame::createGame(::Game::Players::Factory& factory) const
 {
-	QSharedPointer< ::Game::FourInALine::Game> fourInALine;
-	QSharedPointer<GUI::Game> game;
-	QSharedPointer<AbstractPlayer> firstPlayer = this->createFirstPlayer(factory);
-	QSharedPointer<AbstractPlayer> secondPlayer = this->createSecondPlayer(factory);
+	QSharedPointer< ::GameLogic::FourInALine::Game> fourInALine;
+	QSharedPointer< ::Game::Game> game;
+	auto firstPlayer = this->createFirstPlayer(factory);
+	auto secondPlayer = this->createSecondPlayer(factory);
 	auto boardConfigurationWidget = this->gameSetupWidget->getBoardConfigurationWidget();
 	auto timeLimitConfigurationWidget = this->gameSetupWidget->getTimeLimitConfigurationWidget();
 	auto gameConfigurationWidget = this->gameSetupWidget->getGameConfigurationWidget();
@@ -98,7 +98,7 @@ QSharedPointer<GUI::Game> NewGame::createGame(PlayerFactory& factory) const
 	unsigned int nColumns = boardConfigurationWidget->getNumberOfColumns();
 	unsigned int firstMove = gameConfigurationWidget->getFirstMove();
 
-	fourInALine.reset(new ::Game::FourInALine::Game(nRows, nColumns, firstMove));
+	fourInALine.reset(new ::GameLogic::FourInALine::Game(nRows, nColumns, firstMove));
 
 	if (timeLimitConfigurationWidget->hasTimeLimit())
 	{
@@ -106,7 +106,7 @@ QSharedPointer<GUI::Game> NewGame::createGame(PlayerFactory& factory) const
 		fourInALine->setTimeoutAction(timeLimitConfigurationWidget->getTimeoutAction());
 	}
 
-	game = QSharedPointer<GUI::Game>(new GUI::Game(fourInALine, firstPlayer, secondPlayer));
+	game = QSharedPointer< ::Game::Game>(new ::Game::Game(fourInALine, firstPlayer, secondPlayer));
 	game->setAllowHint(gameConfigurationWidget->isAllowHintEnabled() &&
 	                   gameConfigurationWidget->getAllowHint());
 	game->setAllowUndo(gameConfigurationWidget->isAllowUndoEnabled() &&

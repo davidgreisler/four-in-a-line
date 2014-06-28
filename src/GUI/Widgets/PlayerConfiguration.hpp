@@ -1,9 +1,9 @@
 #ifndef GUI_WIDGETS_PLAYERCONFIGURATION_HPP
 #define GUI_WIDGETS_PLAYERCONFIGURATION_HPP
 
-#include "../ArtificialIntelligencePlayer.hpp"
-#include "../HumanPlayer.hpp"
-#include "../PlayerFactory.hpp"
+#include "../../Game/Players/ArtificialIntelligence.hpp"
+#include "../../Game/Players/Human.hpp"
+#include "../../Game/Players/Factory.hpp"
 
 #include <QGroupBox>
 
@@ -47,7 +47,7 @@ class PlayerConfiguration : public QGroupBox
 		/**
 		 * Player id type.
 		 */
-		using PlayerIdType = ::Game::FourInALine::Game::PlayerType;
+		using PlayerIdType = ::GameLogic::FourInALine::Game::PlayerType;
 
 		/**
 		 * Player type.
@@ -63,8 +63,8 @@ class PlayerConfiguration : public QGroupBox
 		                             QWidget* parent = 0);
 		virtual ~PlayerConfiguration();
 
-		void setPlayerId(::Game::FourInALine::Game::PlayerType playerId);
-		::Game::FourInALine::Game::PlayerType getPlayerId() const;
+		void setPlayerId(::GameLogic::FourInALine::Game::PlayerType playerId);
+		::GameLogic::FourInALine::Game::PlayerType getPlayerId() const;
 
 		void setPlayerName(const QString& name);
 		QString getPlayerName() const;
@@ -72,13 +72,13 @@ class PlayerConfiguration : public QGroupBox
 		void setPlayerType(PlayerType playerType);
 		PlayerType getPlayerType() const;
 
-		void setLevelOfDifficulty(::GUI::ArtificialIntelligencePlayer::LevelOfDifficulty levelOfDifficulty);
-		::GUI::ArtificialIntelligencePlayer::LevelOfDifficulty getLevelOfDifficulty() const;
+		void setLevelOfDifficulty(::Game::Players::ArtificialIntelligence::LevelOfDifficulty levelOfDifficulty);
+		::Game::Players::ArtificialIntelligence::LevelOfDifficulty getLevelOfDifficulty() const;
 
-		void setControls(::GUI::HumanPlayer::Controls controls);
-		::GUI::HumanPlayer::Controls getControls() const;
+		void setControls(::Game::Players::Human::Controls controls);
+		::Game::Players::Human::Controls getControls() const;
 
-		QSharedPointer<AbstractPlayer> createPlayer(::GUI::PlayerFactory& factory) const;
+		QSharedPointer< ::Game::Players::AbstractPlayer> createPlayer(::Game::Players::Factory& factory) const;
 
 		bool isValid() const;
 

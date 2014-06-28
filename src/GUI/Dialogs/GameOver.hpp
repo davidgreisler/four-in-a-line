@@ -1,7 +1,7 @@
 #ifndef GUI_DIALOGS_GAMEOVER_HPP
 #define GUI_DIALOGS_GAMEOVER_HPP
 
-#include "../Game.hpp"
+#include "../../Game/Game.hpp"
 
 #include <QDialog>
 #include <QSharedPointer>

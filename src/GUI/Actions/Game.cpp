@@ -1,8 +1,8 @@
 #include "Game.hpp"
 #include "../Dialogs/Highscores.hpp"
 #include "../../../app/FourInALine.hpp"
-#include "../GameController.hpp"
-#include "../ControllerManager.hpp"
+#include "../GameView.hpp"
+#include "../ViewManager.hpp"
 #include "../Icon.hpp"
 
 #include <QAction>
@@ -18,14 +18,14 @@ namespace Actions
 /**
  * Creates a new game action container.
  *
- * @param controllerManager Controller manager, used to deactivate active controller on exit.
+ * @param viewManager View manager, used to deactivate active view on exit.
  * @param gameController Game controller used to invoke game actions.
  * @param parentWindow Parent window, used for dialogs.
  * @param parent Parent object.
  */
-Game::Game(::GUI::ControllerManager* controllerManager, ::GUI::GameController* gameController,
+Game::Game(::GUI::ViewManager* viewManager, ::GUI::GameView* gameController,
 		   QWidget* parentWindow, QObject* parent) :
-	QObject(parent), controllerManager(controllerManager), gameController(gameController),
+	QObject(parent), viewManager(viewManager), gameView(gameController),
 	parentWindow(parentWindow)
 {
 	this->createActions();
@@ -33,7 +33,7 @@ Game::Game(::GUI::ControllerManager* controllerManager, ::GUI::GameController* g
 	this->retranslateUI();
 	this->updateActions();
 
-	this->connect(this->gameController, &::GUI::GameController::stateChanged,
+	this->connect(this->gameView, &::GUI::GameView::stateChanged,
 				  this, &Game::updateActions);
 }
 
@@ -135,7 +135,7 @@ QMenu* Game::getMenu() const
  */
 void Game::exit()
 {
-	if (this->controllerManager->requestController(nullptr))
+	if (this->viewManager->requestView(nullptr))
 	{
 		::FourInALine::getInstance()->quit();
 	}
@@ -162,9 +162,9 @@ void Game::updateActions()
 
 	// Check which actions should be enabled.
 
-	if (this->gameController->isActive())
+	if (this->gameView->isActive())
 	{
-		if (this->gameController->hasGame())
+		if (this->gameView->hasGame())
 		{
 			this->endGameAction->setEnabled(true);
 			this->saveGameAction->setEnabled(true);
@@ -216,29 +216,29 @@ void Game::createActions()
 	QIcon newGameIcon = ::GUI::Icon::combineIcons(applicationIcon, newBullet);
 	this->newGameAction = new QAction(newGameIcon, "", this);
 	this->connect(this->newGameAction, &QAction::triggered,
-				  this->gameController, &::GUI::GameController::newGame);
+				  this->gameView, &::GUI::GameView::newGame);
 
 	QIcon endGameIcon = ::GUI::Icon::combineIcons(applicationIcon, endBullet);
 	this->endGameAction = new QAction(endGameIcon, "", this);
 	this->connect(this->endGameAction, &QAction::triggered,
-				  this->gameController, &::GUI::GameController::endGame);
+				  this->gameView, &::GUI::GameView::endGame);
 
 	QIcon loadGameIcon = ::GUI::Icon::combineIcons(applicationIcon, loadBullet);
 	this->loadGameAction = new QAction(loadGameIcon, "", this);
 	this->connect(this->loadGameAction, &QAction::triggered,
-				  this->gameController, &::GUI::GameController::loadGame);
+				  this->gameView, &::GUI::GameView::loadGame);
 
 	QIcon saveGameIcon = ::GUI::Icon::combineIcons(applicationIcon, saveBullet);
 	this->saveGameAction = new QAction(saveGameIcon, "", this);
 	this->connect(this->saveGameAction, &QAction::triggered,
-				  this->gameController, &::GUI::GameController::saveGame);
+				  this->gameView, &::GUI::GameView::saveGame);
 
 	QIcon saveGameAsIcon;
 	saveGameAsIcon.addFile(":/icons/fatcow/16x16/save_as.png", QSize(16, 16));
 	saveGameAsIcon.addFile(":/icons/fatcow/32x32/save_as.png", QSize(32, 32));
 	this->saveGameAsAction = new QAction(saveGameAsIcon, "", this);
 	this->connect(this->saveGameAsAction, &QAction::triggered,
-				  this->gameController, &::GUI::GameController::saveGameAs);
+				  this->gameView, &::GUI::GameView::saveGameAs);
 
 	QIcon showHighscoresIcon;
 	showHighscoresIcon.addFile(":/icons/fatcow/16x16/cup_gold.png", QSize(16, 16));

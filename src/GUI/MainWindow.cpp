@@ -1,8 +1,8 @@
 #include "MainWindow.hpp"
 #include "../../app/FourInALine.hpp"
 #include "../Settings/FourInALine.hpp"
-#include "GameController.hpp"
-#include "ReplayController.hpp"
+#include "GameView.hpp"
+#include "ReplayView.hpp"
 
 #include <QToolBar>
 #include <QStatusBar>
@@ -22,22 +22,22 @@ MainWindow::MainWindow(QWidget* parent)
 {
 	auto settings = ::FourInALine::getInstance()->getSettings();
 
-	// Create controllers and manager.
+	// Create views and manager.
 
-	this->controllerManager = new ControllerManager(this);
+	this->viewManager = new ViewManager(this);
 
-	GameController* gameController = new GameController(this->controllerManager);
-	ReplayController* replayController = new ReplayController(this->controllerManager);
+	GameView* gameView = new GameView(this->viewManager);
+	ReplayView* replayView = new ReplayView(this->viewManager);
 
-	this->controllerManager->setController(gameController);
+	this->viewManager->setView(gameView);
 
 	// Create action containers.
 
-	this->gameActions = new Actions::Game(this->controllerManager, gameController, this, this);
+	this->gameActions = new Actions::Game(this->viewManager, gameView, this, this);
 	this->settingsActions = new Actions::Settings(this, this);
 	this->viewActions = new Actions::View(this, this);
-	this->moveActions = new Actions::Move(gameController, this, this);
-	this->replayActions = new Actions::Replay(gameController, replayController, this, this);
+	this->moveActions = new Actions::Move(gameView, this, this);
+	this->replayActions = new Actions::Replay(gameView, replayView, this, this);
 	this->helpActions = new Actions::Help(this, this);
 
 	this->setupMenuBar();

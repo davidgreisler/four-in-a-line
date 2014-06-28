@@ -35,8 +35,8 @@ Board::~Board()
  * @todo Implement.
  */
 void Board::startNewGame(unsigned int nColumns, unsigned int nRows,
-                         QSharedPointer<const AbstractPlayer> firstPlayer,
-                         QSharedPointer<const AbstractPlayer> secondPlayer)
+                         QSharedPointer<const ::Game::Players::AbstractPlayer> firstPlayer,
+                         QSharedPointer<const ::Game::Players::AbstractPlayer> secondPlayer)
 {
 	Q_UNUSED(nColumns);
 	Q_UNUSED(nRows);
@@ -76,7 +76,7 @@ void Board::endGame()
 /**
  * @todo Implement.
  */
-void Board::startPlayerTurn(QSharedPointer<const AbstractPlayer> player)
+void Board::startPlayerTurn(QSharedPointer<const ::Game::Players::AbstractPlayer> player)
 {
 	Q_UNUSED(player);
 
@@ -105,7 +105,7 @@ void Board::endPlayerTurn()
 /**
  * @todo Implement.
  */
-void Board::makeMove(unsigned int x, unsigned int y, QSharedPointer<const AbstractPlayer> player)
+void Board::makeMove(unsigned int x, unsigned int y, QSharedPointer<const ::Game::Players::AbstractPlayer> player)
 {
 	Q_UNUSED(player);
 	Q_UNUSED(x);
@@ -126,7 +126,7 @@ void Board::makeCellEmpty(unsigned int x, unsigned int y)
 /**
  * @todo Implement.
  */
-void Board::requestMove(std::vector<unsigned int> availableColumns, HumanPlayer::Controls controls)
+void Board::requestMove(std::vector<unsigned int> availableColumns, ::Game::Players::Human::Controls controls)
 {
 	Q_UNUSED(availableColumns);
 	Q_UNUSED(controls);

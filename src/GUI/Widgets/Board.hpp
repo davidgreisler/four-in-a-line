@@ -1,8 +1,8 @@
 #ifndef GUI_WIDGETS_BOARD_HPP
 #define GUI_WIDGETS_BOARD_HPP
 
-#include "../HumanPlayer.hpp"
-#include "../AbstractPlayer.hpp"
+#include "../../Game/Players/Human.hpp"
+#include "../../Game/Players/AbstractPlayer.hpp"
 
 #include <QWidget>
 #include <QSharedPointer>
@@ -28,21 +28,21 @@ class Board : public QWidget
 
 	public slots:
 		void startNewGame(unsigned int nColumns, unsigned int nRows,
-		                  QSharedPointer<const ::GUI::AbstractPlayer> firstPlayer,
-		                  QSharedPointer<const ::GUI::AbstractPlayer> secondPlayer);
+		                  QSharedPointer<const ::Game::Players::AbstractPlayer> firstPlayer,
+		                  QSharedPointer<const ::Game::Players::AbstractPlayer> secondPlayer);
 		void gameOver();
 		void gameNotOverAnymore();
 		void endGame();
 
-		void startPlayerTurn(QSharedPointer<const ::GUI::AbstractPlayer> player);
+		void startPlayerTurn(QSharedPointer<const ::Game::Players::AbstractPlayer> player);
 		void updateTimeLimit(unsigned int timeLimit, unsigned int remainingTime);
 		void endPlayerTurn();
 
-		void makeMove(unsigned int x, unsigned int y, QSharedPointer<const ::GUI::AbstractPlayer>);
+		void makeMove(unsigned int x, unsigned int y, QSharedPointer<const ::Game::Players::AbstractPlayer>);
 		void makeCellEmpty(unsigned int x, unsigned int y);
 
 		void requestMove(std::vector<unsigned int> availableColumns,
-		                 ::GUI::HumanPlayer::Controls controls);
+		                 ::Game::Players::Human::Controls controls);
 		void abortRequestMove();
 
 		void showColumnHints(std::vector<int> columnScores);

@@ -11,8 +11,8 @@ class QWidget;
 namespace GUI
 {
 
-class GameController;
-class ControllerManager;
+class GameView;
+class ViewManager;
 
 namespace Actions
 {
@@ -27,8 +27,8 @@ class Game : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit Game(::GUI::ControllerManager* controllerManager,
-					  ::GUI::GameController* gameController,
+		explicit Game(::GUI::ViewManager* viewManager,
+					  ::GUI::GameView* gameView,
 					  QWidget* parentWindow, QObject *parent = 0);
 		virtual ~Game();
 
@@ -61,14 +61,14 @@ class Game : public QObject
 		bool event(QEvent* event);
 
 		/**
-		 * Controller manager, used to deactivate active controller on exit.
+		 * View manager, used to deactivate active view on exit.
 		 */
-		::GUI::ControllerManager* controllerManager;
+		::GUI::ViewManager* viewManager;
 
 		/**
-		 * Game controller, used to invoke game actions.
+		 * Game view, used to invoke game actions.
 		 */
-		GameController* gameController;
+		GameView* gameView;
 
 		/**
 		 * Parent window, used for dialogs.

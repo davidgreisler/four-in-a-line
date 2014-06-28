@@ -9,5 +9,8 @@ SUBDIRS = ./GUI \
           ./GUI/Widgets \
           ./GUI/Dialogs \
           ./Settings \
-          ./Game \
-          ./Game/FourInALine
+          ./GameLogic \
+          ./GameLogic/FourInALine \
+	  ./Game \
+	  ./Game/Players
+

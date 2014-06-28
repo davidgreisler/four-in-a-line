@@ -1,8 +1,8 @@
 #ifndef GUI_DIALOGS_NEWGAME_HPP
 #define GUI_DIALOGS_NEWGAME_HPP
 
-#include "../AbstractPlayer.hpp"
-#include "../PlayerFactory.hpp"
+#include "../../Game/Players/AbstractPlayer.hpp"
+#include "../../Game/Players/Factory.hpp"
 #include "../Widgets/GameSetup.hpp"
 
 #include <QDialog>
@@ -35,10 +35,10 @@ class NewGame : public QDialog
 		explicit NewGame(QWidget *parent = 0);
 		virtual ~NewGame();
 
-		QSharedPointer<AbstractPlayer> createFirstPlayer(PlayerFactory& factory) const;
-		QSharedPointer<AbstractPlayer> createSecondPlayer(PlayerFactory& factory) const;
+		QSharedPointer< ::Game::Players::AbstractPlayer> createFirstPlayer(::Game::Players::Factory& factory) const;
+		QSharedPointer< ::Game::Players::AbstractPlayer> createSecondPlayer(::Game::Players::Factory& factory) const;
 
-		QSharedPointer< ::GUI::Game> createGame(PlayerFactory& factory) const;
+		QSharedPointer< ::Game::Game> createGame(::Game::Players::Factory& factory) const;
 
 	public slots:
 		void updateNewGameButton();
