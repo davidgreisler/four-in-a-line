@@ -23,8 +23,68 @@ The game is written using the Qt framework.
 
 * Qt 5
 
+Project structure
+-----------------
+This list gives an overview over the modules/subprojects of this application.
+
+* `app`
+      
+  The main application.
+
+* `src`
+    
+  Source code for the main application.
+
+* `src/GameLogic`
+
+  Game board and other general classes that could be used for board games.
+
+* `src/GameLogic/FourInALine`
+
+  The four in a line game logic and artificial intelligence.
+
+* `src/Game`
+
+  Integrates the game logic into the application. Extends the game logic making
+  it aware of different player types and implementing network functionality.
+  Contains classes for saving/loading games/replays. Also contains the game controller
+  which manages the gameplay.
+
+* `src/Game/Players`
+
+  Player classes representing the different player types (human player, AI player,
+  network player, ...).
+   
+* `src/GUI`
+
+  The graphical user interface of the application. Contains main window and views.
+  The main window has a menu bar and multiple toolbars containing actions for the 
+  application's functionality. The central widget of the main window is either controlled
+  by the GameView when the user is playing a game, or by the ReplayView when
+  the user is watching a replay.
+
+* `src/GUI/Actions`
+
+  Containers for the application's actions which are used throughout in the GUI. The
+  containers take care of disabling/enabling the actions according to current application
+  state.
+
+* `src/GUI/Widgets`
+
+  Custom widgets used by the GUI.
+    
+* `src/GUI/Dialogs`
+      
+  Dialogs shown by the GUI.
+
+* `tests`
+
+  Unit-tests.
+
 License
 -------
+Four in a line is free software and is distributed under the terms of the MIT license. The full license text is available in the LICENSE.md file.
+
 This program uses some of the "Farm-Fresh Web Icons" from FatCow ( http://www.fatcow.com/free-icons ).
 They are licensed under a Creative Commons Attribution 3.0 License ( http://creativecommons.org/licenses/by/3.0/us/ ).
 Some icons were modified.

@@ -1,5 +1,3 @@
-The MIT License (MIT)
-
 Copyright (c) 2014 David Greisler and Simon Mühlichen
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
