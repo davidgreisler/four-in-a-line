@@ -1,10 +1,16 @@
 #include "Highscores.hpp"
 
+#include <QTreeWidgetItemIterator>
 #include <QEvent>
 #include <QDialogButtonBox>
 #include <QTreeWidget>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QString>
+#include <QTextStream>
+#include <QTextDocument>
+#include <QPrinter>
+#include <QPrintDialog>
 
 namespace GUI
 {
@@ -56,7 +62,54 @@ Highscores::~Highscores()
  */
 void Highscores::printHighscores()
 {
-	// @todo Implement.
+	QString htmlString;
+	QTextDocument document;
+	QPrinter printer;
+	QTextStream htmlStream(&htmlString);
+
+	htmlStream << "<html>\n"
+	           << "  <head>\n"
+	           << "    <title>" << this->tr("Highscore list") << "</title>\n"
+	           << "  </head>\n"
+	           << "  <body>\n"
+	           << "    <table border=\"1\">\n"
+	           << "      <thead>\n"
+	           << "        <tr>\n"
+	           << "          <td>" << this->tr("Rank") << "</td>\n"
+	           << "          <td>" << this->tr("Player name") << "</td>\n"
+	           << "          <td>" << this->tr("Total games") << "</td>\n"
+	           << "          <td>" << this->tr("Won games") << "</td>\n"
+	           << "          <td>" << this->tr("Lost games") << "</td>\n"
+	           << "          <td>" << this->tr("Draw games") << "</td>\n"
+	           << "        </tr>\n"
+	           << "      </thead>\n"
+	           << "      <tbody>\n";
+
+	for (QTreeWidgetItemIterator i(this->highscoreTreeWidget); *i; i++)
+	{
+		htmlStream << "        <tr>\n"
+		           << "          <td>" << (*i)->text(0) << "</td>\n"
+		           << "          <td>" << (*i)->text(1) << "</td>\n"
+		           << "          <td>" << (*i)->text(2) << "</td>\n"
+		           << "          <td>" << (*i)->text(3) << "</td>\n"
+		           << "          <td>" << (*i)->text(4) << "</td>\n"
+		           << "          <td>" << (*i)->text(5) << "</td>\n"
+		           << "        </tr>\n";
+	}
+
+	htmlStream << "      </tbody>\n"
+	           << "    </table>\n"
+	           << "  </body>\n"
+	           << "</html>\n";
+
+	document.setHtml(htmlString);
+
+	QPrintDialog dialog(&printer, this);
+	dialog.setWindowTitle(this->tr("Print highscore list"));
+	if (dialog.exec() == QDialog::Accepted)
+	{
+		document.print(&printer);
+	}
 }
 
 /**

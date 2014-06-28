@@ -3,7 +3,7 @@
 ROOT_DIRECTORY = $$PWD
 BUILD_DIRECTORY = $$shadowed($$PWD)
 
-QT += core gui widgets network
+QT += core gui widgets network printsupport
 
 # Activate C++11 support.
 
