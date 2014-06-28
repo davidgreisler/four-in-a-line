@@ -1,5 +1,6 @@
 #include "GameController.hpp"
 #include "Game.hpp"
+#include "../GameLogic/FourInALine/Game.hpp"
 #include "../GameLogic/FourInALine/AsynchronousArtificialIntelligence.hpp"
 
 #include <QDebug>
@@ -142,18 +143,41 @@ void GameController::makeMove(unsigned int x)
  */
 void GameController::updateRemainingTime()
 {
+	auto RANDOM_MOVE = ::GameLogic::FourInALine::Game::TimeoutAction::RANDOM_MOVE;
+
 	this->remainingSeconds--;
 
 	emit this->remainingTimeChanged(this->game->getGameLogic()->getTimeLimit(), this->remainingSeconds);
 
 	if (0 == this->remainingSeconds)
 	{
-		qDebug() << "[" << this << "::updateRemainingTime ] " << "Player " << game->getCurrentPlayer()->getName()
-		         << " timed out.";
+		qDebug() << "[" << this << "::updateRemainingTime ] " << "Player "
+		         << game->getCurrentPlayer()->getName() << " timed out.";
 
-		this->timeLimitTimer->stop();
 		this->game->getGameLogic()->makeTimeoutMove();
-		this->checkGameOver();
+
+		if (this->game->getGameLogic()->getTimeoutAction() == RANDOM_MOVE)
+		{
+			this->moveRequested = false;
+			this->timeLimitTimer->stop();
+
+			auto moveNo = this->game->getGameLogic()->getNumberOfMoves() - 1;
+			auto position = this->game->getGameLogic()->computeMovePosition(moveNo);
+
+			emit this->endPlayerTurn();
+			emit this->setCell(position.first, position.second, this->game->getCurrentPlayer());
+		}
+		else
+		{
+			this->abortRequest();
+		}
+
+		// When the timeout action is RANDOM_MOVE, the game is probably not over after a timeout.
+
+		if (!this->checkGameOver())
+		{
+			this->requestNextMove();
+		}
 	}
 }
 

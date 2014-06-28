@@ -1,7 +1,8 @@
 #include "Game.hpp"
 
-#include <QDebug>
 #include <stdexcept>
+#include <random>
+#include <chrono>
 
 namespace GameLogic
 {
@@ -137,13 +138,51 @@ void Game::makeMove(unsigned int column)
 /**
  * Informs the game that the current player did not make a move within the time limit.
  *
- * This method will end the game according to the defined timeout action.
+ * This method will perform the configured timeout action. When the timeout action is RANDOM_MOVE,
+ * this method will make a random move. When it is DRAW_GAME or LOSE_GAME, the game ends with a
+ * draw/lose for the player who timed out.
  */
 void Game::makeTimeoutMove()
 {
-	this->timedOutPlayer = this->currentPlayer;
+	if (!this->hasTimeLimit())
+	{
+		throw std::runtime_error("This game has no time limit.");
+	}
 
-	this->checkWinningCondition();
+	if (this->timeoutAction == TimeoutAction::RANDOM_MOVE)
+	{
+		this->makeRandomMove();
+	}
+	else
+	{
+		this->timedOutPlayer = this->currentPlayer;
+
+		this->checkWinningCondition();
+	}
+}
+
+/**
+ * Makes a random move, i.e. drops a token of the current player in a free column.
+ *
+ * Do not call this method when the game is over/no more moves are possible.
+ */
+void Game::makeRandomMove()
+{
+	if (this->isOver())
+	{
+		throw std::runtime_error("Not possible to make random move, game is over.");
+	}
+
+	auto availableColumns = this->board->getAvailableColumns();
+	auto millisecondsSinceEpoch = std::chrono::system_clock::now().time_since_epoch() /
+	                              std::chrono::milliseconds(1);
+
+	static std::mt19937 randomNumberGenerator(millisecondsSinceEpoch);
+	std::uniform_int_distribution<unsigned int> distribution(0, availableColumns.size() - 1);
+
+	auto columnNo = distribution(randomNumberGenerator);
+
+	this->makeMove(availableColumns.at(columnNo));
 }
 
 /**

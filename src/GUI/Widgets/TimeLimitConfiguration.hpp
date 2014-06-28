@@ -93,6 +93,11 @@ class TimeLimitConfiguration : public QGroupBox
 		 * Radio button for making the player lose the game on timeout.
 		 */
 		QRadioButton* loseActionRadioButton;
+
+		/**
+		 * Radio button for making a random move when a player exceeds the time limit.
+		 */
+		QRadioButton* randomMoveRadioButton;
 };
 
 }

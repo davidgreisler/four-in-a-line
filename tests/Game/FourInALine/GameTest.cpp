@@ -291,6 +291,30 @@ void GameTest::timeOutPlayer()
 	QCOMPARE(game.isTimeout(), true);
 	QCOMPARE(game.isMovePossible(0u), false);
 	QCOMPARE(game.getPlayerWhoTimedOut(), 1u);
+
+	// Undo the last move.
+
+	game.undoLastMove();
+
+	QCOMPARE(game.isOver(), false);
+	QCOMPARE(game.isDraw(), false);
+	QCOMPARE(game.isTimeout(), false);
+	QCOMPARE(game.isMovePossible(0u), true);
+
+	// Set timeout action to random move and check whether that works.
+
+	game.setTimeoutAction(GameLogic::FourInALine::Game::TimeoutAction::RANDOM_MOVE);
+
+	QCOMPARE(game.getTimeoutAction(), GameLogic::FourInALine::Game::TimeoutAction::RANDOM_MOVE);
+	QCOMPARE(game.getNumberOfMoves(), 0u);
+
+	game.makeTimeoutMove();
+
+	QCOMPARE(game.getNumberOfMoves(), 1u);
+	QCOMPARE(game.isOver(), false);
+	QCOMPARE(game.isDraw(), false);
+	QCOMPARE(game.isTimeout(), false);
+	QCOMPARE(game.isMovePossible(0u), true);
 }
 
 /**

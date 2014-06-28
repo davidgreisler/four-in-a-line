@@ -61,7 +61,8 @@ class Game
 		 */
 		enum class TimeoutAction {
 			LOSE_GAME,  ///< When a player exceeds the time limit, he loses the game.
-			DRAW_GAME   ///< When a player exceeds the time limit, the game is a draw.
+			DRAW_GAME,  ///< When a player exceeds the time limit, the game is a draw.
+			RANDOM_MOVE ///< When a player exceeds the time limit, he makes a random move.
 		};
 
 		Game(unsigned int nRows, unsigned int nColumns, PlayerType firstMove = 1);
@@ -77,6 +78,7 @@ class Game
 		bool isMovePossible(unsigned int column) const;
 		void makeMove(unsigned int column);
 		void makeTimeoutMove();
+		void makeRandomMove();
 
 		bool isUndoPossible() const;
 		void undoLastMove();

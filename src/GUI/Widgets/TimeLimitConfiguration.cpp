@@ -47,6 +47,9 @@ TimeLimitConfiguration::TimeLimitConfiguration(QWidget *parent) :
 	this->loseActionRadioButton = new QRadioButton(this);
 	this->formLayout->addRow(this->loseActionRadioButton);
 
+	this->randomMoveRadioButton = new QRadioButton(this);
+	this->formLayout->addRow(this->randomMoveRadioButton);
+
 	this->setTimeoutAction(TimeLimitConfiguration::DEFAULT_TIMEOUT_ACTION);
 
 	this->retranslateUI();
@@ -113,15 +116,21 @@ void TimeLimitConfiguration::setTimeLimit(unsigned int timeLimit)
  */
 TimeoutAction TimeLimitConfiguration::getTimeoutAction() const
 {
-	GameLogic::FourInALine::Game::TimeoutAction action;
+	using TimeoutAction = ::GameLogic::FourInALine::Game::TimeoutAction;
+
+	TimeoutAction action;
 
 	if (this->drawActionRadioButton->isChecked())
 	{
 		action = TimeoutAction::DRAW_GAME;
 	}
-	else
+	else if (this->loseActionRadioButton->isChecked())
 	{
 		action = TimeoutAction::LOSE_GAME;
+	}
+	else
+	{
+		action = TimeoutAction::RANDOM_MOVE;
 	}
 
 	return action;
@@ -134,13 +143,19 @@ TimeoutAction TimeLimitConfiguration::getTimeoutAction() const
  */
 void TimeLimitConfiguration::setTimeoutAction(TimeoutAction action)
 {
+	using TimeoutAction = ::GameLogic::FourInALine::Game::TimeoutAction;
+
 	if (TimeoutAction::DRAW_GAME == action)
 	{
 		this->drawActionRadioButton->setChecked(true);
 	}
-	else
+	else if (TimeoutAction::LOSE_GAME == action)
 	{
 		this->loseActionRadioButton->setChecked(true);
+	}
+	else
+	{
+		this->randomMoveRadioButton->setChecked(true);
 	}
 }
 
@@ -155,6 +170,7 @@ void TimeLimitConfiguration::retranslateUI()
 	this->timeoutActionLabel->setText(this->tr("Action when a player times out"));
 	this->drawActionRadioButton->setText(this->tr("Draw the game."));
 	this->loseActionRadioButton->setText(this->tr("Player loses the game."));
+	this->randomMoveRadioButton->setText(this->tr("Player makes random move."));
 }
 
 /**
