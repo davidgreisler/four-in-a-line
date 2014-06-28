@@ -66,7 +66,7 @@ Game::ConstPlayerPointerType Game::getCurrentPlayer() const
  * Do not call this method when the game is not over yet.
  *
  * @return The player who won the game.
- * @see ::Game::FourInALine::Game::getWinner() Used to determine the winner.
+ * @see ::GameLogic::FourInALine::Game::getWinner() Used to determine the winner.
  */
 Game::ConstPlayerPointerType Game::getWinningPlayer() const
 {

@@ -21,7 +21,7 @@ namespace Actions
  * @param parentWindow Parent window, used for dialogs.
  * @param parent Parent object.
  */
-Replay::Replay(GameView* gameView, ReplayView* replayView,
+Replay::Replay(::GUI::GameView* gameView, ::GUI::ReplayView* replayView,
 			   QWidget* parentWindow, QObject* parent) :
 	QObject(parent), parentWindow(parentWindow), gameView(gameView),
 	replayView(replayView)

@@ -107,7 +107,7 @@ QSharedPointer< ::Game::Game> GameView::getGame() const
  * Returns false if no game is being played.
  *
  * @return When it is possible true, otherwise false.
- * @see ::GUI::Game::isUndoPossible()
+ * @see ::Game::Game::isUndoPossible()
  */
 bool GameView::isUndoPossible() const
 {
@@ -120,7 +120,7 @@ bool GameView::isUndoPossible() const
  * Returns false if no game is being played.
  *
  * @return When it is possible true, otherwise false.
- * @see ::GUI::Game::isShowHintPossible()
+ * @see ::Game::Game::isShowHintPossible()
  */
 bool GameView::isShowHintPossible() const
 {
