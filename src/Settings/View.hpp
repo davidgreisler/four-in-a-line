@@ -36,8 +36,8 @@ class View : public AbstractSettings
 		void setWindowState(QString windowName, QByteArray state);
 		QByteArray getWindowState(QString windowName);
 
-		virtual void read();
-		virtual void save();
+		virtual void read() override;
+		virtual void save() override;
 
 	private:
 		Q_DISABLE_COPY(View)

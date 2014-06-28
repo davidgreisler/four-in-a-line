@@ -168,7 +168,7 @@ void AsynchronousArtificialIntelligence::cancelComputation()
  * @return The next move.
  * @see ArtificialIntelligence::computeNextMove() Called by this method.
  */
-unsigned int AsynchronousArtificialIntelligence::computeNextMove(const Game& game)
+unsigned int AsynchronousArtificialIntelligence::computeNextMove(const Game& game) const
 {
 	unsigned int result = ArtificialIntelligence::computeNextMove(game);
 

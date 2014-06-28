@@ -1,6 +1,7 @@
 #ifndef SETTINGS_FOUR_IN_A_LINE_HPP
 #define SETTINGS_FOUR_IN_A_LINE_HPP
 
+#include "AbstractSettings.hpp"
 #include "Application.hpp"
 #include "View.hpp"
 
@@ -22,36 +23,22 @@ namespace Settings
  * Use the read()/save()/apply() methods of the individual containers to read/save/apply only their
  * settings.
  */
-class FourInALine : public QObject
+class FourInALine : public AbstractSettings
 {
 		Q_OBJECT
 	public:
 		explicit FourInALine(QObject *parent = 0);
 		virtual ~FourInALine();
 
-		virtual void read();
-		virtual void apply();
-		virtual void save();
+		virtual void read() override;
+		virtual void apply() override;
+		virtual void save() override;
 
 		Application* getApplicationSettings() const;
 		View* getViewSettings() const;
 
-	signals:
-		/**
-		 * Emitted when all settings are applied.
-		 */
-		void changed();
-
-		/**
-		 * Emitted when all settings are saved.
-		 */
-		void saved();
-
 	private:
-		/**
-		 * Key/value storage for the settings.
-		 */
-		QSharedPointer<QSettings> settings;
+		static QSharedPointer<QSettings> CreateSettings();
 
 		/**
 		 * Application settings like GUI language.

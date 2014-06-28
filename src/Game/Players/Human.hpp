@@ -43,9 +43,9 @@ class Human : public AbstractPlayer
 		               ::GUI::Widgets::Board* board, QString name = QString(""), QObject *parent = 0);
 		virtual ~Human();
 
-		virtual void requestMove(const QSharedPointer<const ::Game::Game>& game);
+		virtual void requestMove(const QSharedPointer<const ::Game::Game>& game) override;
 
-		virtual void abortMove();
+		virtual void abortMove() override;
 
 		Controls getControls() const;
 

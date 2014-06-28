@@ -31,13 +31,12 @@ class ReplayView : public AbstractView
 		ReplayView(ViewManager* manager);
 		virtual ~ReplayView();
 
-		QWidget* getWidget() const;
+		virtual QWidget* getWidget() const override;
+		virtual bool confirmDeactivation() override;
 
 		bool hasReplay() const;
 		bool hasNextMove() const;
 		bool hasPreviousMove() const;
-
-		virtual bool confirmDeactivation();
 
 	signals:
 		/**

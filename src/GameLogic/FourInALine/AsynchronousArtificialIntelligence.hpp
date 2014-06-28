@@ -53,9 +53,9 @@ class AsynchronousArtificialIntelligence : public ArtificialIntelligence
 		static const unsigned int INVALID_RESULT;
 
 	private:
-		virtual unsigned int computeNextMove(const Game& game);
+		virtual unsigned int computeNextMove(const Game& game) const override;
 		virtual ScoredMovesType minimax(Node node, const Board& board, PlayerType player,
-		                                unsigned int depth, ScoreType alpha, ScoreType beta) const;
+		                                unsigned int depth, ScoreType alpha, ScoreType beta) const override;
 
 		/**
 		 * Whether the computation should be cancelled or not.

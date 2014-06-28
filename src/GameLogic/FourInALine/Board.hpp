@@ -51,8 +51,8 @@ class Board : public ::GameLogic::Board
 		void removeToken(unsigned int x);
 		void removeToken(unsigned int x, unsigned int y);
 
-		virtual bool isColumnFull(unsigned int x) const;
-		virtual bool isColumnEmpty(unsigned int x) const;
+		virtual bool isColumnFull(unsigned int x) const override;
+		virtual bool isColumnEmpty(unsigned int x) const override;
 
 		std::vector<unsigned int> getAvailableColumns() const;
 

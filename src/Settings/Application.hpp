@@ -18,8 +18,9 @@ class Application : public AbstractSettings
 		QString getLanguage() const;
 		void setLanguage(QString locale);
 
-		void read();
-		void save();
+		virtual void read() override;
+		virtual void save() override;
+
 	private:
 		Q_DISABLE_COPY(Application)
 

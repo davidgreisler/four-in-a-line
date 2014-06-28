@@ -11,14 +11,10 @@ namespace Settings
  * @param parent Parent object.
  */
 FourInALine::FourInALine(QObject *parent) :
-	QObject(parent)
+	AbstractSettings(FourInALine::CreateSettings(), parent)
 {
-	QString organization = QApplication::organizationName();
-	QString applicationName = QApplication::applicationName();
-	this->settings = QSharedPointer<QSettings>(new QSettings(organization, applicationName));
-
-	this->applicationSettings = new Settings::Application(this->settings, this);
-	this->viewSettings = new Settings::View(this->settings, this);
+	this->applicationSettings = new Settings::Application(this->getSettings(), this);
+	this->viewSettings = new Settings::View(this->getSettings(), this);
 
 	this->read();
 }
@@ -49,6 +45,20 @@ Application* FourInALine::getApplicationSettings() const
 View* FourInALine::getViewSettings() const
 {
 	return this->viewSettings;
+}
+
+/**
+ * Creates an instance of QSettings for the application.
+ *
+ * @return Shared pointer to QSettings object.
+ */
+QSharedPointer<QSettings> FourInALine::CreateSettings()
+{
+	auto organization = QApplication::organizationName();
+	auto applicationName = QApplication::applicationName();
+	auto settings = QSharedPointer<QSettings>::create(organization, applicationName);
+
+	return settings;
 }
 
 /**

@@ -56,8 +56,8 @@ class GameView : public AbstractView
 		GameView(ViewManager* manager);
 		virtual ~GameView();
 
-		virtual QWidget* getWidget() const;
-		virtual bool confirmDeactivation();
+		virtual QWidget* getWidget() const override;
+		virtual bool confirmDeactivation() override;
 
 		bool hasGame() const;
 		QSharedPointer< ::Game::Game> getGame() const;

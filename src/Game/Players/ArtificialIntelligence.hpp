@@ -38,9 +38,9 @@ class ArtificialIntelligence : public AbstractPlayer
 		                                      QString name = QString(""), QObject *parent = 0);
 		virtual ~ArtificialIntelligence();
 
-		virtual void requestMove(const QSharedPointer<const ::Game::Game>& game);
+		virtual void requestMove(const QSharedPointer<const ::Game::Game>& game) override;
 
-		virtual void abortMove();
+		virtual void abortMove() override;
 
 		LevelOfDifficulty getLevelOfDifficulty() const;
 

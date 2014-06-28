@@ -32,8 +32,8 @@ class Placeholder : public AbstractPlayer
 		                     QString name = QString(""), QObject *parent = 0);
 		virtual ~Placeholder();
 
-		virtual void requestMove(const QSharedPointer<const ::Game::Game>& game);
-		virtual void abortMove();
+		virtual void requestMove(const QSharedPointer<const ::Game::Game>& game) override;
+		virtual void abortMove() override;
 
 	private:
 		Q_DISABLE_COPY(Placeholder)

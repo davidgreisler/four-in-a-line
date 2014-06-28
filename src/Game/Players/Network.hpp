@@ -24,9 +24,9 @@ class Network : public AbstractPlayer
 		                       QString name = QString(""), QObject *parent = 0);
 		virtual ~Network();
 
-		virtual void requestMove(const QSharedPointer<const ::Game::Game>& game);
+		virtual void requestMove(const QSharedPointer<const ::Game::Game>& game) override;
 
-		virtual void abortMove();
+		virtual void abortMove() override;
 
 		const QHostAddress& getAddress() const;
 
