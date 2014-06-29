@@ -43,6 +43,7 @@ LoadGame::LoadGame(QSharedPointer< ::Game::Game> game, QWidget *parent) :
 	timeLimitWidget->setTimeoutAction(game->getGameLogic()->getTimeoutAction());
 
 	auto gameWidget = this->gameSetupWidget->getGameConfigurationWidget();
+	gameWidget->setFirstMove(game->getStartingPlayer()->getPlayer());
 	gameWidget->setAllowHint(game->isHintAllowed());
 	gameWidget->setAllowUndo(game->isUndoAllowed());
 	gameWidget->setSaveHighscore(game->isSavingHighscore());
