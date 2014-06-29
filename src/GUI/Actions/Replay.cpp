@@ -31,6 +31,8 @@ Replay::Replay(::GUI::GameView* gameView, ::GUI::ReplayView* replayView,
 	this->retranslateUI();
 	this->updateActions();
 
+	this->connect(this->gameView, &::GUI::GameView::stateChanged,
+				  this, &Replay::updateActions);
 	this->connect(this->replayView, &::GUI::ReplayView::stateChanged,
 				  this, &Replay::updateActions);
 }
