@@ -148,8 +148,8 @@ void Replay::updateActions()
 	{
 		if (this->replayView->hasReplay())
 		{
-			this->jumpToStartAction->setEnabled(!this->replayView->hasPreviousMove());
-			this->jumpToEndAction->setEnabled(!this->replayView->hasNextMove());
+			this->jumpToStartAction->setEnabled(this->replayView->hasPreviousMove());
+			this->jumpToEndAction->setEnabled(this->replayView->hasNextMove());
 			this->nextMoveAction->setEnabled(this->replayView->hasNextMove());
 			this->previousMoveAction->setEnabled(this->replayView->hasPreviousMove());
 		}
