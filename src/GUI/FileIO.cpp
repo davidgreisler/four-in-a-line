@@ -16,7 +16,7 @@ namespace GUI
  * @param content Reference to a string where the file's content is stored.
  * @return When the file has been read successfully true, otherwise false.
  */
-bool FileIO::GetFileContent(QWidget* parentWidget, QString fileName, QString& content)
+bool FileIO::GetFileContent(QWidget* parentWidget, QString fileName, QByteArray& content)
 {
 	QFile file(fileName);
 
@@ -47,7 +47,7 @@ bool FileIO::GetFileContent(QWidget* parentWidget, QString fileName, QString& co
  * @param content Content to write into the file.
  * @return When the content was written into the file successfully true, otherwise false.
  */
-bool FileIO::SetFileContent(QWidget* parentWidget, QString fileName, const QString& content)
+bool FileIO::SetFileContent(QWidget* parentWidget, QString fileName, const QByteArray& content)
 {
 	QFile file(fileName);
 

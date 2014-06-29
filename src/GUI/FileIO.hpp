@@ -18,8 +18,8 @@ namespace GUI
 class FileIO
 {
 	public:
-		static bool GetFileContent(QWidget* parentWidget, QString fileName, QString& content);
-		static bool SetFileContent(QWidget* parentWidget, QString fileName, const QString& content);
+		static bool GetFileContent(QWidget* parentWidget, QString fileName, QByteArray& content);
+		static bool SetFileContent(QWidget* parentWidget, QString fileName, const QByteArray& content);
 
 		static bool GetExistingFileName(QWidget* parentWidget, QString& fileName,
 		                                QString nameFilter);

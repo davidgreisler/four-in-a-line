@@ -4,17 +4,23 @@
 #include "Dialogs/NewGame.hpp"
 #include "Dialogs/GameOver.hpp"
 
-#include "GameView.hpp"
 #include "../Game/Players/AbstractPlayer.hpp"
-#include "FileIO.hpp"
+
+#include "../Game/GameWriter.hpp"
+#include "../Game/GameReader.hpp"
+#include "../Game/ParseError.hpp"
 #include "../Game/Game.hpp"
 #include "../Game/GameController.hpp"
+
+#include "FileIO.hpp"
+#include "GameView.hpp"
 
 #include <QFile>
 #include <QTextStream>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QWidget>
+#include <QBuffer>
 
 namespace GUI
 {
@@ -233,7 +239,7 @@ void GameView::saveGame()
 		}
 		else
 		{
-			this->saveGameToFile(this->savegameFileName);
+			this->saveGameToFile(this->savegameFileName, true);
 		}
 	}
 }
@@ -256,7 +262,7 @@ void GameView::saveGameAs()
 	if (this->hasGame() && FileIO::GetSaveFileName(this->getWidget(), fileName, defaultSuffix,
 	                                               nameFilter))
 	{
-		if (this->saveGameToFile(fileName))
+		if (this->saveGameToFile(fileName, true))
 		{
 			this->savegameFileName = fileName;
 
@@ -279,7 +285,7 @@ void GameView::saveReplay()
 	if (this->hasGame() && FileIO::GetSaveFileName(this->getWidget(), fileName, defaultSuffix,
 	                                               nameFilter))
 	{
-		this->saveReplayToFile(fileName);
+		this->saveGameToFile(fileName, false);
 	}
 }
 
@@ -471,19 +477,25 @@ bool GameView::confirmEndGame() const
  *
  * Does nothing if no game is being played.
  *
+ * A replay is a savegame without configuration, to save a replay, set withConfiguration to false.
+ *
  * @param path Path of the savegame file.
+ * @param withConfiguration Whether to include the configuration or not.
  * @return When the game was saved true, otherwise false.
  */
-bool GameView::saveGameToFile(QString path)
+bool GameView::saveGameToFile(QString path, bool withConfiguration)
 {
 	if (!this->hasGame())
 	{
 		return false;
 	}
 
-	QString content = this->game->toString();
+	QBuffer buffer;
+	buffer.open(QIODevice::ReadWrite);
+	::Game::GameWriter writer;
+	writer.writeXML(&buffer, this->game, withConfiguration);
 
-	return FileIO::SetFileContent(this->getWidget(), path, content);
+	return FileIO::SetFileContent(this->getWidget(), path, buffer.data());
 }
 
 /**
@@ -497,55 +509,41 @@ bool GameView::saveGameToFile(QString path)
  */
 bool GameView::loadGameFromFile(QString path)
 {
-	QString content;
+	QByteArray content;
 
-	if (FileIO::GetFileContent(this->getWidget(), path, content) && this->requestActivation())
+	try
 	{
-		this->endGame();
-
-		auto game = ::Game::Game::CreateFromString(content);
-
-		Dialogs::LoadGame dialog(game, this->getWidget());
-		dialog.exec();
-
-		if (dialog.result() == QDialog::Accepted)
+		if (FileIO::GetFileContent(this->getWidget(), path, content) && this->requestActivation())
 		{
-			::Game::Players::Factory playerFactory(this->widget->getBoardWidget());
-			dialog.replacePlayers(playerFactory);
+			this->endGame();
 
-			this->startGame(game);
+			QBuffer buffer(&content);
+			buffer.open(QIODevice::ReadOnly);
+			::Game::GameReader reader;
+			auto game = reader.readGame(&buffer);
 
-			return true;
+			Dialogs::LoadGame dialog(game, this->getWidget());
+			dialog.exec();
+
+			if (dialog.result() == QDialog::Accepted)
+			{
+				::Game::Players::Factory playerFactory(this->widget->getBoardWidget());
+				dialog.replacePlayers(playerFactory);
+
+				this->startGame(game);
+
+				return true;
+			}
 		}
+	}
+	catch (const ::Game::ParseError& err)
+	{
+		QMessageBox::critical(this->getWidget(), this->tr("Error loading game"),
+		                      this->tr("The game could not be loaded because of the following "
+		                               "parse error: %1").arg(err.what()));
 	}
 
 	return false;
-}
-
-/**
- * Saves replay of the current game to the file under the given path.
- *
- * Does nothing if no game is being played.
- *
- * @param path Path to the replay file.
- * @return When the replay was saved true, otherwise false.
- */
-bool GameView::saveReplayToFile(QString path)
-{
-	if (!this->hasGame())
-	{
-		return false;
-	}
-
-	// Save replay to string.
-
-	QString content = "replay";
-
-	// @todo Implement.
-
-	// Write string to file.
-
-	return FileIO::SetFileContent(this->getWidget(), path, content);
 }
 
 }

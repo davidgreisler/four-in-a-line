@@ -101,9 +101,8 @@ class GameView : public AbstractView
 
 		bool showNewGameDialog();
 
-		bool saveGameToFile(QString path);
+		bool saveGameToFile(QString path, bool withConfiguration);
 		bool loadGameFromFile(QString path);
-		bool saveReplayToFile(QString path);
 
 		void destroyGame();
 		bool confirmEndGame() const;

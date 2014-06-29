@@ -94,8 +94,6 @@ class Game
 
 		GameLogicPointerType getGameLogic() const;
 
-		QString toString() const;
-		static QSharedPointer<Game> CreateFromString(const QString& savegame);
 		static QSharedPointer<Game> CreateWithSettingsFrom(QSharedPointer<const Game> game,
 		                                                   PlayerPointerType firstPlayer,
 		                                                   PlayerPointerType secondPlayer);

@@ -2,6 +2,7 @@
 #include "../Game/Replay.hpp"
 #include "FileIO.hpp"
 #include "../Game/ParseError.hpp"
+#include "../Game/GameReader.hpp"
 #include "../Game/Players/Placeholder.hpp"
 
 #include <QMessageBox>
@@ -10,6 +11,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QFileDialog>
+#include <QBuffer>
 
 namespace GUI
 {
@@ -104,18 +106,25 @@ bool ReplayView::confirmDeactivation()
  */
 void ReplayView::loadReplay()
 {
-	QString fileContent;
+	QByteArray content;
 	QString fileName;
 	QString nameFilter = this->tr("Replays (*.replay)");
 
 	if (FileIO::GetExistingFileName(this->getWidget(), fileName, nameFilter) &&
-	        FileIO::GetFileContent(this->getWidget(), fileName, fileContent) &&
+	        FileIO::GetFileContent(this->getWidget(), fileName, content) &&
 	        this->requestActivation())
 	{
 		try
 		{
-			::Game::Players::Factory playerFactory(this->widget);
-			auto loadedReplay = ::Game::Replay::CreateFromString(fileContent, playerFactory);
+			QBuffer buffer(&content);
+			buffer.open(QIODevice::ReadOnly);
+			::Game::GameReader reader;
+			auto loadedReplay = reader.readReplay(&buffer);
+
+			if (loadedReplay->getNumberOfMoves() == 0)
+			{
+				throw ::Game::ParseError("Empty replays are not supported.");
+			}
 
 			this->closeReplay();
 			this->replay = loadedReplay;

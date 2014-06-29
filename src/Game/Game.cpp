@@ -224,11 +224,6 @@ bool Game::isShowHintPossible() const
  */
 void Game::setSaveHighscore(bool saveHighscore)
 {
-	if (saveHighscore && this->isArtificialIntelligenceGame())
-	{
-		throw std::runtime_error("Games against AI are not saved in the highscore list.");
-	}
-
 	this->saveHighscore = saveHighscore;
 }
 
@@ -249,11 +244,6 @@ bool Game::isSavingHighscore() const
  */
 void Game::setAllowUndo(bool allow)
 {
-	if (allow && !this->isArtificialIntelligenceGame())
-	{
-		throw std::runtime_error("Undo function can only be allowed in AI games.");
-	}
-
 	this->allowUndo = allow;
 }
 
@@ -285,8 +275,6 @@ void Game::setAllowHint(bool allow)
 /**
  * Returns whether the hint function is allowed in this game.
  *
- * The hint function can only be enabled in games against an artificial intelligence.
- *
  * @return When it is allowed true, otherwise false.
  */
 bool Game::isHintAllowed() const
@@ -302,46 +290,6 @@ bool Game::isHintAllowed() const
 Game::GameLogicPointerType Game::getGameLogic() const
 {
 	return this->game;
-}
-
-/**
- * Builds and returns a string representing the current game state (savegame).
- *
- * @return String representing game state (savegame).
- */
-QString Game::toString() const
-{
-	QString result;
-
-	// @todo Implement this.
-
-	result = "savegame";
-
-	return result;
-}
-
-/**
- * Creates a new game from the given string.
- *
- * @param savegame String representing game state (savegame).
- * @return Game in the state it was in when the savegame was created.
- */
-QSharedPointer<Game> Game::CreateFromString(const QString& savegame)
-{
-	Q_UNUSED(savegame);
-
-	// @todo Implement this.
-
-	QSharedPointer< ::GameLogic::FourInALine::Game> gameEngine(new ::GameLogic::FourInALine::Game(5, 5, 1));
-	QSharedPointer<Players::Placeholder> firstPlayer(new Players::Placeholder(::GameLogic::FourInALine::Game::PLAYER_ONE,
-	                                                                    "Player 1"));
-	QSharedPointer<Players::Placeholder> secondPlayer(new Players::Placeholder(::GameLogic::FourInALine::Game::PLAYER_TWO,
-	                                                                     "Player 2"));
-
-	QSharedPointer<Game> newGame = QSharedPointer<Game>(new Game(gameEngine, firstPlayer,
-	                                                             secondPlayer));
-
-	return newGame;
 }
 
 /**
