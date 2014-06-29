@@ -9,7 +9,8 @@ SOURCES += Board.cpp \
 	   GameConfiguration.cpp \
 	   GameSetup.cpp \
 	   ViewSettings.cpp \
-	   ApplicationSettings.cpp
+	   ApplicationSettings.cpp \
+	   SoundSettings.cpp
 
 HEADERS += Board.hpp \
 	   Chat.hpp \
@@ -20,4 +21,5 @@ HEADERS += Board.hpp \
 	   GameConfiguration.hpp \
 	   GameSetup.hpp \
 	   ViewSettings.hpp \
-	   ApplicationSettings.hpp
+	   ApplicationSettings.hpp \
+	   SoundSettings.hpp

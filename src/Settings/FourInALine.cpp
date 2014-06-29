@@ -15,6 +15,7 @@ FourInALine::FourInALine(QObject *parent) :
 {
 	this->applicationSettings = new Settings::Application(this->getSettings(), this);
 	this->viewSettings = new Settings::View(this->getSettings(), this);
+	this->soundSettings = new Settings::Sound(this->getSettings(), this);
 
 	this->read();
 }
@@ -48,6 +49,16 @@ View* FourInALine::getViewSettings() const
 }
 
 /**
+ * Returns sound settings.
+ *
+ * @return Sound settings.
+ */
+Sound*FourInALine::getSoundSettings() const
+{
+	return this->soundSettings;
+}
+
+/**
  * Creates an instance of QSettings for the application.
  *
  * @return Shared pointer to QSettings object.
@@ -68,6 +79,7 @@ void FourInALine::read()
 {
 	this->applicationSettings->read();
 	this->viewSettings->read();
+	this->soundSettings->read();
 
 	emit this->changed();
 }
@@ -87,6 +99,7 @@ void FourInALine::save()
 {
 	this->applicationSettings->save();
 	this->viewSettings->save();
+	this->soundSettings->save();
 
 	emit this->saved();
 }

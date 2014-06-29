@@ -27,6 +27,7 @@ Settings::Settings(QWidget *parent) :
 
 	auto applicationSettings = ::FourInALine::getInstance()->getSettings()->getApplicationSettings();
 	auto viewSettings = ::FourInALine::getInstance()->getSettings()->getViewSettings();
+	auto soundSettings = ::FourInALine::getInstance()->getSettings()->getSoundSettings();
 
 	this->applicationSettingsWidget =
 	        new ::GUI::Widgets::ApplicationSettings(applicationSettings, this);
@@ -35,8 +36,11 @@ Settings::Settings(QWidget *parent) :
 	this->viewSettingsWidget = new ::GUI::Widgets::ViewSettings(viewSettings, this);
 	this->layout->addWidget(this->viewSettingsWidget, 1, 0, 1, 1);
 
+	this->soundSettingsWidget = new ::GUI::Widgets::SoundSettings(soundSettings, this);
+	this->layout->addWidget(this->soundSettingsWidget, 2, 0, 1, 1);
+
 	this->buttonBox = new QDialogButtonBox(this);
-	this->layout->addWidget(this->buttonBox, 2, 0, 1, 1);
+	this->layout->addWidget(this->buttonBox, 3, 0, 1, 1);
 
 	this->resetButton = new QPushButton(this);
 	this->buttonBox->addButton(this->resetButton, QDialogButtonBox::ActionRole);
@@ -73,6 +77,7 @@ void Settings::reset()
 {
 	this->applicationSettingsWidget->reset();
 	this->viewSettingsWidget->reset();
+	this->soundSettingsWidget->reset();
 }
 
 /**
@@ -82,6 +87,7 @@ void Settings::read()
 {
 	this->applicationSettingsWidget->read();
 	this->viewSettingsWidget->read();
+	this->soundSettingsWidget->read();
 }
 
 /**
@@ -91,6 +97,7 @@ void Settings::write()
 {
 	this->applicationSettingsWidget->write();
 	this->viewSettingsWidget->write();
+	this->soundSettingsWidget->write();
 }
 
 /**
@@ -100,6 +107,7 @@ void Settings::apply()
 {
 	this->applicationSettingsWidget->apply();
 	this->viewSettingsWidget->apply();
+	this->soundSettingsWidget->apply();
 }
 
 /**

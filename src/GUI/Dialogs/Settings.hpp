@@ -3,6 +3,7 @@
 
 #include "../Widgets/ApplicationSettings.hpp"
 #include "../Widgets/ViewSettings.hpp"
+#include "../Widgets/SoundSettings.hpp"
 
 #include <QDialog>
 
@@ -61,6 +62,11 @@ class Settings : public QDialog
 		 * Group box containing view settings.
 		 */
 		::GUI::Widgets::ViewSettings* viewSettingsWidget;
+
+		/**
+		 * Group box containing sound settings.
+		 */
+		::GUI::Widgets::SoundSettings* soundSettingsWidget;
 
 		/**
 		 * Button box for the dialog's buttons.

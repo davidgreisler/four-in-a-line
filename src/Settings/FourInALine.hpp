@@ -4,6 +4,7 @@
 #include "AbstractSettings.hpp"
 #include "Application.hpp"
 #include "View.hpp"
+#include "Sound.hpp"
 
 #include <QObject>
 
@@ -36,6 +37,7 @@ class FourInALine : public AbstractSettings
 
 		Application* getApplicationSettings() const;
 		View* getViewSettings() const;
+		Sound* getSoundSettings() const;
 
 	private:
 		static QSharedPointer<QSettings> CreateSettings();
@@ -49,6 +51,11 @@ class FourInALine : public AbstractSettings
 		 * View settings.
 		 */
 		View* viewSettings;
+
+		/**
+		 * Sound settings.
+		 */
+		Sound* soundSettings;
 };
 
 }
