@@ -210,7 +210,7 @@ void GameConfiguration::setAllowUndo(bool allowUndo)
  */
 bool GameConfiguration::getAllowUndo() const
 {
-	return this->allowUndoCheckBox;
+	return this->allowUndoCheckBox->isChecked();
 }
 
 /**
