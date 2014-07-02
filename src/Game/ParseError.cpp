@@ -17,7 +17,7 @@ ParseError::ParseError(QString message)
 /**
  * Frees all used resources.
  */
-ParseError::~ParseError()
+ParseError::~ParseError() noexcept
 {
 
 }

@@ -15,7 +15,7 @@ class ParseError : public std::runtime_error
 {
 	public:
 		ParseError(QString message);
-		virtual ~ParseError();
+		virtual ~ParseError() noexcept;
 };
 
 }
