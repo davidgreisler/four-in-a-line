@@ -122,6 +122,8 @@ void GameController::makeMove(unsigned int x)
 	qDebug() << "[" << this << "::makeMove ] " << "Player " << game->getCurrentPlayer()->getName()
 	         << " made a move, token dropped in column " << x;
 
+	auto currentPlayer = game->getCurrentPlayer();
+
 	this->moveRequested = false;
 	this->timeLimitTimer->stop();
 	this->game->getGameLogic()->makeMove(x);
@@ -129,8 +131,8 @@ void GameController::makeMove(unsigned int x)
 	auto moveNo = this->game->getGameLogic()->getNumberOfMoves() - 1;
 	auto position = this->game->getGameLogic()->computeMovePosition(moveNo);
 
+	emit this->setCell(position.first, position.second, currentPlayer);
 	emit this->endPlayerTurn();
-	emit this->setCell(position.first, position.second, this->game->getCurrentPlayer());
 
 	if (!this->checkGameOver())
 	{

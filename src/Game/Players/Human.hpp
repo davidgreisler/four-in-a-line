@@ -25,6 +25,8 @@ namespace Players
  *
  * It is possible to configure which controls the user can use to drop tokens on the board, so that
  * one player can play with the mouse and the other with the keyboard if they want that.
+ *
+ * @todo Use QEnableSharedFromThis when Qt 5.4 is released (requestMove).
  */
 class Human : public AbstractPlayer
 {
@@ -48,6 +50,9 @@ class Human : public AbstractPlayer
 		virtual void abortMove() override;
 
 		Controls getControls() const;
+
+	public slots:
+		void userMadeMove(unsigned int columnNo);
 
 	private:
 		Q_DISABLE_COPY(Human)

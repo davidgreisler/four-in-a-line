@@ -22,7 +22,7 @@ Human::Human(::GameLogic::FourInALine::Game::PlayerType player,
                          QString name, QObject* parent)
     : AbstractPlayer(player, name, parent), controls(controls), board(board)
 {
-
+	this->connect(this->board, &::GUI::Widgets::Board::moveReady, this, &Human::userMadeMove);
 }
 
 /**
@@ -42,7 +42,7 @@ void Human::requestMove(const QSharedPointer<const ::Game::Game>& game)
 {
 	auto availableColumns = game->getGameLogic()->getBoard()->getAvailableColumns();
 
-	this->board->requestMove(availableColumns, this->controls);
+	this->board->requestMove(availableColumns, this);
 }
 
 /**
@@ -62,6 +62,16 @@ void Human::abortMove()
 Human::Controls Human::getControls() const
 {
 	return this->controls;
+}
+
+/**
+ * Invoked by the board when the user made a move, emits moveReady().
+ *
+ * @param columnNo The column number where the user dropped the token.
+ */
+void Human::userMadeMove(unsigned int columnNo)
+{
+	emit this->moveReady(columnNo);
 }
 
 }
