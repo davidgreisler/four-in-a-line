@@ -29,7 +29,9 @@ Game::Game(unsigned int nRows, unsigned int nColumns, Game::PlayerType firstMove
 		throw std::runtime_error("First move argument must be either PLAYER_ONE or PLAYER_TWO.");
 	}
 
-	this->board = std::make_shared<Board>(nRows, nColumns);
+	/// @todo Use the same order for all classes (first nColumns then nRows or the other way around).
+
+	this->board = std::make_shared<Board>(nColumns, nRows);
 }
 
 /**
