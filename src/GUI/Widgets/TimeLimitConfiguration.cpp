@@ -34,6 +34,7 @@ TimeLimitConfiguration::TimeLimitConfiguration(QWidget *parent) :
 
 	this->timeLimitLabel = new QLabel(this);
 	this->timeLimitSpinBox = new QSpinBox(this);
+	this->timeLimitSpinBox->setValue(60);
 	this->timeLimitSpinBox->setMinimum(TimeLimitConfiguration::MINIMUM_TIME_LIMIT);
 	this->timeLimitSpinBox->setMaximum(TimeLimitConfiguration::MAXIMUM_TIME_LIMIT);
 	this->formLayout->addRow(this->timeLimitLabel, this->timeLimitSpinBox);
