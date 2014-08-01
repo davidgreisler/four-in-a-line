@@ -55,9 +55,13 @@ GameView::GameView(ViewManager* manager)
 
 	this->connect(this->gameController, &::Game::GameController::setCell,
 	              this->widget->getBoardWidget(), &Widgets::Board::makeMove);
+	this->connect(this->gameController, &::Game::GameController::setCell,
+	              this, &GameView::stateChanged);
 
 	this->connect(this->gameController, &::Game::GameController::removeCell,
 	              this->widget->getBoardWidget(), &Widgets::Board::makeCellEmpty);
+	this->connect(this->gameController, &::Game::GameController::removeCell,
+	              this, &GameView::stateChanged);
 
 	this->connect(this->gameController, &::Game::GameController::startPlayerTurn,
 	              this->widget->getBoardWidget(), &Widgets::Board::startPlayerTurn);
@@ -268,8 +272,6 @@ void GameView::saveGameAs()
 		if (this->saveGameToFile(fileName, true))
 		{
 			this->savegameFileName = fileName;
-
-			emit this->stateChanged();
 		}
 	}
 }
@@ -317,6 +319,8 @@ void GameView::showHint()
 	if (this->hasGame() && this->game->isShowHintPossible())
 	{
 		this->gameController->showHint();
+
+		emit this->stateChanged();
 	}
 }
 
@@ -330,6 +334,7 @@ void GameView::showHint()
 void GameView::activate()
 {
 	emit this->activated();
+	emit this->stateChanged();
 }
 
 /**
@@ -344,6 +349,7 @@ void GameView::deactivate()
 	this->destroyGame();
 
 	emit this->deactivated();
+	emit this->stateChanged();
 }
 
 void GameView::showGameOverDialog()
@@ -497,6 +503,8 @@ bool GameView::saveGameToFile(QString path, bool withConfiguration)
 	buffer.open(QIODevice::ReadWrite);
 	::Game::GameWriter writer;
 	writer.writeXML(&buffer, this->game, withConfiguration);
+
+	emit this->stateChanged();
 
 	return FileIO::SetFileContent(this->getWidget(), path, buffer.data());
 }
