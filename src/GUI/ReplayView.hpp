@@ -59,6 +59,8 @@ class ReplayView : public AbstractView
 	private:
 		Q_DISABLE_COPY(ReplayView)
 
+		void highlightCells();
+
 		QSharedPointer< ::Game::Players::Placeholder> playerIdToPlayer(::GameLogic::FourInALine::Game::PlayerType playerId) const;
 
 		/**

@@ -92,6 +92,16 @@ void GameController::undoLastMove()
 
 	this->abortRequest();
 
+	if (gameWasOverBefore)
+	{
+		auto winningCells = this->game->getGameLogic()->getBoard()->findWinningCells();
+
+		for (auto it = winningCells.begin(); it != winningCells.end(); it++)
+		{
+			emit this->setCellHighlighted(it.getXPosition(), it.getYPosition(), false);
+		}
+	}
+
 	auto nMoves = this->game->getGameLogic()->getNumberOfMoves();
 
 	auto position = this->game->getGameLogic()->computeMovePosition(nMoves - 1);
@@ -194,6 +204,9 @@ bool GameController::checkGameOver()
 
 	if (game->isOver())
 	{
+		auto board = game->getBoard();
+		auto winningCells = board->findWinningCells();
+
 		qDebug() << "[" << this << "::checkGameOver ] " << "Game is over.";
 
 		this->abortRequest();
@@ -202,6 +215,11 @@ bool GameController::checkGameOver()
 		{
 			this->remainingSeconds = 0;
 			this->timeLimitTimer->stop();
+		}
+
+		for (auto it = winningCells.begin(); it != winningCells.end(); it++)
+		{
+			emit this->setCellHighlighted(it.getXPosition(), it.getYPosition(), true);
 		}
 
 		emit this->gameOver();

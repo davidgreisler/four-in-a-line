@@ -111,8 +111,8 @@ void ReplayView::loadReplay()
 	QString nameFilter = this->tr("Replays (*.replay)");
 
 	if (FileIO::GetExistingFileName(this->getWidget(), fileName, nameFilter) &&
-	        FileIO::GetFileContent(this->getWidget(), fileName, content) &&
-	        this->requestActivation())
+	    FileIO::GetFileContent(this->getWidget(), fileName, content) &&
+	    this->requestActivation())
 	{
 		try
 		{
@@ -174,6 +174,8 @@ void ReplayView::nextMove()
 		this->widget->makeMove(position.first, position.second, player);
 		this->widget->endPlayerTurn();
 
+		this->highlightCells();
+
 		emit this->stateChanged();
 	}
 }
@@ -190,6 +192,8 @@ void ReplayView::previousMove()
 		this->widget->makeCellEmpty(position.first, position.second);
 
 		this->currentMoveNo--;
+
+		this->highlightCells();
 
 		emit this->stateChanged();
 	}
@@ -217,6 +221,8 @@ void ReplayView::jumpToStart()
 		this->widget->makeMove(position.first, position.second, player);
 		this->widget->endPlayerTurn();
 
+		this->highlightCells();
+
 		emit this->stateChanged();
 	}
 }
@@ -229,6 +235,34 @@ void ReplayView::jumpToEnd()
 	while (this->hasNextMove())
 	{
 		this->nextMove();
+	}
+}
+
+/**
+ * Sets highlighted state for all cells.
+ *
+ * This method will set the winning cells to highlighted and all other cells
+ * to not highlighted.
+ */
+void ReplayView::highlightCells()
+{
+	auto board = this->replay->computeBoard(this->currentMoveNo);
+	auto winningCells = board.findWinningCells();
+
+	for (unsigned int y = 0; y < board.getNumberOfRows(); ++y)
+	{
+		for (unsigned int x = 0; x < board.getNumberOfColumns(); ++x)
+		{
+			this->widget->setCellHighlighted(x, y, false);
+		}
+	}
+
+	if (!winningCells.isEmpty())
+	{
+		for (auto i = winningCells.begin(); i != winningCells.end(); i++)
+		{
+			this->widget->setCellHighlighted(i.getXPosition(), i.getYPosition(), true);
+		}
 	}
 }
 

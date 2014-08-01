@@ -4,6 +4,7 @@
 #include "Players/Factory.hpp"
 #include "Players/Placeholder.hpp"
 #include "Game.hpp"
+#include "../GameLogic/FourInALine/Board.hpp"
 
 #include <QSharedPointer>
 #include <vector>
@@ -49,6 +50,8 @@ class Replay
 
 		std::pair<unsigned int, unsigned int> getMove(unsigned int moveNo) const;
 		std::pair<unsigned int, unsigned int> computeMovePosition(unsigned int moveNo) const;
+
+		::GameLogic::FourInALine::Board computeBoard(unsigned int moveNo) const;
 
 		unsigned int getNumberOfMoves() const;
 

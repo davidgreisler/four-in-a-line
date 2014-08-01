@@ -64,6 +64,24 @@ std::pair<unsigned int, unsigned int> Replay::computeMovePosition(unsigned int m
 }
 
 /**
+ * Creates a board containing all moves up to (including) the move with the given number.
+ *
+ * @param moveNo Move number.
+ * @return Board containing all moves up to (including) the given move.
+ */
+GameLogic::FourInALine::Board Replay::computeBoard(unsigned int moveNo) const
+{
+	GameLogic::FourInALine::Board board(this->nColumns, this->nRows);
+
+	for (unsigned int i = 0; i <= moveNo; ++i)
+	{
+		board.dropToken(this->getMove(i).second, this->getMove(i).first);
+	}
+
+	return board;
+}
+
+/**
  * Returns the number of moves.
  *
  * @return Number of moves.

@@ -82,6 +82,17 @@ class GameController : public QObject
 		             QSharedPointer<const ::Game::Players::AbstractPlayer> player);
 
 		/**
+		 * Emitted when a cell should be highlighted.
+		 *
+		 * This is used to highlight the 4 winning cells when a game was won.
+		 *
+		 * @param x X position of the cell.
+		 * @param y Y position of the cell.
+		 * @param highlighted Whether the cell should be highlighted (true) or not (false).
+		 */
+		void setCellHighlighted(unsigned int x, unsigned int y, bool highlighted);
+
+		/**
 		 * Emitted when a cell should be made empty (undo move).
 		 *
 		 * @param x X position of the cell.

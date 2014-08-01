@@ -67,6 +67,9 @@ GameView::GameView(ViewManager* manager)
 
 	this->connect(this->gameController, &::Game::GameController::showColumnHints,
 	              this->widget->getBoardWidget(), &Widgets::Board::showColumnHints);
+
+	this->connect(this->gameController, &::Game::GameController::setCellHighlighted,
+	              this->widget->getBoardWidget(), &Widgets::Board::setCellHighlighted);
 }
 
 /**
