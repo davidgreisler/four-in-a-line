@@ -18,7 +18,7 @@ namespace FourInALine
  * This class extends the artificial intelligence and modifies it so that the computation of the
  * next move is done in a separate thread.
  *
- * The next move can be computed with computeNextMoveAsynchronously(). Use isNextMoveRead() to check
+ * The next move can be computed with computeNextMoveAsynchronously(). Use isNextMoveReady() to check
  * whether the result is ready and valid. The resulting move can then be retrieved with
  * getNextMove(), which also accepts an optional timeout parameter to block until the timeout
  * duration has elapsed or the result is ready. Default is a timeout of 0, which means no blocking.
