@@ -59,6 +59,19 @@ void GameController::startGame(QSharedPointer<Game> game)
 	                       game->getFirstPlayer(),
 	                       game->getSecondPlayer());
 
+	// Replay moves already made in case this game was loaded from a savegame.
+
+	auto replay = game->getGameLogic()->getReplay();
+	for (unsigned int i = 0; i < replay.size(); ++i)
+	{
+		auto player = game->playerIdToPlayer(replay[i].first);
+		auto movePosition = game->getGameLogic()->computeMovePosition(i);
+
+		emit this->startPlayerTurn(player);
+		emit this->setCell(movePosition.first, movePosition.second, player);
+		emit this->endPlayerTurn();
+	}
+
 	this->requestNextMove();
 }
 

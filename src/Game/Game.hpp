@@ -94,13 +94,13 @@ class Game
 
 		GameLogicPointerType getGameLogic() const;
 
+		PlayerPointerType playerIdToPlayer(::GameLogic::FourInALine::Game::PlayerType playerId) const;
+
 		static QSharedPointer<Game> CreateWithSettingsFrom(QSharedPointer<const Game> game,
 		                                                   PlayerPointerType firstPlayer,
 		                                                   PlayerPointerType secondPlayer);
 
 	private:
-		PlayerPointerType playerIdToPlayer(::GameLogic::FourInALine::Game::PlayerType playerId) const;
-
 		/**
 		 * The current game.
 		 */
