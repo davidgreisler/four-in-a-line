@@ -352,6 +352,9 @@ void GameView::deactivate()
 	emit this->stateChanged();
 }
 
+/**
+ * Shows game over dialog.
+ */
 void GameView::showGameOverDialog()
 {
 	QString playerName;
@@ -360,7 +363,7 @@ void GameView::showGameOverDialog()
 	availableActions |= static_cast<int>(Dialogs::GameOver::Action::PLAY_AGAIN);
 	availableActions |= static_cast<int>(Dialogs::GameOver::Action::SAVE_REPLAY);
 
-	if (this->game->isArtificialIntelligenceGame())
+	if (this->game->isUndoAllowed())
 	{
 		availableActions |= static_cast<int>(Dialogs::GameOver::Action::UNDO_LAST_MOVE);
 	}
