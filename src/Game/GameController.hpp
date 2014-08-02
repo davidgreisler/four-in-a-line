@@ -3,6 +3,7 @@
 
 #include "../GameLogic/FourInALine/Game.hpp"
 #include "Players/AbstractPlayer.hpp"
+#include "../GameLogic/FourInALine/AsynchronousArtificialIntelligence.hpp"
 
 #include <QObject>
 #include <QSharedPointer>
@@ -134,6 +135,7 @@ class GameController : public QObject
 		bool checkGameOver();
 		void abortRequest();
 		void requestNextMove();
+		void checkHintReady();
 
 		/**
 		 * The game.
@@ -154,6 +156,16 @@ class GameController : public QObject
 		 * Whether there is a move requested from a player.
 		 */
 		bool moveRequested;
+
+		/**
+		 * Artificial intelligence for computing column hints.
+		 */
+		GameLogic::FourInALine::AsynchronousArtificialIntelligence artificialIntelligence;
+
+		/**
+		 * Timer for checking the AI result.
+		 */
+		QTimer* artificialIntelligenceTimer;
 };
 
 }

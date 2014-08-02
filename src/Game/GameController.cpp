@@ -15,12 +15,16 @@ namespace Game
  * @param parent Parent object.
  */
 GameController::GameController(QObject *parent) :
-    QObject(parent), moveRequested(false)
+    QObject(parent), moveRequested(false), artificialIntelligence(4)
 {
 	this->timeLimitTimer = new QTimer(this);
 	this->timeLimitTimer->setInterval(1000);
 
+	this->artificialIntelligenceTimer = new QTimer(this);
+	this->artificialIntelligenceTimer->setInterval(100);
+
 	this->connect(this->timeLimitTimer, &QTimer::timeout, this, &GameController::updateRemainingTime);
+	this->connect(this->artificialIntelligenceTimer, &QTimer::timeout, this, &GameController::checkHintReady);
 }
 
 /**
@@ -78,7 +82,11 @@ void GameController::showHint()
 {
 	qDebug() << "[" << this << "::showHint ] " << "Show hint";
 
-	// @todo Implement.
+	if (!this->artificialIntelligence.isComputing())
+	{
+		this->artificialIntelligence.computeNextMoveAsynchronously(*this->game->getGameLogic());
+		this->artificialIntelligenceTimer->start();
+	}
 }
 
 /**
@@ -280,6 +288,30 @@ void GameController::requestNextMove()
 	{
 		this->remainingSeconds = this->game->getGameLogic()->getTimeLimit();
 		this->timeLimitTimer->start();
+	}
+}
+
+/**
+ * Checks whether the AI has finished computing the hint and emits the according signal if so.
+ */
+void GameController::checkHintReady()
+{
+	if (this->artificialIntelligence.isNextMoveReady())
+	{
+		unsigned int nColumns = this->game->getGameLogic()->getBoard()->getNumberOfColumns();
+
+		std::vector<int> columnScores(nColumns);
+		for (unsigned int i = 0; i < nColumns; ++i)
+		{
+			columnScores[i] = -1;
+		}
+
+		unsigned int nextMove = this->artificialIntelligence.getNextMove();
+		columnScores[nextMove] = 100;
+
+		emit this->showColumnHints(columnScores);
+
+		this->artificialIntelligenceTimer->stop();
 	}
 }
 
