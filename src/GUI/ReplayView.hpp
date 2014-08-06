@@ -6,6 +6,8 @@
 #include "Widgets/Board.hpp"
 #include "../Game/Replay.hpp"
 
+#include <QMetaObject>
+
 class QWidget;
 
 namespace GUI
@@ -77,6 +79,11 @@ class ReplayView : public AbstractView
 		 * Current move number (position).
 		 */
 		unsigned int currentMoveNo;
+
+		/**
+		 * Connection used to update theme when it is changed.
+		 */
+		QMetaObject::Connection updateThemeConnection;
 };
 
 }

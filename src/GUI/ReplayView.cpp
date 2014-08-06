@@ -4,6 +4,9 @@
 #include "../Game/ParseError.hpp"
 #include "../Game/GameReader.hpp"
 #include "../Game/Players/Placeholder.hpp"
+#include "../Settings/View.hpp"
+#include "../Settings/FourInALine.hpp"
+#include "../../app/FourInALine.hpp"
 
 #include <QMessageBox>
 #include <QWidget>
@@ -24,7 +27,14 @@ namespace GUI
 ReplayView::ReplayView(ViewManager* manager)
     : AbstractView(manager), currentMoveNo(0)
 {
-	this->widget = new Widgets::Board(0);
+	auto settings = ::FourInALine::getInstance()->getSettings();
+	auto viewSettings = settings->getViewSettings();
+
+	this->widget = new Widgets::Board(viewSettings->getTheme(), 0);
+
+	this->updateThemeConnection = this->connect(viewSettings, &Settings::View::changed, [=]() {
+		this->widget->setTheme(viewSettings->getTheme());
+	});
 }
 
 /**
@@ -32,7 +42,7 @@ ReplayView::ReplayView(ViewManager* manager)
  */
 ReplayView::~ReplayView()
 {
-
+	QObject::disconnect(this->updateThemeConnection);
 }
 
 /**
@@ -209,7 +219,8 @@ void ReplayView::jumpToStart()
 		this->widget->startNewGame(this->replay->getNumberOfColumns(),
 		                           this->replay->getNumberOfRows(),
 		                           this->replay->getFirstPlayer(),
-		                           this->replay->getSecondPlayer());
+		                           this->replay->getSecondPlayer(),
+		                           false);
 
 		this->currentMoveNo = 0;
 

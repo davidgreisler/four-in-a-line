@@ -30,6 +30,10 @@ class View : public AbstractSettings
 		void setFullscreen(bool fullscreen);
 		bool isFullscreen() const;
 
+		void setTheme(QString themeName);
+		QString getTheme() const;
+		QMap<QString, QString> getThemeList() const;
+
 		void setWindowGeometry(QString windowName, QByteArray geometry);
 		QByteArray getWindowGeometry(QString windowName);
 
@@ -46,6 +50,11 @@ class View : public AbstractSettings
 		 * Whether the main window should be displayed in full screen mode or not.
 		 */
 		bool fullscreen;
+
+		/**
+		 * Name of the current theme.
+		 */
+		QString theme;
 
 		/**
 		 * Maps window names to stored window geometries.

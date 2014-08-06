@@ -1,6 +1,9 @@
 #include "Game.hpp"
 #include "Chat.hpp"
 #include "Board.hpp"
+#include "../../Settings/View.hpp"
+#include "../../Settings/FourInALine.hpp"
+#include "../../../app/FourInALine.hpp"
 
 namespace GUI
 {
@@ -17,11 +20,27 @@ Game::Game(QWidget *parent) :
 {
 	this->layout = new QVBoxLayout(this);
 
-	this->boardWidget = new Board(this);
+	auto settings = ::FourInALine::getInstance()->getSettings();
+	auto viewSettings = settings->getViewSettings();
+
+	this->boardWidget = new Board(viewSettings->getTheme(), this);
+
+	this->updateThemeConnection = this->connect(viewSettings, &Settings::View::changed, [=]() {
+		this->boardWidget->setTheme(viewSettings->getTheme());
+	});
+
 	this->layout->addWidget(this->boardWidget, 2);
 
 	this->chatWidget = new Chat(this);
 	this->layout->addWidget(this->chatWidget, 1);
+}
+
+/**
+ * Frees all used resources.
+ */
+Game::~Game()
+{
+	QObject::disconnect(this->updateThemeConnection);
 }
 
 /**

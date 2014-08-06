@@ -48,6 +48,17 @@ ViewSettings::~ViewSettings()
 void ViewSettings::reset()
 {
 	this->fullscreenCheckBox->setChecked(this->viewSettings->isFullscreen());
+
+	this->themeComboBox->clear();
+
+	auto currentThemeName = this->viewSettings->getTheme();
+	auto themeList = this->viewSettings->getThemeList();
+	for (auto i = themeList.cbegin(); i != themeList.cend(); i++)
+	{
+		this->themeComboBox->addItem(i.value(), i.key());
+	}
+
+	this->themeComboBox->setCurrentIndex(this->themeComboBox->findData(currentThemeName));
 }
 
 /**
@@ -57,6 +68,17 @@ void ViewSettings::read()
 {
 	this->viewSettings->read();
 	this->fullscreenCheckBox->setChecked(this->viewSettings->isFullscreen());
+
+	this->themeComboBox->clear();
+
+	auto currentThemeName = this->viewSettings->getTheme();
+	auto themeList = this->viewSettings->getThemeList();
+	for (auto i = themeList.cbegin(); i != themeList.cend(); i++)
+	{
+		this->themeComboBox->addItem(i.value(), i.key());
+	}
+
+	this->themeComboBox->setCurrentIndex(this->themeComboBox->findData(currentThemeName));
 }
 
 /**
@@ -65,6 +87,7 @@ void ViewSettings::read()
 void ViewSettings::apply()
 {
 	this->viewSettings->setFullscreen(this->fullscreenCheckBox->isChecked());
+	this->viewSettings->setTheme(this->themeComboBox->currentData().toString());
 	this->viewSettings->apply();
 }
 

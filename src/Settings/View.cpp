@@ -36,6 +36,42 @@ bool View::isFullscreen() const
 }
 
 /**
+ * Sets the current theme.
+ *
+ * @param themeName Name of the theme.
+ */
+void View::setTheme(QString themeName)
+{
+	this->theme = themeName;
+}
+
+/**
+ * Returns the name of the current theme.
+ *
+ * @return Current theme name.
+ */
+QString View::getTheme() const
+{
+	return this->theme;
+}
+
+/**
+ * Returns map mapping theme names to translated/display names of themes.
+ *
+ * @return Map with themes.
+ */
+QMap<QString, QString> View::getThemeList() const
+{
+	QMap<QString, QString> themeList;
+
+	themeList["standard"] = this->tr("Standard");
+	themeList["dark"] = this->tr("Dark");
+	themeList["white"] = this->tr("White");
+
+	return themeList;
+}
+
+/**
  * Sets the stored window geometry of the window with the given name to the given geometry.
  *
  * @param windowName Name of the window.
@@ -89,6 +125,7 @@ void View::read()
 	QString settingsPath;
 
 	this->fullscreen = settings->value("view/is_fullscreen", false).toBool();
+	this->theme = settings->value("view/theme_name", "standard").toString();
 
 	settings->beginGroup("view/window/");
 
@@ -114,6 +151,7 @@ void View::save()
 	QMap<QString, QByteArray>::ConstIterator it;
 
 	settings->setValue("view/is_fullscreen", this->fullscreen);
+	settings->setValue("view/theme_name", this->theme);
 
 	it = this->windowGeometries.constBegin();
 	while (it != this->windowGeometries.constEnd())

@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QVBoxLayout>
+#include <QMetaObject>
 
 namespace GUI
 {
@@ -25,6 +26,7 @@ class Game : public QWidget
 		Q_OBJECT
 	public:
 		explicit Game(QWidget *parent = 0);
+		virtual ~Game();
 
 		Board* getBoardWidget() const;
 
@@ -50,6 +52,11 @@ class Game : public QWidget
 		 * Chat widget.
 		 */
 		Chat* chatWidget;
+
+		/**
+		 * Connection used to update theme when it is changed.
+		 */
+		QMetaObject::Connection updateThemeConnection;
 };
 
 }
