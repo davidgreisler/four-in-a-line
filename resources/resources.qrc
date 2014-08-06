@@ -75,5 +75,43 @@
         <file>icons/fatcow/32x32/sound.png</file>
         <file>icons/fatcow/32x32/server.png</file>
         <file>icons/fatcow/32x32/printer.png</file>
+        <file>qml/WhiteTheme.qml</file>
+        <file>qml/DarkTheme.qml</file>
+        <file>qml/TokenStyle.qml</file>
+        <file>qml/Token.qml</file>
+        <file>qml/StandardTheme.qml</file>
+        <file>qml/Cell.qml</file>
+        <file>qml/ColumnIndicatorBarWidget.qml</file>
+        <file>qml/TokenFactory.qml</file>
+        <file>qml/BoardWidgetStyle.qml</file>
+        <file>qml/ColumnIndicatorBarWidgetStyle.qml</file>
+        <file>qml/ColumnIndicatorWidget.qml</file>
+        <file>qml/ColumnIndicatorWidgetStyle.qml</file>
+        <file>qml/GameInformationWidgetStyle.qml</file>
+        <file>qml/GameInformationWidget.qml</file>
+        <file>qml/TimeLimitWidget.qml</file>
+        <file>qml/TimeLimitWidgetStyle.qml</file>
+        <file>qml/PlayerInformationWidget.qml</file>
+        <file>qml/GameController.qml</file>
+        <file>qml/PlayerInformationWidgetStyle.qml</file>
+        <file>qml/BoardWidget.qml</file>
+        <file>qml/AbstractStyle.qml</file>
+        <file>qml/AbstractWidget.qml</file>
+        <file>qml/Controls.qml</file>
+        <file>qml/images/token2.svg</file>
+        <file>qml/images/token.svg</file>
+        <file>qml/images/boardTile.svg</file>
+        <file>qml/WhiteBoardWidgetStyle.qml</file>
+        <file>qml/images/boardTileBlue.svg</file>
+        <file>qml/images/token3.svg</file>
+        <file>qml/WhiteColumnIndicatorWidgetStyle.qml</file>
+        <file>qml/WhitePlayerInformationWidgetStyle.qml</file>
+        <file>qml/WhiteTimeLimitWidgetStyle.qml</file>
+        <file>qml/DarkBoardWidgetStyle.qml</file>
+        <file>qml/DarkColumnIndicatorWidgetStyle.qml</file>
+        <file>qml/DarkPlayerInformationWidgetStyle.qml</file>
+        <file>qml/DarkTimeLimitWidgetStyle.qml</file>
+        <file>qml/DarkTokenStyle.qml</file>
+        <file>qml/DarkColumnIndicatorBarWidgetStyle.qml</file>
     </qresource>
 </RCC>
