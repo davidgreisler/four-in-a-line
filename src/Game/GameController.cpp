@@ -57,7 +57,8 @@ void GameController::startGame(QSharedPointer<Game> game)
 	emit this->gameStarted(game->getGameLogic()->getBoard()->getNumberOfColumns(),
 	                       game->getGameLogic()->getBoard()->getNumberOfRows(),
 	                       game->getFirstPlayer(),
-	                       game->getSecondPlayer());
+	                       game->getSecondPlayer(),
+	                       game->getGameLogic()->hasTimeLimit());
 
 	// Replay moves already made in case this game was loaded from a savegame.
 

@@ -42,7 +42,8 @@ class GameController : public QObject
 		 */
 		void gameStarted(unsigned int nColumns, unsigned int nRows,
 		                 QSharedPointer<const ::Game::Players::AbstractPlayer> firstPlayer,
-		                 QSharedPointer<const ::Game::Players::AbstractPlayer> secondPlayer);
+		                 QSharedPointer<const ::Game::Players::AbstractPlayer> secondPlayer,
+		                 bool hasTimeLimit);
 
 		/**
 		 * Emitted when a game is over.
