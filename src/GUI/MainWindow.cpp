@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget* parent)
 
 	// Create views and manager.
 
-	this->viewManager = new ViewManager(this);
+	this->viewManager = new ViewManager(this, this);
 
 	GameView* gameView = new GameView(this->viewManager);
 	ReplayView* replayView = new ReplayView(this->viewManager);
