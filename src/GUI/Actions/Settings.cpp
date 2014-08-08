@@ -177,7 +177,7 @@ void Settings::retranslateUI()
  */
 void Settings::updateLanguages()
 {
-	this->languageGroup = QSharedPointer<QActionGroup>(new QActionGroup(0), &QObject::deleteLater);
+	this->languageGroup.reset(new QActionGroup(0), &QObject::deleteLater);
 
 	::FourInALine* application = ::FourInALine::getInstance();
 	QMap<QString, QString> languages = application->getAvailableLanguages();

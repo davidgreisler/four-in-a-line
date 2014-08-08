@@ -38,8 +38,6 @@ class Settings : public QObject
 
 		QSharedPointer<QActionGroup> getLanguages() const;
 
-	signals:
-
 	public slots:
 		void showSettingsDialog();
 		void switchLanguage(QAction* action);
