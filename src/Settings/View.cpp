@@ -64,9 +64,9 @@ QMap<QString, QString> View::getThemeList() const
 {
 	QMap<QString, QString> themeList;
 
-	themeList["standard"] = this->tr("Standard");
-	themeList["dark"] = this->tr("Dark");
-	themeList["white"] = this->tr("White");
+	themeList["standard"] = tr("Standard");
+	themeList["dark"] = tr("Dark");
+	themeList["white"] = tr("White");
 
 	return themeList;
 }

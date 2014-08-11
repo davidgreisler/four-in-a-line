@@ -101,8 +101,8 @@ void ApplicationSettings::updateLanguages()
  */
 void ApplicationSettings::retranslateUI()
 {
-	this->setTitle(this->tr("Application settings"));
-	this->languageLabel->setText(this->tr("Language"));
+	this->setTitle(tr("Application settings"));
+	this->languageLabel->setText(tr("Language"));
 }
 
 /**

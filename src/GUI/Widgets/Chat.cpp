@@ -119,7 +119,7 @@ void Chat::sendMessage()
  */
 void Chat::retranslateUI()
 {
-	this->sendButton->setText(this->tr("Send"));
+	this->sendButton->setText(tr("Send"));
 }
 
 /**

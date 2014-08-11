@@ -238,14 +238,14 @@ bool GameConfiguration::isAllowUndoEnabled() const
  */
 void GameConfiguration::retranslateUI()
 {
-	this->setTitle(this->tr("General settings"));
+	this->setTitle(tr("General settings"));
 
-	this->saveHighscoreCheckBox->setText(this->tr("Save result in highscore list"));
-	this->allowHintCheckBox->setText(this->tr("Allow use of the hint button to show a hint for the next move"));
-	this->allowUndoCheckBox->setText(this->tr("Allow use of the undo button to undo the last move"));
-	this->firstMoveLabel->setText(this->tr("Player who makes the first move"));
-	this->firstMovePlayerOneButton->setText(this->tr("Player 1"));
-	this->firstMovePlayerTwoButton->setText(this->tr("Player 2"));
+	this->saveHighscoreCheckBox->setText(tr("Save result in highscore list"));
+	this->allowHintCheckBox->setText(tr("Allow use of the hint button to show a hint for the next move"));
+	this->allowUndoCheckBox->setText(tr("Allow use of the undo button to undo the last move"));
+	this->firstMoveLabel->setText(tr("Player who makes the first move"));
+	this->firstMovePlayerOneButton->setText(tr("Player 1"));
+	this->firstMovePlayerTwoButton->setText(tr("Player 2"));
 }
 
 /**

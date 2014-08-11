@@ -217,7 +217,7 @@ void GameView::playAgain()
 void GameView::loadGame()
 {
 	QString fileName;
-	QString nameFilter = this->tr("Savegames (*.savegame)");
+	QString nameFilter = tr("Savegames (*.savegame)");
 
 	if (!this->confirmEndGame())
 	{
@@ -264,7 +264,7 @@ void GameView::saveGameAs()
 {
 	QString fileName;
 	QString defaultSuffix = "savegame";
-	QString nameFilter = this->tr("Savegames (*.savegame)");
+	QString nameFilter = tr("Savegames (*.savegame)");
 
 	if (this->hasGame() && FileIO::GetSaveFileName(this->getWidget(), fileName, defaultSuffix,
 	                                               nameFilter))
@@ -285,7 +285,7 @@ void GameView::saveReplay()
 {
 	QString fileName;
 	QString defaultSuffix = "replay";
-	QString nameFilter = this->tr("Replays (*.replay)");
+	QString nameFilter = tr("Replays (*.replay)");
 
 	if (this->hasGame() && FileIO::GetSaveFileName(this->getWidget(), fileName, defaultSuffix,
 	                                               nameFilter))
@@ -471,8 +471,8 @@ bool GameView::confirmEndGame() const
 		QMessageBox::StandardButton reply;
 
 		reply = QMessageBox::question(this->getWidget(),
-		                              this->tr("End current game?"),
-		                              this->tr("Are you sure you want to end the current game?"),
+		                              tr("End current game?"),
+		                              tr("Are you sure you want to end the current game?"),
 		                              QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
 
 		if (reply == QMessageBox::No || reply == QMessageBox::Cancel)
@@ -552,8 +552,8 @@ bool GameView::loadGameFromFile(QString path)
 	}
 	catch (const ::Game::ParseError& err)
 	{
-		QMessageBox::critical(this->getWidget(), this->tr("Error loading game"),
-		                      this->tr("The game could not be loaded because of the following "
+		QMessageBox::critical(this->getWidget(), tr("Error loading game"),
+		                      tr("The game could not be loaded because of the following "
 		                               "parse error: %1").arg(err.what()));
 	}
 

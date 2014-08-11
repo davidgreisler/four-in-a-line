@@ -123,11 +123,11 @@ void Settings::close()
  */
 void Settings::retranslateUI()
 {
-	this->setWindowTitle(this->tr("Settings"));
-	this->resetButton->setText(this->tr("Reset"));
-	this->applyButton->setText(this->tr("Apply"));
-	this->saveButton->setText(this->tr("Save"));
-	this->closeButton->setText(this->tr("Close"));
+	this->setWindowTitle(tr("Settings"));
+	this->resetButton->setText(tr("Reset"));
+	this->applyButton->setText(tr("Apply"));
+	this->saveButton->setText(tr("Save"));
+	this->closeButton->setText(tr("Close"));
 }
 
 /**

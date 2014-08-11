@@ -175,9 +175,9 @@ unsigned int BoardConfiguration::getMaximumNumberOfColumns() const
  */
 void BoardConfiguration::retranslateUI()
 {
-	this->setTitle(this->tr("Board"));
-	this->rowsLabel->setText(this->tr("Number of rows"));
-	this->columnsLabel->setText(this->tr("Number of columns"));
+	this->setTitle(tr("Board"));
+	this->rowsLabel->setText(tr("Number of rows"));
+	this->columnsLabel->setText(tr("Number of columns"));
 }
 
 /**

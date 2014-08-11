@@ -60,9 +60,9 @@ About::~About()
  */
 void About::retranslateUI()
 {
-	this->setWindowTitle(this->tr("About four in a line"));
+	this->setWindowTitle(tr("About four in a line"));
 
-	this->textLabel->setText(this->tr(
+	this->textLabel->setText(tr(
 	    "<h1>Four in a line</h1>"
 	    "<b>Copyright (c) 2014 David Greisler und Simon Mühlichen.</b>"
 	    "<p>Four in a line is a two-player game in which two players first select a color and then "

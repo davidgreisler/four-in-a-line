@@ -96,26 +96,26 @@ GameOver::~GameOver()
  */
 void GameOver::retranslateUI()
 {
-	this->setWindowTitle(this->tr("Game over"));
+	this->setWindowTitle(tr("Game over"));
 
 	QString text;
 
 	switch (this->result)
 	{
 		case Result::PLAYER_WON:
-			text = this->tr(
+			text = tr(
 			           "<span style=\"font-weight:bold;font-size:200%;color:red;\">"
 			           "%1 has won the game!</span>").arg(this->playerName);
 			break;
 
 		case Result::DRAW_BOARD_FULL:
-			text = this->tr(
+			text = tr(
 			           "<span style=\"font-weight:bold;font-size:200%;color:blue;\">"
 			           "Draw! The board is full.</span>");
 			break;
 
 		case Result::DRAW_TIMEOUT:
-			text = this->tr(
+			text = tr(
 			           "<span style=\"font-weight:bold;font-size:200%;color:blue;\">"
 			           "Draw! %1 has exceeded the time limit for making a "
 			           "move.</span>").arg(this->playerName);
@@ -129,25 +129,25 @@ void GameOver::retranslateUI()
 
 	if (nullptr != this->undoLastMoveButton)
 	{
-		this->undoLastMoveButton->setText(this->tr("Undo last move"));
+		this->undoLastMoveButton->setText(tr("Undo last move"));
 	}
 
 	if (nullptr != this->saveReplayButton)
 	{
-		this->saveReplayButton->setText(this->tr("Save replay"));
+		this->saveReplayButton->setText(tr("Save replay"));
 	}
 
 	if (nullptr != this->playAgainButton)
 	{
-		this->playAgainButton->setText(this->tr("Play again"));
+		this->playAgainButton->setText(tr("Play again"));
 	}
 
 	if (nullptr != this->newGameButton)
 	{
-		this->newGameButton->setText(this->tr("New game"));
+		this->newGameButton->setText(tr("New game"));
 	}
 
-	this->acceptButton->setText(this->tr("OK"));
+	this->acceptButton->setText(tr("OK"));
 }
 
 /**

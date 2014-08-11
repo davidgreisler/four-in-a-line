@@ -76,8 +76,8 @@ void Board::setTheme(QString theme)
 	if (!this->firstPlayer.isNull())
 	{
 		this->reloadQML = true;
-		QMessageBox::information(this, this->tr("Theme will be loaded next game"),
-		                      this->tr("The theme will be loaded when you start a new game."));
+		QMessageBox::information(this, tr("Theme will be loaded next game"),
+		                      tr("The theme will be loaded when you start a new game."));
 	}
 	else
 	{

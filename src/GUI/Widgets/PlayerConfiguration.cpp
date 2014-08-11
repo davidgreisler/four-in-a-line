@@ -52,7 +52,7 @@ PlayerConfiguration::PlayerConfiguration(PlayerIdType playerId, QWidget* parent)
 
 	// Set defaults after the combo boxes are set up.
 
-	this->playerNameEdit->setText(QString(this->tr("Player %1")).arg(playerId));
+	this->playerNameEdit->setText(QString(tr("Player %1")).arg(playerId));
 	this->playerTypeComboBox->setCurrentIndex(0);
 	this->controlsComboBox->setCurrentIndex(2);
 	this->levelOfDifficultyComboBox->setCurrentIndex(2);
@@ -331,19 +331,19 @@ void PlayerConfiguration::setupControlsComboBox()
 	QIcon mouseIcon;
 	mouseIcon.addFile(":/icons/fatcow/16x16/mouse.png", QSize(16, 16));
 	mouseIcon.addFile(":/icons/fatcow/32x32/mouse.png", QSize(32, 32));
-	this->controlsComboBox->addItem(mouseIcon, this->tr("Mouse"),
+	this->controlsComboBox->addItem(mouseIcon, tr("Mouse"),
 	                                QVariant::fromValue(::Game::Players::Human::Controls::MOUSE));
 
 	QIcon keyboardIcon;
 	keyboardIcon.addFile(":/icons/fatcow/16x16/keyboard.png", QSize(16, 16));
 	keyboardIcon.addFile(":/icons/fatcow/32x32/keyboard.png", QSize(32, 32));
-	this->controlsComboBox->addItem(keyboardIcon, this->tr("Keyboard"),
+	this->controlsComboBox->addItem(keyboardIcon, tr("Keyboard"),
 	                                QVariant::fromValue(::Game::Players::Human::Controls::KEYBOARD));
 
 	QIcon keyboardAndMouseIcon;
 	keyboardAndMouseIcon.addFile(":/icons/fatcow/16x16/computer.png", QSize(16, 16));
 	keyboardAndMouseIcon.addFile(":/icons/fatcow/32x32/computer.png", QSize(32, 32));
-	this->controlsComboBox->addItem(keyboardAndMouseIcon, this->tr("Keyboard and mouse"),
+	this->controlsComboBox->addItem(keyboardAndMouseIcon, tr("Keyboard and mouse"),
 	                                QVariant::fromValue(::Game::Players::Human::Controls::MOUSE_AND_KEYBOARD));
 
 	// Restore index.
@@ -365,19 +365,19 @@ void PlayerConfiguration::setupPlayerTypeComboBox()
 	QIcon humanIcon;
 	humanIcon.addFile(":/icons/fatcow/16x16/user.png", QSize(16, 16));
 	humanIcon.addFile(":/icons/fatcow/32x32/user.png", QSize(32, 32));
-	this->playerTypeComboBox->addItem(humanIcon, this->tr("Human player"),
+	this->playerTypeComboBox->addItem(humanIcon, tr("Human player"),
 	                                  QVariant::fromValue(PlayerType::HUMAN_PLAYER));
 
 	QIcon artificialIntelligenceIcon;
 	artificialIntelligenceIcon.addFile(":/icons/fatcow/16x16/server.png", QSize(16, 16));
 	artificialIntelligenceIcon.addFile(":/icons/fatcow/32x32/server.png", QSize(32, 32));
-	this->playerTypeComboBox->addItem(artificialIntelligenceIcon, this->tr("Artificial intelligence"),
+	this->playerTypeComboBox->addItem(artificialIntelligenceIcon, tr("Artificial intelligence"),
 	                                  QVariant::fromValue(PlayerType::ARTIFICIAL_INTELLIGENCE));
 
 	QIcon networkIcon;
 	networkIcon.addFile(":/icons/fatcow/16x16/connect.png", QSize(16, 16));
 	networkIcon.addFile(":/icons/fatcow/32x32/connect.png", QSize(32, 32));
-	this->playerTypeComboBox->addItem(networkIcon, this->tr("Network player"),
+	this->playerTypeComboBox->addItem(networkIcon, tr("Network player"),
 	                                  QVariant::fromValue(PlayerType::NETWORK_PLAYER));
 
 	// Restore index.
@@ -399,19 +399,19 @@ void PlayerConfiguration::setupLevelOfDifficultyComboBox()
 	this->levelOfDifficultyComboBox->clear();
 
 	value = QVariant::fromValue(::Game::Players::ArtificialIntelligence::LevelOfDifficulty::VERY_EASY);
-	this->levelOfDifficultyComboBox->addItem(this->tr("Very easy"), value);
+	this->levelOfDifficultyComboBox->addItem(tr("Very easy"), value);
 
 	value = QVariant::fromValue(::Game::Players::ArtificialIntelligence::LevelOfDifficulty::EASY);
-	this->levelOfDifficultyComboBox->addItem(this->tr("Easy"), value);
+	this->levelOfDifficultyComboBox->addItem(tr("Easy"), value);
 
 	value = QVariant::fromValue(::Game::Players::ArtificialIntelligence::LevelOfDifficulty::NORMAL);
-	this->levelOfDifficultyComboBox->addItem(this->tr("Normal"), value);
+	this->levelOfDifficultyComboBox->addItem(tr("Normal"), value);
 
 	value = QVariant::fromValue(::Game::Players::ArtificialIntelligence::LevelOfDifficulty::DIFFICULT);
-	this->levelOfDifficultyComboBox->addItem(this->tr("Difficult"), value);
+	this->levelOfDifficultyComboBox->addItem(tr("Difficult"), value);
 
 	value = QVariant::fromValue(::Game::Players::ArtificialIntelligence::LevelOfDifficulty::CHALLENGE);
-	this->levelOfDifficultyComboBox->addItem(this->tr("Challenge"), value);
+	this->levelOfDifficultyComboBox->addItem(tr("Challenge"), value);
 
 	// Restore index.
 
@@ -423,12 +423,12 @@ void PlayerConfiguration::setupLevelOfDifficultyComboBox()
  */
 void PlayerConfiguration::retranslateUI()
 {
-	this->setTitle(QString(this->tr("Player %1")).arg(this->playerId));
-	this->playerNameLabel->setText(this->tr("Name"));
-	this->playerTypeLabel->setText(this->tr("Type"));
-	this->controlsLabel->setText(this->tr("Controls"));
-	this->levelOfDifficultyLabel->setText(this->tr("Level of difficulty"));
-	this->hostAddressLabel->setText(this->tr("Host address"));
+	this->setTitle(QString(tr("Player %1")).arg(this->playerId));
+	this->playerNameLabel->setText(tr("Name"));
+	this->playerTypeLabel->setText(tr("Type"));
+	this->controlsLabel->setText(tr("Controls"));
+	this->levelOfDifficultyLabel->setText(tr("Level of difficulty"));
+	this->hostAddressLabel->setText(tr("Host address"));
 
 	this->setupControlsComboBox();
 	this->setupLevelOfDifficultyComboBox();

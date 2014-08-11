@@ -29,8 +29,8 @@ bool FileIO::GetFileContent(QWidget* parentWidget, QString fileName, QByteArray&
 	}
 	else
 	{
-		QString errorMessage = parentWidget->tr("Failed to open the file '%1' for reading.");
-		QMessageBox::critical(parentWidget, parentWidget->tr("Failed to open file"),
+		QString errorMessage = QObject::tr("Failed to open the file '%1' for reading.");
+		QMessageBox::critical(parentWidget, QObject::tr("Failed to open file"),
 		                      errorMessage.arg(fileName),
 		                      QMessageBox::Abort);
 	}
@@ -61,8 +61,8 @@ bool FileIO::SetFileContent(QWidget* parentWidget, QString fileName, const QByte
 	}
 	else
 	{
-		QString errorMessage = parentWidget->tr("Failed to open the file '%1' for writing.");
-		QMessageBox::critical(parentWidget, parentWidget->tr("Failed to open file"),
+		QString errorMessage = QObject::tr("Failed to open the file '%1' for writing.");
+		QMessageBox::critical(parentWidget, QObject::tr("Failed to open file"),
 		                      errorMessage.arg(fileName),
 		                      QMessageBox::Abort);
 	}

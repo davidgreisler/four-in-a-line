@@ -105,9 +105,9 @@ void ViewSettings::write()
  */
 void ViewSettings::retranslateUI()
 {
-	this->setTitle(this->tr("View settings"));
-	this->themeLabel->setText(this->tr("Theme"));
-	this->fullscreenCheckBox->setText(this->tr("Fullscreen mode"));
+	this->setTitle(tr("View settings"));
+	this->themeLabel->setText(tr("Theme"));
+	this->fullscreenCheckBox->setText(tr("Fullscreen mode"));
 }
 
 /**

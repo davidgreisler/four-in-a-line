@@ -118,7 +118,7 @@ void ReplayView::loadReplay()
 {
 	QByteArray content;
 	QString fileName;
-	QString nameFilter = this->tr("Replays (*.replay)");
+	QString nameFilter = tr("Replays (*.replay)");
 
 	if (FileIO::GetExistingFileName(this->getWidget(), fileName, nameFilter) &&
 	    FileIO::GetFileContent(this->getWidget(), fileName, content) &&
@@ -145,8 +145,8 @@ void ReplayView::loadReplay()
 		}
 		catch (const ::Game::ParseError& error)
 		{
-			QMessageBox::critical(this->getWidget(), this->tr("Failed to load replay"),
-			                      this->tr("Failed to load replay due to parse error: %1").arg(error.what()));
+			QMessageBox::critical(this->getWidget(), tr("Failed to load replay"),
+			                      tr("Failed to load replay due to parse error: %1").arg(error.what()));
 		}
 	}
 }

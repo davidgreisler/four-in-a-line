@@ -109,8 +109,8 @@ void LoadGame::updateLoadGameButton()
  */
 void LoadGame::retranslateUI()
 {
-	this->setWindowTitle(this->tr("Load game"));
-	this->loadGameButton->setText(this->tr("Start game"));
+	this->setWindowTitle(tr("Load game"));
+	this->loadGameButton->setText(tr("Start game"));
 }
 
 /**

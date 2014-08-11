@@ -90,9 +90,9 @@ void SoundSettings::write()
  */
 void SoundSettings::retranslateUI()
 {
-	this->setTitle(this->tr("Sound settings"));
-	this->volumeLabel->setText(this->tr("Volume"));
-	this->soundEnabledCheckBox->setText(this->tr("Sound enabled"));
+	this->setTitle(tr("Sound settings"));
+	this->volumeLabel->setText(tr("Volume"));
+	this->soundEnabledCheckBox->setText(tr("Sound enabled"));
 }
 
 /**

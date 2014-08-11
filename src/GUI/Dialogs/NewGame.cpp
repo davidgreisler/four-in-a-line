@@ -130,7 +130,7 @@ void NewGame::updateNewGameButton()
  */
 void NewGame::retranslateUI()
 {
-	this->setWindowTitle(this->tr("New game"));
+	this->setWindowTitle(tr("New game"));
 }
 
 /**

@@ -69,18 +69,18 @@ void Highscores::printHighscores()
 
 	htmlStream << "<html>\n"
 	           << "  <head>\n"
-	           << "    <title>" << this->tr("Highscore list") << "</title>\n"
+	           << "    <title>" << tr("Highscore list") << "</title>\n"
 	           << "  </head>\n"
 	           << "  <body>\n"
 	           << "    <table border=\"1\">\n"
 	           << "      <thead>\n"
 	           << "        <tr>\n"
-	           << "          <td>" << this->tr("Rank") << "</td>\n"
-	           << "          <td>" << this->tr("Player name") << "</td>\n"
-	           << "          <td>" << this->tr("Total games") << "</td>\n"
-	           << "          <td>" << this->tr("Won games") << "</td>\n"
-	           << "          <td>" << this->tr("Lost games") << "</td>\n"
-	           << "          <td>" << this->tr("Draw games") << "</td>\n"
+	           << "          <td>" << tr("Rank") << "</td>\n"
+	           << "          <td>" << tr("Player name") << "</td>\n"
+	           << "          <td>" << tr("Total games") << "</td>\n"
+	           << "          <td>" << tr("Won games") << "</td>\n"
+	           << "          <td>" << tr("Lost games") << "</td>\n"
+	           << "          <td>" << tr("Draw games") << "</td>\n"
 	           << "        </tr>\n"
 	           << "      </thead>\n"
 	           << "      <tbody>\n";
@@ -105,7 +105,7 @@ void Highscores::printHighscores()
 	document.setHtml(htmlString);
 
 	QPrintDialog dialog(&printer, this);
-	dialog.setWindowTitle(this->tr("Print highscore list"));
+	dialog.setWindowTitle(tr("Print highscore list"));
 	if (dialog.exec() == QDialog::Accepted)
 	{
 		document.print(&printer);
@@ -117,19 +117,19 @@ void Highscores::printHighscores()
  */
 void Highscores::retranslateUI()
 {
-	this->setWindowTitle(this->tr("Highscores"));
-	this->acceptButton->setText(this->tr("OK"));
-	this->printButton->setText(this->tr("Print"));
+	this->setWindowTitle(tr("Highscores"));
+	this->acceptButton->setText(tr("OK"));
+	this->printButton->setText(tr("Print"));
 
 	// Setup tree view.
 
 	QTreeWidgetItem* headerItem = this->highscoreTreeWidget->headerItem();
-	headerItem->setText(0, this->tr("#"));
-	headerItem->setText(1, this->tr("Player name"));
-	headerItem->setText(2, this->tr("Total"));
-	headerItem->setText(3, this->tr("Won"));
-	headerItem->setText(4, this->tr("Lost"));
-	headerItem->setText(5, this->tr("Draw"));
+	headerItem->setText(0, tr("#"));
+	headerItem->setText(1, tr("Player name"));
+	headerItem->setText(2, tr("Total"));
+	headerItem->setText(3, tr("Won"));
+	headerItem->setText(4, tr("Lost"));
+	headerItem->setText(5, tr("Draw"));
 }
 
 /**

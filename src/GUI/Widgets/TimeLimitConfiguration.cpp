@@ -165,13 +165,13 @@ void TimeLimitConfiguration::setTimeoutAction(TimeoutAction action)
  */
 void TimeLimitConfiguration::retranslateUI()
 {
-	this->setTitle(this->tr("Time limit"));
-	this->timeLimitLabel->setText(this->tr("Time limit"));
-	this->timeLimitSpinBox->setSuffix(this->tr(" seconds"));
-	this->timeoutActionLabel->setText(this->tr("Action when a player times out"));
-	this->drawActionRadioButton->setText(this->tr("Draw the game."));
-	this->loseActionRadioButton->setText(this->tr("Player loses the game."));
-	this->randomMoveRadioButton->setText(this->tr("Player makes random move."));
+	this->setTitle(tr("Time limit"));
+	this->timeLimitLabel->setText(tr("Time limit"));
+	this->timeLimitSpinBox->setSuffix(tr(" seconds"));
+	this->timeoutActionLabel->setText(tr("Action when a player times out"));
+	this->drawActionRadioButton->setText(tr("Draw the game."));
+	this->loseActionRadioButton->setText(tr("Player loses the game."));
+	this->randomMoveRadioButton->setText(tr("Player makes random move."));
 }
 
 /**
