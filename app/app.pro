@@ -33,6 +33,3 @@ SOURCES += FourInALine.cpp \
 HEADERS  += FourInALine.hpp
 
 RESOURCES += $${ROOT_DIRECTORY}/resources/resources.qrc
-
-TRANSLATIONS = $${ROOT_DIRECTORY}/resources/i18n/fourinaline_en.ts \
-               $${ROOT_DIRECTORY}/resources/i18n/fourinaline_de.ts
