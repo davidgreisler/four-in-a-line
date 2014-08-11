@@ -86,6 +86,8 @@ void ApplicationSettings::updateLanguages()
 	QMap<QString, QString> languages = ::FourInALine::getInstance()->getAvailableLanguages();
 	QString currentLanguage = ::FourInALine::getInstance()->getLanguage();
 
+	this->languageComboBox->clear();
+
 	for (auto i = languages.cbegin(); i != languages.cend(); ++i)
 	{
 		this->languageComboBox->addItem(i.value(), i.key());
