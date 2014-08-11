@@ -109,6 +109,8 @@ void FourInALine::setLanguage(QString locale)
 	this->currentLanguage = locale;
 
 	qDebug() << "[" << this << "] Language switched to: " << locale;
+
+	emit this->languageChanged();
 }
 
 /**

@@ -1,8 +1,9 @@
 #ifndef GUI_ACTIONS_SETTINGS_HPP
 #define GUI_ACTIONS_SETTINGS_HPP
 
+#include "../Widgets/SelectLanguageMenu.hpp"
+
 #include <QObject>
-#include <QSharedPointer>
 #include <QScopedPointer>
 
 class QMenu;
@@ -28,28 +29,23 @@ class Settings : public QObject
 {
 		Q_OBJECT
 	public:
-		explicit Settings(QWidget* parentWindow, QObject* parent = 0);
+		explicit Settings(QWidget* parentWindow, QObject* parent = nullptr);
 		virtual ~Settings();
 
 		QAction* getOpenSettingsAction() const;
 
 		QMenu* getMenu() const;
-		QMenu* getLanguageMenu() const;
-
-		QSharedPointer<QActionGroup> getLanguages() const;
+		::GUI::Widgets::SelectLanguageMenu* createLanguageMenu(QWidget* parent = nullptr) const;
 
 	public slots:
 		void showSettingsDialog();
-		void switchLanguage(QAction* action);
 
 	private:
 		Q_DISABLE_COPY(Settings)
 
 		void createActions();
-		void createMenu();
-		void createLanguagesMenu();
+
 		void retranslateUI();
-		void updateLanguages();
 		bool event(QEvent* event);
 
 		/**
@@ -63,17 +59,7 @@ class Settings : public QObject
 		QAction* openSettingsAction;
 
 		/**
-		 * Action group containing the languages.
-		 */
-		QSharedPointer<QActionGroup> languageGroup;
-
-		/**
-		 * Menu containing the available languages.
-		 */
-		QScopedPointer<QMenu> languageMenu;
-
-		/**
-		 * Menu containing the settings actions.
+		 * The settings menu.
 		 */
 		QScopedPointer<QMenu> menu;
 };

@@ -10,7 +10,8 @@ SOURCES += Board.cpp \
 	   GameSetup.cpp \
 	   ViewSettings.cpp \
 	   ApplicationSettings.cpp \
-	   SoundSettings.cpp
+	   SoundSettings.cpp \
+           SelectLanguageMenu.cpp
 
 HEADERS += Board.hpp \
 	   Chat.hpp \
@@ -22,4 +23,5 @@ HEADERS += Board.hpp \
 	   GameSetup.hpp \
 	   ViewSettings.hpp \
 	   ApplicationSettings.hpp \
-	   SoundSettings.hpp
+	   SoundSettings.hpp \
+           SelectLanguageMenu.hpp

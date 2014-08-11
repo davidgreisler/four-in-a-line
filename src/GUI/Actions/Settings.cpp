@@ -24,8 +24,15 @@ Settings::Settings(QWidget* parentWindow, QObject* parent) :
 	QObject(parent), parentWindow(parentWindow)
 {
 	this->createActions();
-	this->updateLanguages();
-	this->createMenu();
+
+	this->menu.reset(new QMenu(0));
+
+	auto languageMenu = this->createLanguageMenu(this->menu.data());
+
+	this->menu->addMenu(languageMenu);
+	this->menu->addSeparator();
+	this->menu->addAction(this->openSettingsAction);
+
 	this->retranslateUI();
 }
 
@@ -60,25 +67,17 @@ QMenu* Settings::getMenu() const
 }
 
 /**
- * Returns the languages menu.
+ * Creates a languages menu.
  *
  * @return The languages menu.
  */
-QMenu* Settings::getLanguageMenu() const
+Widgets::SelectLanguageMenu* Settings::createLanguageMenu(QWidget* parent) const
 {
-	return this->languageMenu.data();
-}
+	auto application = ::FourInALine::getInstance();
+	auto applicationSettings = application->getSettings()->getApplicationSettings();
+	auto languageMenu = new ::GUI::Widgets::SelectLanguageMenu(application, applicationSettings, parent);
 
-/**
- * Returns an action group containing one action for every language supported by the application.
- *
- * A language action changes the program's translation to the respective language when invoked.
- *
- * @return Action group containing actions for every supported language.
- */
-QSharedPointer<QActionGroup> Settings::getLanguages() const
-{
-	return this->languageGroup;
+	return languageMenu;
 }
 
 /**
@@ -89,24 +88,6 @@ void Settings::showSettingsDialog()
 	Dialogs::Settings dialog(this->parentWindow);
 
 	dialog.exec();
-}
-
-/**
- * Switches the application's language to the language of the given action.
- *
- * Also saves the language to the settings.
- *
- * @param action Action from the language list group.
- */
-void Settings::switchLanguage(QAction* action)
-{
-	auto application = ::FourInALine::getInstance();
-	auto applicationSettings = application->getSettings()->getApplicationSettings();;
-
-	QString locale = action->data().toString();
-
-	applicationSettings->setLanguage(locale);
-	applicationSettings->save();
 }
 
 /**
@@ -123,84 +104,14 @@ void Settings::createActions()
 }
 
 /**
- * Creates the settings menu and the languages menu.
- */
-void Settings::createMenu()
-{
-	this->createLanguagesMenu();
-
-	this->menu.reset(new QMenu(0));
-	this->menu->addMenu(this->languageMenu.data());
-	this->menu->addSeparator();
-	this->menu->addAction(this->openSettingsAction);
-}
-
-/**
- * Creates the languages menu.
- */
-void Settings::createLanguagesMenu()
-{
-	this->languageMenu.reset(new QMenu(0));
-
-	QIcon languageMenuIcon;
-	languageMenuIcon.addFile(":/icons/fatcow/16x16/locate.png", QSize(16, 16));
-	languageMenuIcon.addFile(":/icons/fatcow/32x32/locate.png", QSize(32, 32));
-	this->languageMenu->setIcon(languageMenuIcon);
-
-	this->languageGroup = this->getLanguages();
-
-	QList<QAction*> languageActions = this->languageGroup->actions();
-
-	int nLanguageActions = languageActions.count();
-	for (int i = 0; i < nLanguageActions; ++i)
-	{
-		this->languageMenu->addAction(languageActions[i]);
-	}
-}
-
-/**
  * Retranslates all strings.
  */
 void Settings::retranslateUI()
 {
 	this->menu->setTitle(tr("&Settings"));
-	this->languageMenu->setTitle(tr("&Language"));
 
 	this->openSettingsAction->setText(tr("Open &settings ..."));
 	this->openSettingsAction->setStatusTip(tr("Open the settings dialog."));
-}
-
-/**
- * Gets a list of languages supported by the application and creates one action for each language.
- *
- * Also connects the language group's triggered signal to the switchLanguage slot of this class.
- */
-void Settings::updateLanguages()
-{
-	this->languageGroup.reset(new QActionGroup(0), &QObject::deleteLater);
-
-	::FourInALine* application = ::FourInALine::getInstance();
-	QMap<QString, QString> languages = application->getAvailableLanguages();
-
-	QMapIterator<QString, QString> it(languages);
-	while (it.hasNext())
-	{
-		it.next();
-
-		QAction* languageAction = new QAction(it.value(), this->languageGroup.data());
-		languageAction->setCheckable(true);
-		languageAction->setData(it.key());
-
-		this->languageGroup->addAction(languageAction);
-
-		if (it.key() == application->getLanguage())
-		{
-			languageAction->setChecked(true);
-		}
-	}
-
-	this->connect(this->languageGroup.data(), &QActionGroup::triggered,
-				  this, &Settings::switchLanguage);
 }
 
 /**

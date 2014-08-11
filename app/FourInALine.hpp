@@ -29,6 +29,12 @@ class FourInALine : public QApplication
 		void setLanguage(QString locale);
 		QString getLanguage() const;
 
+	signals:
+		/**
+		 * Emitted when the language was changed.
+		 */
+		void languageChanged();
+
 	private slots:
 		void updateLanguage();
 
