@@ -113,5 +113,11 @@
         <file>qml/DarkTimeLimitWidgetStyle.qml</file>
         <file>qml/DarkTokenStyle.qml</file>
         <file>qml/DarkColumnIndicatorBarWidgetStyle.qml</file>
+        <file>sounds/lowRandom.wav</file>
+        <file>sounds/spaceTrash1.wav</file>
+        <file>sounds/twoTone1.wav</file>
+        <file>sounds/twoTone2.wav</file>
+        <file>sounds/zapThreeToneUp.wav</file>
+        <file>qml/SoundEffects.qml</file>
     </qresource>
 </RCC>

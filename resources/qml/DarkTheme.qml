@@ -20,6 +20,14 @@ Item
     {
         id: gameController
         objectName: "gameController"
+        onPlayerMadeInvalidMove: sound.dropFailSound.play();
+    }
+
+    SoundEffects
+    {
+        id: sound
+        isMuted: Game.isSoundMuted
+        volume: Game.soundVolume
     }
 
     /**
@@ -157,6 +165,17 @@ Item
             gameController.startGame(nColumns, nRows, firstPlayerName, secondPlayerName, hasTimeLimit);
         }
 
+        onGameIsOver: {
+            if (draw)
+            {
+                sound.drawSound.play();
+            }
+            else
+            {
+                sound.winSound.play();
+            }
+        }
+
         onGameEnded: {
             gameController.endGame();
         }
@@ -220,6 +239,15 @@ Item
 
             var cell = gameBoard.getCellAt(x, y);
             cell.dropToken(token);
+
+            if (gameController.currentPlayerId == 1)
+            {
+                sound.dropFirstPlayerSound.play();
+            }
+            else
+            {
+                sound.dropSecondPlayerSound.play();
+            }
         }
 
         onTokenRemoved: {

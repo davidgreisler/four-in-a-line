@@ -28,13 +28,32 @@ namespace Widgets
 class Board : public QWidget
 {
 		Q_OBJECT
+
+		Q_PROPERTY(float soundVolume READ getSoundVolume WRITE setSoundVolume NOTIFY soundVolumeChanged)
+		Q_PROPERTY(bool isSoundMuted READ isSoundMuted WRITE setSoundMuted NOTIFY soundMutedChanged)
 	public:
 		explicit Board(QString theme, QWidget *parent = 0);
 		virtual ~Board();
 
 		void setTheme(QString theme);
 
+		float getSoundVolume() const;
+		void setSoundVolume(float value);
+
+		bool isSoundMuted() const;
+		void setSoundMuted(bool value);
+
 	signals:
+		/**
+		 * @Emitted when the sound volume has changed.
+		 */
+		void soundVolumeChanged();
+
+		/**
+		 * Emitted when sound is muted/unmuted.
+		 */
+		void soundMutedChanged();
+
 		/**
 		 * Emitted when the human player made a move.
 		 *
@@ -61,8 +80,10 @@ class Board : public QWidget
 
 		/**
 		 * Emitted when the game is over.
+		 *
+		 * @param draw When it is a draw true, otherwise false.
 		 */
-		void gameIsOver();
+		void gameIsOver(bool draw);
 
 		/**
 		 * Emitted when the game is not over anymore (undo).
@@ -149,7 +170,7 @@ class Board : public QWidget
 		                  QSharedPointer<const ::Game::Players::AbstractPlayer> firstPlayer,
 		                  QSharedPointer<const ::Game::Players::AbstractPlayer> secondPlayer,
 		                  bool hasTimeLimit);
-		void gameOver();
+		void gameOver(bool draw);
 		void gameNotOverAnymore();
 		void endGame();
 
@@ -165,6 +186,8 @@ class Board : public QWidget
 
 		void showColumnHints(std::vector<int> columnScores);
 		void setCellHighlighted(unsigned int x, unsigned int y, bool highlight);
+
+		void updateSoundSettings();
 
 	private slots:
 		void playerMadeMove(int columnNo);
@@ -208,6 +231,16 @@ class Board : public QWidget
 		 * Whether the QML should be reloaded when a new game is started.
 		 */
 		bool reloadQML;
+
+		/**
+		 * The sound volume.
+		 */
+		float soundVolume;
+
+		/**
+		 * Whether sound is muted or not.
+		 */
+		bool soundMuted;
 };
 
 }

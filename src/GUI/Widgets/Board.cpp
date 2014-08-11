@@ -1,4 +1,7 @@
 #include "Board.hpp"
+#include "../../../app/FourInALine.hpp"
+#include "../../Settings/Sound.hpp"
+#include "../../Settings/FourInALine.hpp"
 
 #include <QPalette>
 #include <QDebug>
@@ -25,6 +28,12 @@ Board::Board(QString theme, QWidget* parent) :
 	this->movePlayer = nullptr;
 	this->theme = theme;
 	this->reloadQML = false;
+
+	auto application = ::FourInALine::getInstance();
+	auto soundSettings = application->getSettings()->getSoundSettings();
+
+	this->connect(soundSettings, &::Settings::Sound::changed, this, &Board::updateSoundSettings);
+	this->updateSoundSettings();
 
 	this->setAutoFillBackground(true);
 
@@ -108,10 +117,12 @@ void Board::startNewGame(unsigned int nColumns, unsigned int nRows,
 
 /**
  * Informs QML that the game is over.
+ *
+ * @param draw When it is a draw true otherwise false.
  */
-void Board::gameOver()
+void Board::gameOver(bool draw)
 {
-	emit this->gameIsOver();
+	emit this->gameIsOver(draw);
 
 	qDebug() << "[" << this << "::gameOver ] Game is over.";
 }
@@ -289,6 +300,18 @@ void Board::setCellHighlighted(unsigned int x, unsigned int y, bool highlight)
 }
 
 /**
+ * Reads sound settings from sound settings object.
+ */
+void Board::updateSoundSettings()
+{
+	auto application = ::FourInALine::getInstance();
+	auto soundSettings = application->getSettings()->getSoundSettings();
+
+	this->setSoundMuted(!soundSettings->isSoundEnabled());
+	this->setSoundVolume(soundSettings->getVolume());
+}
+
+/**
  * Informs the human player about the move made by the user.
  *
  * Invoked when the user/player made a move.
@@ -351,6 +374,50 @@ void Board::initializeQML()
 
 	this->layout->addWidget(this->quickWidget);
 	this->reloadQML = false;
+}
+
+/**
+ * Returns whether the sound is muted or not.
+ *
+ * @return When it is muted true, otherwise false.
+ */
+bool Board::isSoundMuted() const
+{
+	return this->soundMuted;
+}
+
+/**
+ * Sets the sound to muted/unmuted.
+ *
+ * @param value True for muted, otherwise false.
+ */
+void Board::setSoundMuted(bool value)
+{
+	this->soundMuted = value;
+
+	emit this->soundMutedChanged();
+}
+
+/**
+ * Returns the current sound volume.
+ *
+ * @return Sound volume (0 - 1).
+ */
+float Board::getSoundVolume() const
+{
+	return this->soundVolume;
+}
+
+/**
+ * Sets the sound volume to the given value.
+ *
+ * @param value New volume (0 - 1).
+ */
+void Board::setSoundVolume(float value)
+{
+	this->soundVolume = value;
+
+	emit this->soundVolumeChanged();
 }
 
 }

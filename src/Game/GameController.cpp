@@ -244,7 +244,7 @@ bool GameController::checkGameOver()
 			emit this->setCellHighlighted(it.getXPosition(), it.getYPosition(), true);
 		}
 
-		emit this->gameOver();
+		emit this->gameOver(game->isDraw());
 
 		return true;
 	}

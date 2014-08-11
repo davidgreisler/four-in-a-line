@@ -88,3 +88,6 @@ Four in a line is free software and is distributed under the terms of the MIT li
 This program uses some of the "Farm-Fresh Web Icons" from FatCow ( http://www.fatcow.com/free-icons ).
 They are licensed under a Creative Commons Attribution 3.0 License ( http://creativecommons.org/licenses/by/3.0/us/ ).
 Some icons were modified.
+
+This program uses some of the sounds from the "Kenney Donation Pack" licensed under CC0 ( http://kenney.itch.io/kenney-donation ). 
+They have been converted from .ogg to .wav.

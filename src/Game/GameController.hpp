@@ -47,8 +47,10 @@ class GameController : public QObject
 
 		/**
 		 * Emitted when a game is over.
+		 *
+		 * @param draw When it is a draw true, otherwise false.
 		 */
-		void gameOver();
+		void gameOver(bool draw);
 
 		/**
 		 * Emitted when a game that was previously over is not over anymore.

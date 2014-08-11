@@ -18,7 +18,7 @@ namespace Widgets
  * @param parent Parent widget.
  */
 GameSetup::GameSetup(QWidget *parent) :
-    QWidget(parent)
+    QWidget(parent), valid(false)
 {
 	auto playerOneId = ::GameLogic::FourInALine::Game::PLAYER_ONE;
 	auto playerTwoId = ::GameLogic::FourInALine::Game::PLAYER_TWO;
