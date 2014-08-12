@@ -1,7 +1,4 @@
 #include "Board.hpp"
-#include "../../../app/FourInALine.hpp"
-#include "../../Settings/Sound.hpp"
-#include "../../Settings/FourInALine.hpp"
 
 #include <QPalette>
 #include <QDebug>
@@ -28,12 +25,6 @@ Board::Board(QString theme, QWidget* parent) :
 	this->movePlayer = nullptr;
 	this->theme = theme;
 	this->reloadQML = false;
-
-	auto application = ::FourInALine::getInstance();
-	auto soundSettings = application->getSettings()->getSoundSettings();
-
-	this->connect(soundSettings, &::Settings::Sound::changed, this, &Board::updateSoundSettings);
-	this->updateSoundSettings();
 
 	this->setAutoFillBackground(true);
 
@@ -300,18 +291,6 @@ void Board::setCellHighlighted(unsigned int x, unsigned int y, bool highlight)
 }
 
 /**
- * Reads sound settings from sound settings object.
- */
-void Board::updateSoundSettings()
-{
-	auto application = ::FourInALine::getInstance();
-	auto soundSettings = application->getSettings()->getSoundSettings();
-
-	this->setSoundMuted(!soundSettings->isSoundEnabled());
-	this->setSoundVolume(soundSettings->getVolume());
-}
-
-/**
  * Informs the human player about the move made by the user.
  *
  * Invoked when the user/player made a move.
@@ -350,6 +329,7 @@ void Board::initializeQML()
 		// I think this is a Qt bug.
 		/// @todo Try again with Qt 5.4.
 
+		this->quickWidget->setObjectName("DeletedDisplay");
 		QObject* rootObject = this->quickWidget->rootObject();
 		QObject* gameController = rootObject->findChild<QObject*>("gameController");
 		this->disconnect(gameController, SIGNAL(playerMadeMove(int)), this, SLOT(playerMadeMove(int)));
@@ -364,6 +344,7 @@ void Board::initializeQML()
 	qDebug() << "[" << this << "::initializeQML ] Loading theme:" << this->theme << "from" << themeFilenameMap[this->theme];
 
 	this->quickWidget = new QQuickWidget(this);
+	this->quickWidget->setObjectName("Display");
 	this->quickWidget->rootContext()->setContextProperty("Game", this);
 	this->quickWidget->setSource(QUrl(QString("qrc:/qml/%1").arg(themeFilenameMap[this->theme])));
 	this->quickWidget->setResizeMode(QQuickWidget::SizeRootObjectToView);

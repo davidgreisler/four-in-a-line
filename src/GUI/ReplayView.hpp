@@ -58,6 +58,9 @@ class ReplayView : public AbstractView
 		void jumpToStart();
 		void jumpToEnd();
 
+	private slots:
+		void updateSoundSettings();
+
 	private:
 		Q_DISABLE_COPY(ReplayView)
 

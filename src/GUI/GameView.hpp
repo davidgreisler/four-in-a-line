@@ -95,6 +95,7 @@ class GameView : public AbstractView
 	private slots:
 		void showGameOverDialog();
 		void startGame(QSharedPointer< ::Game::Game> game);
+		void updateSoundSettings();
 
 	private:
 		Q_DISABLE_COPY(GameView)

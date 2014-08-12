@@ -12,6 +12,10 @@
 #include "../Game/Game.hpp"
 #include "../Game/GameController.hpp"
 
+#include "../../app/FourInALine.hpp"
+#include "../Settings/Sound.hpp"
+#include "../Settings/FourInALine.hpp"
+
 #include "FileIO.hpp"
 #include "GameView.hpp"
 
@@ -74,6 +78,12 @@ GameView::GameView(ViewManager* manager)
 
 	this->connect(this->gameController, &::Game::GameController::setCellHighlighted,
 	              this->widget->getBoardWidget(), &Widgets::Board::setCellHighlighted);
+
+	auto application = ::FourInALine::getInstance();
+	auto soundSettings = application->getSettings()->getSoundSettings();
+
+	this->connect(soundSettings, &::Settings::Sound::changed, this, &GameView::updateSoundSettings);
+	this->updateSoundSettings();
 }
 
 /**
@@ -558,6 +568,18 @@ bool GameView::loadGameFromFile(QString path)
 	}
 
 	return false;
+}
+
+/**
+ * Reads sound settings from sound settings and updates game board.
+ */
+void GameView::updateSoundSettings()
+{
+	auto application = ::FourInALine::getInstance();
+	auto soundSettings = application->getSettings()->getSoundSettings();
+
+	this->widget->getBoardWidget()->setSoundMuted(!soundSettings->isSoundEnabled());
+	this->widget->getBoardWidget()->setSoundVolume(soundSettings->getVolume());
 }
 
 }

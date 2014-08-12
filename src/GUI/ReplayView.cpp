@@ -1,12 +1,16 @@
 #include "ReplayView.hpp"
+
 #include "../Game/Replay.hpp"
-#include "FileIO.hpp"
 #include "../Game/ParseError.hpp"
 #include "../Game/GameReader.hpp"
 #include "../Game/Players/Placeholder.hpp"
+
+#include "../../app/FourInALine.hpp"
+#include "../Settings/Sound.hpp"
 #include "../Settings/View.hpp"
 #include "../Settings/FourInALine.hpp"
-#include "../../app/FourInALine.hpp"
+
+#include "FileIO.hpp"
 
 #include <QMessageBox>
 #include <QWidget>
@@ -35,6 +39,12 @@ ReplayView::ReplayView(ViewManager* manager)
 	this->updateThemeConnection = this->connect(viewSettings, &Settings::View::changed, [=]() {
 		this->widget->setTheme(viewSettings->getTheme());
 	});
+
+	auto application = ::FourInALine::getInstance();
+	auto soundSettings = application->getSettings()->getSoundSettings();
+
+	this->connect(soundSettings, &::Settings::Sound::changed, this, &ReplayView::updateSoundSettings);
+	this->updateSoundSettings();
 }
 
 /**
@@ -293,6 +303,18 @@ QSharedPointer< ::Game::Players::Placeholder> ReplayView::playerIdToPlayer(::Gam
 	{
 		return this->replay->getSecondPlayer();
 	}
+}
+
+/**
+ * Reads sound settings from sound settings and updates game board.
+ */
+void ReplayView::updateSoundSettings()
+{
+	auto application = ::FourInALine::getInstance();
+	auto soundSettings = application->getSettings()->getSoundSettings();
+
+	this->widget->setSoundMuted(!soundSettings->isSoundEnabled());
+	this->widget->setSoundVolume(soundSettings->getVolume());
 }
 
 }

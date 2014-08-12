@@ -187,8 +187,6 @@ class Board : public QWidget
 		void showColumnHints(std::vector<int> columnScores);
 		void setCellHighlighted(unsigned int x, unsigned int y, bool highlight);
 
-		void updateSoundSettings();
-
 	private slots:
 		void playerMadeMove(int columnNo);
 
