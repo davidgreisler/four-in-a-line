@@ -31,6 +31,7 @@ NewGame::NewGame(QWidget *parent) :
 	this->layout->addWidget(this->gameSetupWidget);
 
 	this->buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
+	this->buttonBox->button(QDialogButtonBox::Ok)->setObjectName("newGameButton");
 	this->layout->addWidget(this->buttonBox);
 
 	this->connect(this->buttonBox, &QDialogButtonBox::accepted, this, &NewGame::accept);

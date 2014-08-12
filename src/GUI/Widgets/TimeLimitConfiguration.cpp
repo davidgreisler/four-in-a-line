@@ -34,6 +34,7 @@ TimeLimitConfiguration::TimeLimitConfiguration(QWidget *parent) :
 
 	this->timeLimitLabel = new QLabel(this);
 	this->timeLimitSpinBox = new QSpinBox(this);
+	this->timeLimitSpinBox->setObjectName("timeLimitEdit");
 	this->timeLimitSpinBox->setValue(60);
 	this->timeLimitSpinBox->setMinimum(TimeLimitConfiguration::MINIMUM_TIME_LIMIT);
 	this->timeLimitSpinBox->setMaximum(TimeLimitConfiguration::MAXIMUM_TIME_LIMIT);
@@ -43,12 +44,15 @@ TimeLimitConfiguration::TimeLimitConfiguration(QWidget *parent) :
 	this->formLayout->addRow(this->timeoutActionLabel);
 
 	this->drawActionRadioButton = new QRadioButton(this);
+	this->drawActionRadioButton->setObjectName("timeLimitDrawRadio");
 	this->formLayout->addRow(this->drawActionRadioButton);
 
 	this->loseActionRadioButton = new QRadioButton(this);
+	this->loseActionRadioButton->setObjectName("timeLimitLoseRadio");
 	this->formLayout->addRow(this->loseActionRadioButton);
 
 	this->randomMoveRadioButton = new QRadioButton(this);
+	this->randomMoveRadioButton->setObjectName("timeLimitRandomRadio");
 	this->formLayout->addRow(this->randomMoveRadioButton);
 
 	this->setTimeoutAction(TimeLimitConfiguration::DEFAULT_TIMEOUT_ACTION);

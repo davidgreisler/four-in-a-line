@@ -12,7 +12,7 @@ SUBDIRS = src/src.pro \
           tests/Game/FourInALine/AsynchronousArtificialIntelligenceTest.pro \
           tests/Game/FourInALine/BoardTest.pro \
           tests/Game/FourInALine/GameTest.pro \
-          tests/GUI/BoardTest.pro
+          tests/GUI/NewGameTest.pro
 
 TRANSLATIONS = resources/i18n/fourinaline_en.ts \
                resources/i18n/fourinaline_de.ts

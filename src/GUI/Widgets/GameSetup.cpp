@@ -39,9 +39,11 @@ GameSetup::GameSetup(QWidget *parent) :
 	this->layout->addWidget(this->timeLimitConfigurationWidget, 1, 0, 1, 2);
 
 	this->firstPlayerConfigurationWidget = new PlayerConfiguration(playerOneId);
+	this->firstPlayerConfigurationWidget->setObjectName("firstPlayerConfigurationWidget");
 	this->layout->addWidget(this->firstPlayerConfigurationWidget, 2, 0, 1, 1);
 
 	this->secondPlayerConfigurationWidget = new PlayerConfiguration(playerTwoId);
+	this->secondPlayerConfigurationWidget->setObjectName("secondPlayerConfigurationWidget");
 	this->layout->addWidget(this->secondPlayerConfigurationWidget, 2, 1, 1, 1);
 
 	this->gameConfigurationWidget = new GameConfiguration;

@@ -28,18 +28,22 @@ PlayerConfiguration::PlayerConfiguration(PlayerIdType playerId, QWidget* parent)
 
 	this->playerNameLabel = new QLabel(this);
 	this->playerNameEdit = new QLineEdit(this);
+	this->playerNameEdit->setObjectName("playerNameEdit");
 	this->formLayout->addRow(this->playerNameLabel, this->playerNameEdit);
 
 	this->playerTypeLabel = new QLabel(this);
 	this->playerTypeComboBox = new QComboBox(this);
+	this->playerTypeComboBox->setObjectName("playerTypeComboBox");
 	this->formLayout->addRow(this->playerTypeLabel, this->playerTypeComboBox);
 
 	this->controlsLabel = new QLabel(this);
 	this->controlsComboBox = new QComboBox(this);
+	this->controlsComboBox->setObjectName("controlsComboBox");
 	this->formLayout->addRow(this->controlsLabel, this->controlsComboBox);
 
 	this->levelOfDifficultyLabel = new QLabel(this);
 	this->levelOfDifficultyComboBox = new QComboBox(this);
+	this->levelOfDifficultyComboBox->setObjectName("levelOfDifficultyComboBox");
 	this->formLayout->addRow(this->levelOfDifficultyLabel, this->levelOfDifficultyComboBox);
 
 	this->hostAddressLabel = new QLabel(this);

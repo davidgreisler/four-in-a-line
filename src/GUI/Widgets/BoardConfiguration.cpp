@@ -27,6 +27,7 @@ BoardConfiguration::BoardConfiguration(QWidget *parent) :
 
 	this->rowsLabel = new QLabel(this);
 	this->rowsSpinBox = new QSpinBox(this);
+	this->rowsSpinBox->setObjectName("numberOfRowsWidget");
 	this->rowsLayout->addRow(this->rowsLabel, this->rowsSpinBox);
 
 	this->columnsLayout = new QFormLayout;
@@ -34,6 +35,7 @@ BoardConfiguration::BoardConfiguration(QWidget *parent) :
 
 	this->columnsLabel = new QLabel(this);
 	this->columnsSpinBox = new QSpinBox(this);
+	this->columnsSpinBox->setObjectName("numberOfColumnsWidget");
 	this->columnsLayout->addRow(this->columnsLabel, this->columnsSpinBox);
 
 	this->retranslateUI();

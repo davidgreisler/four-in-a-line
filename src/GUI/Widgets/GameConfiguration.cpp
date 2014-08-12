@@ -26,18 +26,23 @@ GameConfiguration::GameConfiguration(QWidget* parent) :
 	this->formLayout->addRow(this->firstMoveLabel);
 
 	this->firstMovePlayerOneButton = new QRadioButton(this);
+	this->firstMovePlayerOneButton->setObjectName("firstMovePlayerOneRadio");
 	this->formLayout->addRow(this->firstMovePlayerOneButton);
 
 	this->firstMovePlayerTwoButton = new QRadioButton(this);
+	this->firstMovePlayerTwoButton->setObjectName("firstMovePlayerTwoRadio");
 	this->formLayout->addRow(this->firstMovePlayerTwoButton);
 
 	this->saveHighscoreCheckBox = new QCheckBox(this);
+	this->saveHighscoreCheckBox->setObjectName("saveHighscoreCheckBox");
 	this->formLayout->addRow(this->saveHighscoreCheckBox);
 
 	this->allowHintCheckBox = new QCheckBox(this);
+	this->allowHintCheckBox->setObjectName("allowHintCheckBox");
 	this->formLayout->addRow(this->allowHintCheckBox);
 
 	this->allowUndoCheckBox = new QCheckBox(this);
+	this->allowUndoCheckBox->setObjectName("allowUndoCheckBox");
 	this->formLayout->addRow(this->allowUndoCheckBox);
 
 	this->retranslateUI();
