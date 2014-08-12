@@ -5,10 +5,16 @@
 namespace Settings
 {
 
+/**
+ * Creates new soudn settings container and reads settings from given key/value storage.
+ *
+ * @param settings Key/value storage to use for storing/retrieving settings.
+ * @param parent Parent object.
+ */
 Sound::Sound(QSharedPointer<QSettings> settings, QObject *parent) :
     AbstractSettings(settings, parent)
 {
-
+	this->read();
 }
 
 /**

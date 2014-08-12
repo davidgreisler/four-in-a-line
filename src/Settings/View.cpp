@@ -4,15 +4,15 @@ namespace Settings
 {
 
 /**
- * Creates a new view settings container.
+ * Creates a new view settings containe and reads settings from given key/value storage.
  *
- * @param settings Key/value storage to use.
+ * @param settings Key/value storage to use for storing/retrieving settings.
  * @param parent Parent object.
  */
 View::View(QSharedPointer<QSettings> settings, QObject *parent) :
     AbstractSettings(settings, parent)
 {
-
+	this->read();
 }
 
 /**

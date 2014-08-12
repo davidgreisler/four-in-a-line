@@ -16,8 +16,6 @@ FourInALine::FourInALine(QObject *parent) :
 	this->applicationSettings = new Settings::Application(this->getSettings(), this);
 	this->viewSettings = new Settings::View(this->getSettings(), this);
 	this->soundSettings = new Settings::Sound(this->getSettings(), this);
-
-	this->read();
 }
 
 /**
