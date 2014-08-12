@@ -45,7 +45,7 @@ class Board : public QWidget
 
 	signals:
 		/**
-		 * @Emitted when the sound volume has changed.
+		 * Emitted when the sound volume has changed.
 		 */
 		void soundVolumeChanged();
 
