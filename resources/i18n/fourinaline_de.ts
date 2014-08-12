@@ -747,7 +747,7 @@
     <message>
         <location filename="../../src/GUI/Widgets/TimeLimitConfiguration.cpp" line="170"/>
         <source> seconds</source>
-        <translation>Sekunden</translation>
+        <translation> Sekunden</translation>
     </message>
     <message>
         <location filename="../../src/GUI/Widgets/TimeLimitConfiguration.cpp" line="171"/>
