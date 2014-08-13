@@ -53,6 +53,7 @@ ReplayView::ReplayView(ViewManager* manager)
 ReplayView::~ReplayView()
 {
 	QObject::disconnect(this->updateThemeConnection);
+	delete this->widget;
 }
 
 /**
