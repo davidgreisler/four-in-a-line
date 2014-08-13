@@ -300,7 +300,7 @@
     <message>
         <location filename="../../src/GUI/Dialogs/GameOver.cpp" line="142"/>
         <source>Play again</source>
-        <translation>Erneut spiele</translation>
+        <translation>Erneut spielen</translation>
     </message>
     <message>
         <location filename="../../src/GUI/Dialogs/GameOver.cpp" line="147"/>
