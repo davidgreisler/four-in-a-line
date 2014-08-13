@@ -81,6 +81,14 @@ This list gives an overview over the modules/subprojects of this application.
 
   Unit-tests.
 
+* `resources`
+
+  Application resources like icons, images, sounds.
+
+* `resources/qml`
+
+  The game board user interface and themes (QML).
+
 License
 -------
 Four in a line is free software and is distributed under the terms of the MIT license. The full license text is available in the LICENSE.md file.
