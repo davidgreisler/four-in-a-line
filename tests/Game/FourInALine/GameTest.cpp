@@ -10,7 +10,7 @@ void GameTest::createGame()
 {
 	unsigned int columns = 8;
 	unsigned int rows = 5;
-	GameLogic::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::Game game(rows, columns, 1);
 
 	QCOMPARE(game.getBoard()->getNumberOfColumns(), columns);
 	QCOMPARE(game.getBoard()->getNumberOfRows(), rows);
@@ -39,7 +39,7 @@ void GameTest::playDraw()
 {
 	unsigned int columns = 2;
 	unsigned int rows = 4;
-	GameLogic::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::Game game(rows, columns, 1);
 
 	QCOMPARE(game.isUndoPossible(), false);
 	QCOMPARE(game.isMovePossible(0), true);
@@ -212,7 +212,7 @@ void GameTest::makeMistakes()
 {
 	unsigned int columns = 3;
 	unsigned int rows = 2;
-	GameLogic::FourInALine::Game game(columns, rows, 1);
+	GameLogic::FourInALine::Game game(rows, columns, 1);
 
 	try
 	{
