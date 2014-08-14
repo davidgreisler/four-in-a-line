@@ -3,7 +3,7 @@
 
 #include "AbstractPlayer.hpp"
 #include "../../GameLogic/FourInALine/Game.hpp"
-#include "../../GameLogic/FourInALine/AsynchronousArtificialIntelligence.hpp"
+#include "../../GameLogic/FourInALine/AAI.hpp"
 
 class QTimer;
 

@@ -1,4 +1,4 @@
-#include "AsynchronousArtificialIntelligence.hpp"
+#include "AAI.hpp"
 #include "Game.hpp"
 
 #include <limits>

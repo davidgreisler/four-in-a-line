@@ -1,6 +1,6 @@
 #include "AsynchronousArtificialIntelligenceTest.hpp"
 #include "../../../src/GameLogic/FourInALine/ArtificialIntelligence.hpp"
-#include "../../../src/GameLogic/FourInALine/AsynchronousArtificialIntelligence.hpp"
+#include "../../../src/GameLogic/FourInALine/AAI.hpp"
 #include "../../../src/GameLogic/FourInALine/Game.hpp"
 
 #include <chrono>

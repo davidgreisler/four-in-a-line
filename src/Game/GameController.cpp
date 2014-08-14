@@ -1,7 +1,7 @@
 #include "GameController.hpp"
 #include "Game.hpp"
 #include "../GameLogic/FourInALine/Game.hpp"
-#include "../GameLogic/FourInALine/AsynchronousArtificialIntelligence.hpp"
+#include "../GameLogic/FourInALine/AAI.hpp"
 
 #include <QDebug>
 #include <QTimer>

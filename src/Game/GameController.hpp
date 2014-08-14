@@ -3,7 +3,7 @@
 
 #include "../GameLogic/FourInALine/Game.hpp"
 #include "Players/AbstractPlayer.hpp"
-#include "../GameLogic/FourInALine/AsynchronousArtificialIntelligence.hpp"
+#include "../GameLogic/FourInALine/AAI.hpp"
 
 #include <QObject>
 #include <QSharedPointer>

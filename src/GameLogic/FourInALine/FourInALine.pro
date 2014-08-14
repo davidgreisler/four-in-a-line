@@ -2,11 +2,11 @@ include(../../Defines.pri)
 
 SOURCES += Board.cpp \
            Game.cpp \
-           ArtificialIntelligence.cpp \ 
-	   AsynchronousArtificialIntelligence.cpp
+           ArtificialIntelligence.cpp \  
+    AAI.cpp
 
 HEADERS += Board.hpp \
            Game.hpp \
            ArtificialIntelligence.hpp \
-	   AsynchronousArtificialIntelligence.hpp
+    AAI.hpp
 
