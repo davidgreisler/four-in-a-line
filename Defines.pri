@@ -17,3 +17,12 @@ CONFIG(debug)
 	QMAKE_CXXFLAGS += -g -fprofile-arcs -ftest-coverage -O0 -Wall -Wextra
 	QMAKE_LFLAGS += -g -fprofile-arcs -ftest-coverage -O0
 }
+
+# Do not put libraries/executables/object files under release/debug directories.
+
+win32
+{
+    DESTDIR = .
+    OBJECTS_DIR = .
+    MOC_DIR = .
+}
