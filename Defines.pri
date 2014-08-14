@@ -20,7 +20,7 @@ CONFIG(debug) {
 # Do not put libraries/executables/object files under release/debug directories.
 
 win32 {
-    DESTDIR = .
-    OBJECTS_DIR = .
-    MOC_DIR = .
+    DESTDIR = ./
+    OBJECTS_DIR = ./
+    MOC_DIR = ./
 }
