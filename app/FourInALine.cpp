@@ -20,6 +20,7 @@ FourInALine::FourInALine(int& argc, char** argv)
 	QApplication::setApplicationVersion("0.1");
 
 	this->settings = new Settings::FourInALine(this);
+    this->highscore = new Database();
 
 	this->setLanguage(this->settings->getApplicationSettings()->getLanguage());
 	this->installTranslator(&this->qtTranslator);
@@ -35,6 +36,16 @@ FourInALine::FourInALine(int& argc, char** argv)
 FourInALine::~FourInALine()
 {
 
+}
+
+/**
+ * Returns Database object.
+ *
+ * @return Database.
+ */
+Database* FourInALine::getDatabase() const
+{
+    return this->highscore;
 }
 
 /**

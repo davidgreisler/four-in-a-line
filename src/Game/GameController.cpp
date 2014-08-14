@@ -2,6 +2,8 @@
 #include "Game.hpp"
 #include "../GameLogic/FourInALine/Game.hpp"
 #include "../GameLogic/FourInALine/AAI.hpp"
+#include "../Highscore/database.h"
+#include "../../app/FourInALine.hpp"
 
 #include <QDebug>
 #include <QTimer>
@@ -243,9 +245,17 @@ bool GameController::checkGameOver()
 		{
 			emit this->setCellHighlighted(it.getXPosition(), it.getYPosition(), true);
 		}
-
-		emit this->gameOver(game->isDraw());
-
+        emit this->gameOver(game->isDraw());
+        if (this->game->isSavingHighscore())
+        {
+            Database* database = ::FourInALine::getInstance()->getDatabase();
+            int result = 0;
+            if (game->isDraw())
+                result = 2;
+            else if (this->game->getWinningPlayer() == this->game->getFirstPlayer())
+                result = 1;
+            database->insertHighscore(this->game->getFirstPlayer()->getName(), this->game->getSecondPlayer()->getName(), result);
+        }
 		return true;
 	}
 

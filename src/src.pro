@@ -12,5 +12,6 @@ SUBDIRS = ./GUI \
           ./GameLogic \
           ./GameLogic/FourInALine \
 	  ./Game \
-	  ./Game/Players
+          ./Game/Players \
+          ./Highscore
 

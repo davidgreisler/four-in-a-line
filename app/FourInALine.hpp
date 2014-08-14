@@ -5,6 +5,7 @@
 #include <QMap>
 #include <QString>
 #include <QTranslator>
+#include "../src/Highscore/database.h"
 
 namespace Settings
 {
@@ -24,6 +25,7 @@ class FourInALine : public QApplication
 		static FourInALine* getInstance();
 
 		Settings::FourInALine* getSettings() const;
+        Database* getDatabase() const;
 
 		QMap<QString, QString> getAvailableLanguages() const;
 		void setLanguage(QString locale);
@@ -60,6 +62,11 @@ class FourInALine : public QApplication
 		 * Translator for the FourInALine application.
 		 */
 		QTranslator appTranslator;
+
+        /**
+         * Highscore database connection;
+         */
+        Database* highscore;
 };
 
 #endif // APP_FOUR_IN_A_LINE_HPP

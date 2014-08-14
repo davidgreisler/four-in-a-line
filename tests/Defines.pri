@@ -12,6 +12,7 @@ LIBS += -Wl,--start-group \
         $${BUILD_DIRECTORY}/src/Game/Players/libPlayers.a \
         $${BUILD_DIRECTORY}/src/GameLogic/libGameLogic.a \
         $${BUILD_DIRECTORY}/src/GameLogic/FourInALine/libFourInALine.a \
+        $${BUILD_DIRECTORY}/src/Highscore/libHighscore.a \
         $${BUILD_DIRECTORY}/app/libFourInALine.a \
         -Wl,--end-group
 
@@ -24,6 +25,7 @@ PRE_TARGETDEPS += $${BUILD_DIRECTORY}/src/GUI/libGUI.a \
                   $${BUILD_DIRECTORY}/src/Game/Players/libPlayers.a \
                   $${BUILD_DIRECTORY}/src/GameLogic/libGameLogic.a \
                   $${BUILD_DIRECTORY}/src/GameLogic/FourInALine/libFourInALine.a \
+                  $${BUILD_DIRECTORY}/src/Highscore/libHighscore.a \
                   $${BUILD_DIRECTORY}/app/libFourInALine.a \
 
 RESOURCES += $${ROOT_DIRECTORY}/resources/resources.qrc

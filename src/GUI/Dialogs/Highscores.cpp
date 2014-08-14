@@ -1,4 +1,7 @@
 #include "Highscores.hpp"
+#include "../../Highscore/database.h"
+#include "../../Highscore/highscore.h"
+#include "../../../app/FourInALine.hpp"
 
 #include <QTreeWidgetItemIterator>
 #include <QEvent>
@@ -146,26 +149,29 @@ void Highscores::clearList()
 void Highscores::loadList()
 {
 	this->clearList();
+    QTreeWidgetItem* item = 0;
+    Database* database = ::FourInALine::getInstance()->getDatabase();
+    vector<Highscore> data = database->getHighscoreData();
+    for (int i = 0; i < (int)data.size();i++)
+    {
+        item = new QTreeWidgetItem(this->highscoreTreeWidget);
+        item->setText(0, QString::number(i+1));
+        item->setText(1, QString::fromStdString(data.at(i).getName()));
+        item->setText(3, QString::number(data.at(i).getWin()));
+        item->setText(4, QString::number(data.at(i).getLoss()));
+        item->setText(5, QString::number(data.at(i).getDraw()));
+        item->setText(2, QString::number(data.at(i).getDraw() + data.at(i).getWin() + data.at(i).getLoss()));
+        this->highscoreTreeWidget->addTopLevelItem(item);
+    }
 
-	// @todo Implement this.
-
-	QTreeWidgetItem* item = new QTreeWidgetItem(this->highscoreTreeWidget);
-	item->setText(0, "1");
-	item->setText(1, "Player 1");
-	item->setText(2, "10");
-	item->setText(3, "5");
-	item->setText(4, "4");
-	item->setText(5, "1");
-
-	this->highscoreTreeWidget->addTopLevelItem(item);
-
-	item = new QTreeWidgetItem(this->highscoreTreeWidget);
+    /*Testdata
+     * item = new QTreeWidgetItem(this->highscoreTreeWidget);
 	item->setText(0, "2");
 	item->setText(1, "Player 2");
 	item->setText(2, "10");
 	item->setText(3, "4");
 	item->setText(4, "6");
-	item->setText(5, "1");
+    item->setText(5, "1");*/
 
 	this->highscoreTreeWidget->addTopLevelItem(item);
 }
