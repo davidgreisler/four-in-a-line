@@ -43,7 +43,7 @@ void Database::initialize()
 {
     if (db.open())
     {
-       QSqlQuery query = QSqlQuery(db);
+       QSqlQuery query(db);
        if (query.exec("CREATE TABLE players("  \
                        "ID                  INT PRIMARY KEY     NOT NULL," \
                        "name                VARCHAR(30) NOT NULL," \
@@ -238,7 +238,7 @@ void Database::insertHighscore(QString name, int result)
 {
     if(db.open())
     {
-        QSqlQuery query = QSqlQuery(db);
+        QSqlQuery query(db);
         query.prepare("INSERT INTO players (id, name, won, loss, draw) VALUES (:i, :n, :w, :l, :d);");
         query.bindValue(":i", counter);
         query.bindValue(":n", name);
