@@ -245,7 +245,7 @@ bool GameController::checkGameOver()
 		{
 			emit this->setCellHighlighted(it.getXPosition(), it.getYPosition(), true);
 		}
-        emit this->gameOver(game->isDraw());
+
         if (this->game->isSavingHighscore())
         {
             Database* database = ::FourInALine::getInstance()->getDatabase();
@@ -256,6 +256,11 @@ bool GameController::checkGameOver()
                 result = 1;
             database->insertHighscore(this->game->getFirstPlayer()->getName(), this->game->getSecondPlayer()->getName(), result);
         }
+
+		emit this->gameOver(game->isDraw());
+
+		// this->game could be a new game after gameOver has been emitted!
+
 		return true;
 	}
 
