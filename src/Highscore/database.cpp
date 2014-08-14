@@ -131,7 +131,7 @@ vector <Highscore> Database::getHighscoreData()
     {
         //select highscore
         QSqlQuery query(db);
-        if (query.exec("SELECT name, won, draw, loss FROM players ORDER BY won;"))
+        if (query.exec("SELECT name, won, loss, draw FROM players ORDER BY won DESC;"))
         {
             while(query.next())
             {
@@ -160,7 +160,7 @@ Highscore Database::getHighscoreData(QString name)
     {
         //select highscore
         QSqlQuery query(db);
-        query.prepare("SELECT name, won, draw, loss FROM players WHERE name = :n;");
+        query.prepare("SELECT name, won, loss, draw FROM players WHERE name = :n;");
         query.bindValue(":n", name);
         if (query.exec())
         {
