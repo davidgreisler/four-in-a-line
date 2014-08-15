@@ -264,11 +264,6 @@ bool Game::isUndoAllowed() const
  */
 void Game::setAllowHint(bool allow)
 {
-	if (allow && !this->isArtificialIntelligenceGame())
-	{
-		throw std::runtime_error("Hint function can only be allowed in AI games.");
-	}
-
 	this->allowHint = allow;
 }
 
