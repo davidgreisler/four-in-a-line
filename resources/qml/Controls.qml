@@ -46,8 +46,8 @@ Item
         anchors.fill: parent
         acceptedButtons: Qt.LeftButton
         hoverEnabled: true
-        onPositionChanged: isMoveRequested && emitMoveToCursor();
-        onClicked: isMoveRequested && drop();
+        onPositionChanged: isMoveRequested && isMouseEnabled && emitMoveToCursor();
+        onClicked: isMoveRequested && isMouseEnabled && drop();
     }
 
     // For keyboard input.
